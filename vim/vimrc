@@ -16,8 +16,8 @@ set fileencodings=ucs-bom,utf-8,latin1
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " Set backup dir
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
+set backupdir=~/tmp/vim
+set directory=~/tmp/vim
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
