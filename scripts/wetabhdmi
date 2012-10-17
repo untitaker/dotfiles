@@ -1,0 +1,3 @@
+modprobe i2c-dev
+mv /dev/i2c-$1 /dev/i2c-2
+tiitoo-hdmi-daemon

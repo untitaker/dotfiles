@@ -1,0 +1,65 @@
+#!/bin/bash
+# mbump: A script to rebase multiple branches from master
+
+# rebase all unmerged branches (git branch --no-merged) from master:
+# git_mbump -a
+# git_mbump --all
+
+# rebase a couple of branches from master:
+# git_mbump branch1 branch2 ...
+
+# rebase a list of branches read from a file:
+# git_mbump ./branches_to_bump.txt  # the "./" at the beginning is neccessary
+
+git checkout master
+
+branches_to_bump=()
+
+add_branch() {
+    branches_to_bump+=($1)
+}
+
+for param in $@ ; do
+	case "$param" in
+		./*)
+			echo "BUMP: Adding branches from file '$param' to queue..."
+			for branch in $(cat $param); do
+				add_branch $branch
+			done
+			;;
+		"-a" | "--all")
+			echo "BUMP: Adding all not yet merged branches to queue..."
+			for branch in $(git branch --no-merged); do
+                add_branch $branch
+			done
+			;;
+		*)
+            echo "BUMP: Adding branch(es) '$param' to queue..."
+            for branch in $@; do
+                add_branch $branch
+            done
+			;;
+	esac
+done
+if [ ${#branches_to_bump[@]} == 0 ]; then
+	echo "You didn't specify any branches. I will ask you which not yet merged branches you want to bump..."
+	for branch in $(git branch --no-merged); do
+		confirm "Bump '$branch'?" && add_branch $branch
+	done
+fi
+
+if [ ${#branches_to_bump[@]} == 0 ]; then
+	echo -e "\e[0;31mThere are no branches to bump. So what shall i do?\e[0m"
+else
+    echo
+	echo "Branches that will be bumped (${#branches_to_bump[@]}):"
+	for branch in ${branches_to_bump[@]}; do
+		echo "  - $branch"
+	done
+	confirm && for branch in ${branches_to_bump[@]}; do
+		echo;echo
+		echo -e "\e[1;33m### BUMPING '$branch'...\e[0m"
+		
+		git bump $branch || exit 1
+	done && git checkout master
+fi

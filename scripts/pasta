@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -s -F 'sprunge=<-' http://sprunge.us

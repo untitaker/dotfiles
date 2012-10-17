@@ -1,0 +1,1 @@
+git remote -v | grep fetch | sed 's/\(.*github.com\)[:|/]\(.*\).git (fetch)/\2/' | awk {'print "https://github.com/" $1'} | xargs xdg-open &> /dev/null

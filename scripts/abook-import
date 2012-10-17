@@ -1,0 +1,7 @@
+#!/bin/sh
+TARGET="$HOME/.abook/addressbook"
+SOURCEDIR="/mnt/net/carddav"
+
+(for vcard in $(ls $SOURCEDIR | grep "vcf"); do
+  abook --convert --informat vcard --infile "$SOURCEDIR/$vcard" --outformat abook
+done) > "$TARGET"

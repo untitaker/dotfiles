@@ -1,0 +1,33 @@
+#!/bin/bash
+# Script by Falconindy
+# https://bbs.archlinux.org/viewtopic.php?id=131666
+
+queue=()
+for param in $@; do
+  case "$param" in
+    "-a" | "--all")
+      queue=$(ls --hide=*.tar.gz)
+      break
+      ;;
+    *)
+      queue+=($param)
+  esac
+done
+
+for pkgdir in $queue; do
+  cd $pkgdir
+  awk -v newsums="$(makepkg -g)" '
+  BEGIN {
+    if (!newsums) exit 1
+  }
+
+  /^[[:blank:]]*(md|sha)[[:digit:]]+sums=/,/\)[[:blank:]]*$/ {
+    if (!i) print newsums; i++
+    next
+  }
+
+  1
+  ' PKGBUILD > PKGBUILD.new && mv PKGBUILD{.new,}
+
+  cd ..
+done

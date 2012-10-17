@@ -1,0 +1,32 @@
+[user]
+	email = markus@unterwaditzer.net
+	name = Markus Unterwaditzer
+[core]
+	editor = $EDITOR
+[color]
+	ui = true
+[github]
+	user = untitaker
+[format]
+	pretty = %Cred%h%Creset %C(bold blue)<%an>%Creset %Cgreen%cr%C(yellow)%d\n        %s
+[alias]
+	# hub: When cloning git repos with sth like "git clone untitaker/dotfiles",
+	# always add the ssh url as origin
+	clone = clone -p
+	p = push
+	pf = push -f
+	pl = pull
+	
+	fix = commit --amend
+	undo = reset --hard HEAD^
+	stat = status
+	s = status
+	cd = checkout
+	b = branch
+	c = commit
+	lg = log
+	ca = commit -a
+	cm = commit -m
+	cam = commit -a -m
+	bump = !"git checkout $1;git rebase master"
+	mbump = !git_mbump

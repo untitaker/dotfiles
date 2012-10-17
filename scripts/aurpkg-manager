@@ -1,0 +1,32 @@
+#!/bin/bash
+upload=
+queue=()
+
+for param in $@; do
+	case $param in
+		"-a" | "--all")
+			pkgs=$(ls --hide=*.tar.gz)
+			;;
+		"-u" | "--upload")
+			upload=true
+			;;
+		"-nu" | "--no-upload")
+			upload=false
+			;;
+		*)
+			if [ -d $param ]; then
+			       queue+=($param)
+			else
+				echo "$param does not exist."
+			fi
+			;;
+			
+	esac
+done
+
+for pkg in $queue; do
+	echo;echo
+	tar cvzf $pkg.tar.gz $pkg
+  $upload || (confirm "Also upload $pkg to AUR?" && upload=true)
+	$upload && burp -u untitaker -p $(gnome-keyring-query get aurpkg-manager-pwd) $pkg.tar.gz
+done

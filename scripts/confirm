@@ -1,0 +1,12 @@
+#!/bin/bash
+# @param $1 The message
+# @param $2 a command to be executed when the user agrees.
+read -r -p "${1:-Do you want to continue?} [Y/n] " response
+case $response in
+	[nN]|[nN][oO]) 
+		false
+		;;
+	*)
+		true
+		;;
+esac

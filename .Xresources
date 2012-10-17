@@ -1,0 +1,23 @@
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.font: DejaVu Sans 8
+Xcursor.theme: Vanilla-DMZ-AA
+
+! dzen2
+*.font: -*-montecarlo-medium-r-normal-*-11-*-*-*-*-*-*-*
+dzen2.background: #000
+
+! terminal ------------------------------------------------------------
+
+URxvt.scrollBar: none
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: xdg-open
+URxvt.matcher.button: 1
+
+URxvt.tabbed.tabbar-fg: 8
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 15
+URxvt.tabbed.tab-bg: 0
