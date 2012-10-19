@@ -69,7 +69,6 @@ alias sudosu='sudo su'
 
 alias xtr=extract
 alias term=urxvtc
-alias "svc-r"="svc -d $1 && svc -u $1"
 
 # PACMAN
 alias p='yaourt'
