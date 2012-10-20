@@ -5,7 +5,7 @@ www2mail() {
     w3watch_text="$(w3watch -c)"
     if [ "$w3watch_text" ]; then
         echo "Updates for w3watch!"
-        echo -e "Subject: w3watch updates \n\n $w3watch_text" > "/home/untitaker/.mail/uberspace-markus/INBOX/new/w3watch_$(date +%s)"
+        echo -e "Subject: w3watch updates \n\n $w3watch_text" > "~/.mail/uberspace-markus/INBOX/new/w3watch_$(date +%s)"
     else
         echo "No updates for w3watch"
     fi
@@ -15,4 +15,4 @@ www2mail &
 offlineimap &
 
 wait
-touch .mail/uberspace-markus/INBOX
+touch ~/.mail/uberspace-markus/INBOX
