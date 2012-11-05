@@ -29,6 +29,12 @@ endif
 syntax enable
 set hlsearch
 
+" Folding
+set fdm=syntax
+set foldlevelstart=1
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
 " Pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 filetype plugin indent on

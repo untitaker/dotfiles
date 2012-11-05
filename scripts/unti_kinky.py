@@ -56,17 +56,24 @@ class MpdItem(Item):
 
 class MaildirItem(Item):
     maildir = None
+    _prev_new = 0
 
     def _mail_status(self):
         new = len(os.listdir(os.path.join(self.maildir, 'new')))
         read = len(os.listdir(os.path.join(self.maildir, 'cur')))
 
+        if self._prev_new < new:
+            self._send_notification(new)
+
+        self._prev_new = new
         return (
             '^fg(#FF0000){new}^fg()'if new
             else '{read}' if read
             else '^fg(#666){read}^fg()'
         ).format(new=new, read=read)
 
+    def _send_notification(self, amount):
+        shell('notify-send "You have {} new mails!"'.format(amount))
 
     def run(self):
         while self.running:
