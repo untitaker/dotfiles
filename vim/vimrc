@@ -2,6 +2,14 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+filetype plugin indent on
+call pathogen#infect()
+
+" Quick force quit
+command Q q!
+
 " set default encoding
 set encoding=utf-8
 if &termencoding == ""
@@ -34,11 +42,6 @@ set fdm=syntax
 set foldlevelstart=1
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
-
-" Pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-filetype plugin indent on
-call pathogen#infect()
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Leader>'

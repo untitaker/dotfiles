@@ -15,7 +15,7 @@ www2mail() {
     done
 }
 
-www2mail &
-offlineimap &
+(www2mail; echo -e "\e[0;31m www2mail exited\e[0m") &
+(offlineimap; echo -e "\e[0;31m offlineimap exited\e[0m") &
 
 wait
