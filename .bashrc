@@ -39,7 +39,7 @@ export ANDROIDNDK=/opt/android-ndk/
 export ANDROIDNDKVER=r7
 export ANDROIDAPI=14
 
-if [ `id -u` != '0' ]; then
+if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     export WORKON_HOME=$HOME/venvs
     export PROJECT_HOME=$HOME/projects
