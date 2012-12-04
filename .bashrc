@@ -38,11 +38,9 @@ export ANDROIDSDK=/opt/android-sdk/
 export ANDROIDNDK=/opt/android-ndk/
 export ANDROIDNDKVER=r7
 export ANDROIDAPI=14
-export PYTHONDONTWRITEBYTECODE=1
 
 if [ `id -u` != '0' ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
-    export VIRTUALENV_DISTRIBUTE=1
     export WORKON_HOME=$HOME/venvs
     export PROJECT_HOME=$HOME/projects
     . /usr/bin/virtualenvwrapper.sh
