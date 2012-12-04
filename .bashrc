@@ -12,9 +12,12 @@
 #     around colors
 
 C_BLACK="$(tput setaf 0)"
+C_GRAY="$(tput setaf 10)"
 C_RED="$(tput setaf 1)"
+C_ORANGE="$(tput setaf 9)"
 C_GREEN="$(tput setaf 2)"
 C_YELLOW="$(tput setaf 3)"
+C_WHITE="$(tput setaf 7)"
 C_RESET="$(tput sgr0)"
 
 
@@ -28,41 +31,64 @@ export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 export TERM=xterm-256color
-export CDPATH=~/projects/
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;31'
 
+# kivy and python for android
+export ANDROIDSDK=/opt/android-sdk/
+export ANDROIDNDK=/opt/android-ndk/
+export ANDROIDNDKVER=r7
+export ANDROIDAPI=14
+export PYTHONDONTWRITEBYTECODE=1
+
+if [ `id -u` != '0' ]; then
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
+    export VIRTUALENV_DISTRIBUTE=1
+    export WORKON_HOME=$HOME/venvs
+    export PROJECT_HOME=$HOME/projects
+    . /usr/bin/virtualenvwrapper.sh
+
+    alias vd=deactivate
+    alias va=workon
+    complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
+fi
+
 mkcd() {
-    mkdir -p "$1"
-    cd "$1"
+    mkdir -p "$1" && cd "$1"
 }
 
-PROMPT=''
 case $(whoami) in
-	root)
-		PROMPT+="$C_RED" ;;
-	*)
-		PROMPT+="$C_YELLOW" ;;
+    root)
+        export C_USER=$C_RED ;;
+    *)
+        export C_USER=$C_YELLOW ;;
 esac
 
-prompt_generator() {
-  RET=$?
-
-  if [ -d .git ] || [ $(pwd | grep $HOME/projects/) ]; then
-    current_branch=" branch$C_RESET $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)" ||
-      current_branch="$C_RESET unnamed branch"
-    echo -ne "$C_BLACK at$current_branch"
-  fi
-
-  echo
-  [ $RET != 0 ] && echo -ne "$C_RED$RET" || echo -ne "$C_GREEN"
-  echo -ne ">$C_RESET "
+untitaker_venv() {
+    if [ "$VIRTUAL_ENV" != "" ]; then
+        current_project="${VIRTUAL_ENV//\/home\/untitaker\/venvs\//}"
+        echo -e "$C_GRAY, workon$C_RESET $current_project"
+    fi
 }
 
-PROMPT+="
-\u$C_BLACK@$C_RESET\h$C_BLACK:$C_RESET\w"
-PROMPT+='`prompt_generator`'
+untitaker_vcs() {
+  if [ -d .git ]; then
+    current_branch=" branch$C_RESET $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)" ||
+      current_branch="$C_RESET unnamed branch"
+    echo -e "$C_GRAY,$current_branch$C_RESET"
+  fi
+}
 
-export PS1="$PROMPT"
+untitaker_exitcode() {
+    code=$?
+    [ $code != 0 ] && echo -e "$C_GRAY, ${C_ORANGE}exit $code$C_RESET"
+}
+export UNTITAKER_BASEPROMPT='\n${C_USER}\u${C_GRAY}@${C_RESET}\h${C_GRAY}:${C_RESET}\w\
+`untitaker_exitcode`\
+`untitaker_venv`\
+`untitaker_vcs`
+${C_GRAY}\$${C_RESET} '
+
+export PS1="$UNTITAKER_BASEPROMPT"
 
 # TYPOS AND OTHER ALIASES
 
@@ -82,3 +108,4 @@ alias term=urxvtc
 alias p='yaourt'
 alias p-clean='p -Rs $(p -Qdtq)'
 alias p-update='p -Syu --devel --aur'
+

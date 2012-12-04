@@ -61,6 +61,7 @@ set incsearch   " do incremental searching
 set number      " show line numbers
 colo solarized " color scheme
 set background=dark " Remote hosts will assume otherwise without this
+se t_Co=16
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
