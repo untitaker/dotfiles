@@ -34,12 +34,18 @@
 [submodule "vim/bundle/vim-rst-tables"]
 	path = vim/bundle/vim-rst-tables
 	url = git://github.com/nvie/vim-rst-tables.git
-[submodule "solarized"]
-	path = solarized
-	url = git://github.com/altercation/solarized.git
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
 [submodule "vim/bundle/vim-fugitive"]
 	path = vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/jedi-vim"]
+	path = vim/bundle/jedi-vim
+	url = git://github.com/davidhalter/jedi-vim.git
+[submodule "solarized_xresources"]
+	path = solarized_xresources
+	url = git://github.com/solarized/xresources.git
+[submodule "solarized_mutt"]
+	path = solarized_mutt
+	url = git://github.com/altercation/mutt-colors-solarized.git

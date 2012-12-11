@@ -101,6 +101,7 @@ alias sudosu='sudo su'
 
 alias xtr=extract
 alias term=urxvtc
+alias torrentz=transmission-remote-cli
 
 # PACMAN
 alias p='yaourt'
