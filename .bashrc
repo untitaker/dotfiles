@@ -11,14 +11,14 @@
 #   - Somehow line wrapping fucks up in my bash prompt if i don't use escaped brackets []
 #     around colors
 
-C_BLACK="$(tput setaf 0)"
-C_GRAY="$(tput setaf 10)"
-C_RED="$(tput setaf 1)"
-C_ORANGE="$(tput setaf 9)"
-C_GREEN="$(tput setaf 2)"
-C_YELLOW="$(tput setaf 3)"
-C_WHITE="$(tput setaf 7)"
-C_RESET="$(tput sgr0)"
+export C_BLACK="$(tput setaf 0)"
+export C_GRAY="$(tput setaf 10)"
+export C_RED="$(tput setaf 1)"
+export C_ORANGE="$(tput setaf 9)"
+export C_GREEN="$(tput setaf 2)"
+export C_YELLOW="$(tput setaf 3)"
+export C_WHITE="$(tput setaf 7)"
+export C_RESET="$(tput sgr0)"
 
 
 # CONFIGS
@@ -30,7 +30,6 @@ shopt -s autocd
 export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
-export TERM=xterm-256color
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;31'
 
 # kivy and python for android
@@ -100,7 +99,6 @@ alias q=exit
 alias sudosu='sudo su'
 
 alias xtr=extract
-alias term=urxvtc
 alias torrentz=transmission-remote-cli
 
 # PACMAN

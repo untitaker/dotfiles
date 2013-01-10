@@ -13,7 +13,7 @@ dzen2.background: #000
 ! terminal ------------------------------------------------------------
 
 URxvt.scrollBar: none
-URxvt.perl-ext-common: default,matcher,tabbed
+URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: xdg-open
 URxvt.matcher.button: 1
 
