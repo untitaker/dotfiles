@@ -1,1 +1,0 @@
-killall -s USR1 offlineimap && echo "Updating mail..." || echo "Failed to update mail."

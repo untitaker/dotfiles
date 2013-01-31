@@ -21,6 +21,7 @@
 	undo = reset --hard HEAD^
 	stat = status
 	s = status
+	sub = submodule
 	cd = checkout
 	b = branch
 	c = commit
@@ -30,3 +31,4 @@
 	cam = commit -a -m
 	bump = !"git checkout $1;git rebase master"
 	mbump = !git_mbump
+    rm-sub = "!f(){ git rm --cached \"$1\";rm -r \"$1\";git config -f .gitmodules --remove-section \"submodule.$1\";git config -f .git/config --remove-section \"submodule.$1\";git add .gitmodules; }; f"

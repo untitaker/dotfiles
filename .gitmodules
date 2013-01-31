@@ -1,51 +1,51 @@
-[submodule "vim/bundle/vim-pathogen"]
-	path = vim/bundle/vim-pathogen
+[submodule "home/.vim/bundle/vim-pathogen"]
+	path = home/.vim/bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-[submodule "vim/bundle/buftabs"]
-	path = vim/bundle/buftabs
+[submodule "home/.vim/bundle/buftabs"]
+	path = home/.vim/bundle/buftabs
 	url = git://github.com/vim-scripts/buftabs.git
-[submodule "vim/bundle/Jinja"]
-	path = vim/bundle/Jinja
+[submodule "home/.vim/bundle/Jinja"]
+	path = home/.vim/bundle/Jinja
 	url = git://github.com/vim-scripts/Jinja.git
-[submodule "vim/bundle/nerdcommenter"]
-	path = vim/bundle/nerdcommenter
+[submodule "home/.vim/bundle/nerdcommenter"]
+	path = home/.vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "vim/bundle/pythoncomplete"]
-	path = vim/bundle/pythoncomplete
+[submodule "home/.vim/bundle/pythoncomplete"]
+	path = home/.vim/bundle/pythoncomplete
 	url = git://github.com/vim-scripts/pythoncomplete.git
-[submodule "vim/bundle/taglist.vim"]
-	path = vim/bundle/taglist.vim
+[submodule "home/.vim/bundle/taglist.vim"]
+	path = home/.vim/bundle/taglist.vim
 	url = git://github.com/vim-scripts/taglist.vim.git
-[submodule "vim/bundle/vim-colors-solarized"]
-	path = vim/bundle/vim-colors-solarized
+[submodule "home/.vim/bundle/vim-colors-solarized"]
+	path = home/.vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "vim/bundle/vim-easymotion"]
-	path = vim/bundle/vim-easymotion
+[submodule "home/.vim/bundle/vim-easymotion"]
+	path = home/.vim/bundle/vim-easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
-[submodule "vim/bundle/vim-flake8"]
-	path = vim/bundle/vim-flake8
+[submodule "home/.vim/bundle/vim-flake8"]
+	path = home/.vim/bundle/vim-flake8
 	url = git://github.com/nvie/vim-flake8.git
-[submodule "vim/bundle/vim-less"]
-	path = vim/bundle/vim-less
+[submodule "home/.vim/bundle/vim-less"]
+	path = home/.vim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
-[submodule "vim/bundle/vim-python-pep8-indent"]
-	path = vim/bundle/vim-python-pep8-indent
+[submodule "home/.vim/bundle/vim-python-pep8-indent"]
+	path = home/.vim/bundle/vim-python-pep8-indent
 	url = git://github.com/hynek/vim-python-pep8-indent.git
-[submodule "vim/bundle/vim-rst-tables"]
-	path = vim/bundle/vim-rst-tables
+[submodule "home/.vim/bundle/vim-rst-tables"]
+	path = home/.vim/bundle/vim-rst-tables
 	url = git://github.com/nvie/vim-rst-tables.git
-[submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
+[submodule "home/.vim/bundle/supertab"]
+	path = home/.vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule "vim/bundle/vim-fugitive"]
-	path = vim/bundle/vim-fugitive
+[submodule "home/.vim/bundle/vim-fugitive"]
+	path = home/.vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/jedi-vim"]
-	path = vim/bundle/jedi-vim
+[submodule "home/.vim/bundle/jedi-vim"]
+	path = home/.vim/bundle/jedi-vim
 	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "solarized_xresources"]
-	path = solarized_xresources
+[submodule "home/.dotfiledata/solarized_xresources"]
+	path = home/.dotfiledata/solarized_xresources
 	url = git://github.com/solarized/xresources.git
-[submodule "solarized_mutt"]
-	path = solarized_mutt
+[submodule "home/.dotfiledata/solarized_mutt"]
+	path = home/.dotfiledata/solarized_mutt
 	url = git://github.com/altercation/mutt-colors-solarized.git
