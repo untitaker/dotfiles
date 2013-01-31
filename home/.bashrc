@@ -22,7 +22,7 @@ export C_RESET="$(tput sgr0)"
 
 
 # CONFIGS
-export PATH=$PATH:~/scripts:/sbin:/usr/sbin:~/.local/bin
+export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export EDITOR="vim"
 export BROWSER="chromium"
