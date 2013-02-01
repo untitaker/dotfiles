@@ -44,10 +44,8 @@ if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export PROJECT_HOME=$HOME/projects
     . /usr/bin/virtualenvwrapper.sh
 
+    alias va=workon
     alias vd=deactivate
-    va() {
-        (workon $1 2> /dev/null) || cd ~/projects/$1
-    }
     complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
 fi
 
