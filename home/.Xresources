@@ -3,11 +3,11 @@ Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
-Xft.font: DejaVu Sans 9
+Xft.font: DejaVu Sans 8
 Xcursor.theme: Vanilla-DMZ-AA
 
 ! dzen2
-*.font: xft:Terminus:size=9
+*.font: xft:Terminus:size=8
 dzen2.background: #000
 
 ! terminal ------------------------------------------------------------
