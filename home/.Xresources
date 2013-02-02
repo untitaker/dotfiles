@@ -8,6 +8,7 @@ Xcursor.theme: Vanilla-DMZ-AA
 
 ! dzen2
 *.font: xft:Terminus:size=8
+dzen2.font: Terminus-8
 dzen2.background: #000
 
 ! terminal ------------------------------------------------------------
