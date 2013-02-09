@@ -22,7 +22,7 @@ export C_RESET="$(tput sgr0 2> /dev/null)"
 
 
 # CONFIGS
-export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin:~/.gem/ruby/1.8/bin
+export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export EDITOR="vim"
 export BROWSER="chromium"
@@ -97,6 +97,7 @@ alias rmr='rm -r'
 alias sl=ls
 alias q=exit
 alias sudosu='sudo su'
+alias homesick="$HOME/.homeshick"
 
 alias xtr=extract
 alias torrentz=transmission-remote-cli
