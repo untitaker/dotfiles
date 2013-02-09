@@ -11,14 +11,14 @@
 #   - Somehow line wrapping fucks up in my bash prompt if i don't use escaped brackets []
 #     around colors
 
-export C_BLACK="$(tput setaf 0)"
-export C_GRAY="$(tput setaf 10)"
-export C_RED="$(tput setaf 1)"
-export C_ORANGE="$(tput setaf 9)"
-export C_GREEN="$(tput setaf 2)"
-export C_YELLOW="$(tput setaf 3)"
-export C_WHITE="$(tput setaf 7)"
-export C_RESET="$(tput sgr0)"
+export C_BLACK="$(tput setaf 0 2> /dev/null)"
+export C_GRAY="$(tput setaf 10 2> /dev/null)"
+export C_RED="$(tput setaf 1 2> /dev/null)"
+export C_ORANGE="$(tput setaf 9 2> /dev/null)"
+export C_GREEN="$(tput setaf 2 2> /dev/null)"
+export C_YELLOW="$(tput setaf 3 2> /dev/null)"
+export C_WHITE="$(tput setaf 7 2> /dev/null)"
+export C_RESET="$(tput sgr0 2> /dev/null)"
 
 
 # CONFIGS
