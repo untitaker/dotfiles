@@ -7,14 +7,14 @@ Xft.font: DejaVu Sans 8
 Xcursor.theme: Vanilla-DMZ-AA
 
 ! dzen2
-*.font: xft:Terminus:size=8
-dzen2.font: Terminus-8
+*.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
 dzen2.background: #000
 
 ! terminal ------------------------------------------------------------
 
 URxvt.scrollBar: none
-URxvt.perl-ext-common: default,matcher
+URxvt.perl-ext-common: default,matcher,url-picker
+URxvt.keysym.C-y: perl:url-picker
 URxvt.urlLauncher: xdg-open
 URxvt.matcher.button: 1
 
