@@ -7,8 +7,9 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 filetype plugin indent on
 call pathogen#infect()
 
-" Quick force quit
+" aliases
 command Q q!
+nmap ; :
 
 " set default encoding
 set encoding=utf-8
