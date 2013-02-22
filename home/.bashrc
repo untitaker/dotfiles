@@ -11,15 +11,14 @@
 #   - Somehow line wrapping fucks up in my bash prompt if i don't use escaped brackets []
 #     around colors
 
-export C_BLACK="$(tput setaf 0 2> /dev/null)"
-export C_GRAY="$(tput setaf 10 2> /dev/null)"
-export C_RED="$(tput setaf 1 2> /dev/null)"
-export C_ORANGE="$(tput setaf 9 2> /dev/null)"
-export C_GREEN="$(tput setaf 2 2> /dev/null)"
-export C_YELLOW="$(tput setaf 3 2> /dev/null)"
-export C_WHITE="$(tput setaf 7 2> /dev/null)"
-export C_RESET="$(tput sgr0 2> /dev/null)"
-
+export C_BLACK="\e[0;30m"
+export C_GRAY="\e[0;310m"
+export C_RED="\e[0;31m"
+export C_ORANGE="\e[0;39m"
+export C_GREEN="\e[0;32m"
+export C_YELLOW="\e[0;33m"
+export C_WHITE="\e[0;37m"
+export C_RESET="\e[0m"
 
 # CONFIGS
 export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
@@ -63,29 +62,27 @@ esac
 untitaker_venv() {
     if [ "$VIRTUAL_ENV" != "" ]; then
         current_project="${VIRTUAL_ENV//\/home\/untitaker\/venvs\//}"
-        echo -e "$C_GRAY, workon$C_RESET $current_project"
+        echo -e "${C_GRAY}, workon${C_RESET} $current_project"
     fi
 }
 
 untitaker_vcs() {
   if [ -d .git ]; then
-    current_branch=" branch$C_RESET $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)" ||
-      current_branch="$C_RESET unnamed branch"
-    echo -e "$C_GRAY,$current_branch$C_RESET"
+    current_branch=" branch${C_RESET} $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)" ||
+      current_branch="${C_RESET} unnamed branch"
+    echo -e "${C_GRAY},$current_branch${C_RESET}"
   fi
 }
 
 untitaker_exitcode() {
     code=$?
-    [ $code != 0 ] && echo -e "$C_GRAY, ${C_ORANGE}exit $code$C_RESET"
+    [ $code != 0 ] && echo -e "${C_GRAY}, ${C_ORANGE}exit $code${C_RESET}"
 }
-export UNTITAKER_BASEPROMPT='\n${C_USER}\u${C_GRAY}@${C_RESET}\h${C_GRAY}:${C_RESET}\w\
-`untitaker_exitcode`\
-`untitaker_venv`\
-`untitaker_vcs`
-${C_GRAY}\$${C_RESET} '
 
-export PS1="$UNTITAKER_BASEPROMPT"
+PS1="\n\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
+PS1+='`untitaker_exitcode``untitaker_venv``untitaker_vcs`'
+PS1+="\n\[${C_GRAY}\]\$\[${C_RESET}\] "
+export PS1
 
 # TYPOS AND OTHER ALIASES
 
