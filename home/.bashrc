@@ -38,6 +38,7 @@ export ANDROIDNDK=/opt/android-ndk/
 export ANDROIDNDKVER=r7
 export ANDROIDAPI=14
 
+alias vd=deactivate
 if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     export WORKON_HOME=$HOME/venvs
@@ -45,7 +46,6 @@ if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     . /usr/bin/virtualenvwrapper.sh
 
     alias va=workon
-    alias vd=deactivate
     complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
 fi
 
@@ -100,7 +100,6 @@ alias sudosu='sudo su'
 alias homesick="$HOME/.homeshick"
 
 alias xtr=extract
-alias torrentz=transmission-remote-cli
 
 # PACMAN
 alias p='yaourt'
