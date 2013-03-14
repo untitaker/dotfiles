@@ -12,7 +12,7 @@
 #     around colors
 
 export C_BLACK="\e[0;30m"
-export C_GRAY="\e[0;310m"
+export C_GRAY="\e[0;92m"
 export C_RED="\e[0;31m"
 export C_ORANGE="\e[0;39m"
 export C_GREEN="\e[0;32m"
