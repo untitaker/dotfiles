@@ -37,15 +37,17 @@ export ANDROIDNDK=/opt/android-ndk/
 export ANDROIDNDKVER=r7
 export ANDROIDAPI=14
 
+proj() { cd ~/projects/$1; }
 alias vd=deactivate
 if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     export WORKON_HOME=$HOME/venvs
     export PROJECT_HOME=$HOME/projects
     . /usr/bin/virtualenvwrapper.sh
-
-    alias va=workon
     complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
+    va() { workon $1 || proj $1; }
+else
+    alias va=proj
 fi
 
 mkcd() {
