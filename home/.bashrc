@@ -67,11 +67,21 @@ untitaker_venv() {
 }
 
 untitaker_vcs() {
-  if [ -d .git ]; then
-    current_branch=" branch${C_RESET} $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)" ||
-      current_branch="${C_RESET} unnamed branch"
-    echo -e "${C_GRAY},$current_branch${C_RESET}"
-  fi
+    if [ -d .git ]; then
+        if [ "$(git status | grep -c 'working directory clean')" != "0" ]; then
+            branch_color=${C_RESET}
+        else
+            branch_color=${C_RED}
+        fi
+
+        current_branch="$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
+        if [ $current_branch != "" ]; then
+            current_branch=" branch${branch_color} $current_branch"
+        else
+            current_branch="${branch_color} unnamed branch"
+        fi
+        echo -e "${C_GRAY},$current_branch${C_RESET}"
+    fi
 }
 
 untitaker_exitcode() {
