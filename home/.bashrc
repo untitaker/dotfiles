@@ -11,14 +11,13 @@
 #   - Somehow line wrapping fucks up in my bash prompt if i don't use escaped brackets []
 #     around colors
 
+export C_RESET="\e[0m"
 export C_BLACK="\e[0;30m"
-export C_GRAY="\e[0;92m"
 export C_RED="\e[0;31m"
-export C_ORANGE="\e[0;39m"
 export C_GREEN="\e[0;32m"
 export C_YELLOW="\e[0;33m"
 export C_WHITE="\e[0;37m"
-export C_RESET="\e[0m"
+export C_GRAY="\e[0;92m"  # kinda
 
 # CONFIGS
 export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
@@ -88,7 +87,7 @@ untitaker_vcs() {
 
 untitaker_exitcode() {
     code=$?
-    [ $code != 0 ] && echo -e "${C_GRAY}, ${C_ORANGE}exit $code${C_RESET}"
+    [ $code != 0 ] && echo -e "${C_GRAY}, ${C_RED}exit $code${C_RESET}"
 }
 
 PS1="\n\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
