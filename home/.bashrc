@@ -77,7 +77,7 @@ untitaker_vcs() {
         fi
 
         current_branch="$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
-        if [ $current_branch != "" ]; then
+        if [ "$current_branch" != "" ]; then
             current_branch=" branch${branch_color} $current_branch"
         else
             current_branch="${branch_color} unnamed branch"
