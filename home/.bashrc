@@ -24,7 +24,7 @@ export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export PYTHONDONTWRITEBYTECODE=1
 export EDITOR="vim"
-export BROWSER="chromium"
+export BROWSER="xdg-open"
 shopt -s autocd
 export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
