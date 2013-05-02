@@ -1,17 +1,17 @@
 Xft.dpi:        96
 Xft.antialias:  true
-Xft.rgba:       rgb
+Xft.rgba:       subpixel
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.font: DejaVu Sans 8
 Xcursor.theme: Vanilla-DMZ-AA
 
 ! dzen2
-*.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+dzen2.font: -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
 dzen2.background: #000
 
 ! terminal ------------------------------------------------------------
-
+URxvt.font: xft:Source Code Pro:semibold:size=10
 URxvt.scrollBar: none
 URxvt.perl-ext-common: default,matcher,url-picker
 URxvt.keysym.C-y: perl:url-picker
