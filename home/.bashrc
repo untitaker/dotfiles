@@ -70,13 +70,13 @@ untitaker_venv() {
 
 untitaker_vcs() {
     if [ -d .git ]; then
-        if [ "$(git status | grep -c 'working directory clean')" != "0" ]; then
+        if [ "$(command git status | grep -c 'working directory clean')" != "0" ]; then
             branch_color=${C_RESET}
         else
             branch_color=${C_RED}
         fi
 
-        current_branch="$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
+        current_branch="$(command git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
         if [ "$current_branch" != "" ]; then
             current_branch=" branch${branch_color} $current_branch"
         else
