@@ -13,8 +13,10 @@ dzen2.background: #000
 ! terminal ------------------------------------------------------------
 URxvt.font: xft:Source Code Pro:size=10
 URxvt.scrollBar: none
-URxvt.perl-ext-common: default,matcher,url-picker
+URxvt.perl-ext-common: default,matcher,url-picker,font-size
 URxvt.keysym.C-y: perl:url-picker
+URxvt.keysym.C-Up: perl:font-size:increase
+URxvt.keysym.C-Down: perl:font-size:decrease
 URxvt.urlLauncher: xdg-open
 URxvt.matcher.button: 1
 

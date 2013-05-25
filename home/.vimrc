@@ -95,13 +95,13 @@ set clipboard=unnamedplus
 " buffer switching with F2, F3
 noremap <f2> :bprev<CR> 
 noremap <f3> :bnext<CR>
-noremap <C-X> :bw<CR>
+noremap <M-X> :bw<CR>
 
 " window switching with Ctrl + hjkl
-noremap <C-H> :wincmd h<CR>
-noremap <C-J> :wincmd j<CR>
-noremap <C-K> :wincmd k<CR>
-noremap <C-L> :wincmd l<CR>
+noremap <M-H> :wincmd h<CR>
+noremap <M-J> :wincmd j<CR>
+noremap <M-K> :wincmd k<CR>
+noremap <M-L> :wincmd l<CR>
 
 " Automatic word-wrapping with W
 map W gq
