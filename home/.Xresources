@@ -12,7 +12,7 @@ dzen2.background: #000
 
 ! terminal ------------------------------------------------------------
 URxvt.font: xft:Source Code Pro:size=10
-URxvt.boldFont: xft:Source Code Pro:bold:size=10
+URxvt.boldFont: xft:Source Code Pro:size=10
 URxvt.scrollBar: none
 URxvt.letterSpace: 0
 URxvt.perl-ext-common: default,matcher,url-picker,font-size
