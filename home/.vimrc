@@ -10,6 +10,8 @@ call pathogen#infect()
 " aliases
 command Q q!
 nmap ; :
+nmap QQ :q!<enter>
+nmap qq :q<enter>
 
 " set default encoding
 set encoding=utf-8
@@ -39,10 +41,10 @@ syntax enable
 set hlsearch
 
 " Folding
-set fdm=syntax
+set foldmethod=syntax
 set foldlevelstart=1
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+set foldnestmax=2
+nmap <space> za
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Leader>'
@@ -76,7 +78,7 @@ set smartindent
 autocmd FileType ruby,python,javascript,c,cpp,objc setlocal colorcolumn=80
 
 " Python
-autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
+autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
 \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 let python_highlight_all=1
