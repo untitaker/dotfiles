@@ -75,8 +75,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
 " Colorcolumns
-silent! autocmd FileType ruby,python,javascript,c,cpp,objc setlocal colorcolumn=80
-
+autocmd FileType ruby,python,javascript,c,cpp,objc silent! setlocal colorcolumn=80 
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
