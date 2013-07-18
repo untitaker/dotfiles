@@ -109,7 +109,7 @@ alias sudosu='sudo su'
 alias homesick="$HOME/.homeshick"
 
 alias xtr=extract
-which hub && alias git=hub
+which hub &> /dev/null && alias git=hub
 
 # PACMAN
 alias p='yaourt'
