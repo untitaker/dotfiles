@@ -41,8 +41,8 @@ proj() { cd ~/projects/$1; }
 alias vd=deactivate
 if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
-    export WORKON_HOME=$HOME/venvs
-    export PROJECT_HOME=$HOME/projects
+    export WORKON_HOME=$HOME/venvs/
+    export PROJECT_HOME=$HOME/projects/
     . /usr/bin/virtualenvwrapper.sh
     complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
     va() { workon $1 || proj $1; }
@@ -65,20 +65,25 @@ untitaker_venv() {
     if [ "$VIRTUAL_ENV" != "" ]; then
         current_project="$VIRTUAL_ENV"
         current_project="${current_project//$PWD/.}"
+        current_project="${current_project//$WORKON_HOME/}"
         current_project="${current_project//\/home\/untitaker/~}"
-        current_project="${current_project//~\/venvs\//}"
         echo -e "${C_GRAY}, workon${C_RESET} $current_project"
     fi
 }
 
 untitaker_vcs() {
     if [ -d .git ]; then
-        if [ "$(command git status | grep -c 'working directory clean')" != "0" ]; then
-            branch_color=${C_RESET}
-        else
+        if [ "$(command git status | grep -ci 'not staged')" != "0" ]; then
             branch_color=${C_RED}
+        elif [ "$(command git status | grep -ci 'untracked')" != "0" ]; then
+            branch_color=${C_YELLOW}
+        elif [ "$(command git status | grep -ci 'to be committed')" != "0" ]; then
+            branch_color=${C_GREEN}
+        else 
+            branch_color=${C_RESET}
         fi
 
+        
         current_branch="$(command git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
         if [ "$current_branch" != "" ]; then
             current_branch=" branch${branch_color} $current_branch"
