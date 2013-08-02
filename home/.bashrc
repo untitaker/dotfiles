@@ -63,7 +63,10 @@ esac
 
 untitaker_venv() {
     if [ "$VIRTUAL_ENV" != "" ]; then
-        current_project="${VIRTUAL_ENV//\/home\/untitaker\/venvs\//}"
+        current_project="$VIRTUAL_ENV"
+        current_project="${current_project//$PWD/.}"
+        current_project="${current_project//\/home\/untitaker/~}"
+        current_project="${current_project//~\/venvs\//}"
         echo -e "${C_GRAY}, workon${C_RESET} $current_project"
     fi
 }
