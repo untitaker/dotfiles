@@ -1,0 +1,61 @@
+# vim: filetype=muttrc
+set charset=UTF-8
+
+set folder=~/.mail/
+source ~/.mutt/mailboxes
+
+set spoolfile=+markus/INBOX
+set postponed=+markus/out.draft
+set record=+markus/out
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+
+set folder_format="%2C %2N %2s %f"
+set editor="vim -c 'set textwidth=79'"
+set trash=+markus/trash  # confirmed for working 2012-08-31
+set tilde
+set pager_stop
+unset confirmappend
+set quit
+unset markers # don't add plus signs to wrapped urls (needed for url selection in urxvt)
+unset mark_old
+set query_command= "pc_query -m '%s'"
+auto_view text/html
+
+# sidebar
+set sidebar_visible = yes
+set sidebar_width = 24
+bind index,pager y<return> sidebar-open
+bind index,pager yy sidebar-open
+bind index,pager yj sidebar-next
+bind index,pager yk sidebar-prev
+
+# messages index
+folder-hook . "exec collapse-all"
+set sort=threads
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index <space> collapse-thread
+
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+macro index s "<save-message>+markus/archive <enter>" "archive"
+macro index \CS "<tag-thread><tag-prefix>s" "archive thread"
+
+set index_format="%4C %Z%?y?@& ? %{%b %d} %-15.15L <%?M?%03M&%4l?> %s"
+unset collapse_unread
+
+macro index F \
+    "<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
+    "search mail, using notmuch"
+macro index \" \
+    "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
+    "search and reconstruct owning thread, using notmuch"
+
+set pager_index_lines = 12
+
+
+source ~/.mutt/custom
+source ~/.dotfiledata/solarized_mutt/mutt-colors-solarized-dark-16.muttrc
