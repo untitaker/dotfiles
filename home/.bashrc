@@ -38,17 +38,34 @@ export ANDROIDNDK=/opt/android-ndk/
 export ANDROIDNDKVER=r7
 export ANDROIDAPI=14
 
-proj() { cd ~/projects/$1; }
+export PROJ_HOME=$HOME/projects/
+_proj() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=($(compgen -W "$(ls $PROJ_HOME)" -- $cur))
+}
+proj() { cd $PROJ_HOME$1; }
 alias vd=deactivate
 if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     export WORKON_HOME=$HOME/venvs/
-    export PROJECT_HOME=$HOME/projects/
     . /usr/bin/virtualenvwrapper.sh
-    complete -o default -o nospace -F _virtualenvs va  # autocompletion for alias
-    va() { workon $1 || proj $1; }
+    _va () {
+        local cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W "$(ls $PROJ_HOME; ls $WORKON_HOME)" -- $cur))
+    }
+    va() {
+        if [ -d $WORKON_HOME$1 ]; then
+            workon $1
+        else
+            proj $1 && \
+                echo -e "$C_YELLOW>> no venv found, cd'ing" || \
+                echo -e "$C_RED>> no venv or project dir found"
+        fi
+    }
+    complete -F _va va
 else
     alias va=proj
+    complete -F _proj va
 fi
 
 mkcd() {
@@ -65,8 +82,8 @@ esac
 untitaker_venv() {
     if [ "$VIRTUAL_ENV" != "" ]; then
         current_project="$VIRTUAL_ENV"
-        current_project="${current_project//$PWD/.}"
         current_project="${current_project//$WORKON_HOME/}"
+        current_project="${current_project//$PWD/.}"
         current_project="${current_project//\/home\/untitaker/~}"
         echo -e "${C_GRAY}, workon${C_RESET} $current_project"
     fi
