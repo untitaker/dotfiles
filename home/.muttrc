@@ -10,6 +10,11 @@ set record=+markus/out
 set header_cache = ~/.mutt/cache/headers
 set message_cachedir = ~/.mutt/cache/bodies
 
+set sleep_time = 0  # don't wait between mailbox switch
+set delete
+set quit
+unset mark_old
+
 set folder_format="%2C %2N %2s %f"
 set editor="vim -c 'set textwidth=79'"
 set trash=+markus/trash  # confirmed for working 2012-08-31
@@ -25,10 +30,10 @@ auto_view text/html
 # sidebar
 set sidebar_visible = yes
 set sidebar_width = 24
-bind index,pager y<return> sidebar-open
-bind index,pager yy sidebar-open
-bind index,pager yj sidebar-next
-bind index,pager yk sidebar-prev
+bind index,pager <right> sidebar-open
+bind index,pager <down> sidebar-next
+bind index,pager <up> sidebar-prev
+set sidebar_delim = ' '
 
 # messages index
 folder-hook . "exec collapse-all"
@@ -38,19 +43,19 @@ bind index G last-entry
 bind index R group-reply
 bind index <space> collapse-thread
 
-macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
-macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index,pager M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
-macro index s "<save-message>+markus/archive <enter>" "archive"
+macro index,pager s "<save-message>+markus/archive <enter>" "archive"
 macro index \CS "<tag-thread><tag-prefix>s" "archive thread"
 
 set index_format="%4C %Z%?y?@& ? %{%b %d} %-15.15L <%?M?%03M&%4l?> %s"
 unset collapse_unread
 
-macro index F \
+macro index,pager F \
     "<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
     "search mail, using notmuch"
-macro index \" \
+macro index,pager \" \
     "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
     "search and reconstruct owning thread, using notmuch"
 
