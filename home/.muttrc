@@ -19,13 +19,15 @@ set folder_format="%2C %2N %2s %f"
 set editor="vim -c 'set textwidth=79'"
 set trash=+markus/trash  # confirmed for working 2012-08-31
 set tilde
-set pager_stop
+
+
 unset confirmappend
 set quit
 unset markers # don't add plus signs to wrapped urls (needed for url selection in urxvt)
 unset mark_old
 set query_command= "pc_query -m '%s'"
 auto_view text/html
+alternative_order text/plain text/html text/enriched
 
 # sidebar
 set sidebar_visible = yes
@@ -59,7 +61,16 @@ macro index,pager \" \
     "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
     "search and reconstruct owning thread, using notmuch"
 
+
+# messages
+set pager_stop
 set pager_index_lines = 12
+bind pager gg top
+bind pager G bottom
+bind pager k previous-line
+bind pager j next-line
+bind pager K previous-undeleted
+bind pager J next-undeleted
 
 
 source ~/.mutt/custom
