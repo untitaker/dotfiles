@@ -132,7 +132,7 @@ alias rmr='rm -r'
 alias sl=ls
 alias q=exit
 alias sudosu='sudo su'
-alias homesick="$HOME/.homeshick"
+source ~/.homesick/repos/homeshick/homeshick.sh
 
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
