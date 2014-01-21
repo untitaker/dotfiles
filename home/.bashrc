@@ -22,7 +22,6 @@ export C_GRAY="\e[0;92m"  # kinda
 # CONFIGS
 export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
-export PYTHONDONTWRITEBYTECODE=1
 export EDITOR="vim"
 export BROWSER="xdg-open"
 shopt -s autocd

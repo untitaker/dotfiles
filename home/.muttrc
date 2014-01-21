@@ -5,8 +5,8 @@ set folder=~/.mail/
 source ~/.mutt/mailboxes
 
 set spoolfile=+markus/INBOX
-set postponed=+markus/out.draft
-set record=+markus/out
+set postponed=+markus/drafts
+set record=+markus/sent
 set header_cache = ~/.mutt/cache/headers
 set message_cachedir = ~/.mutt/cache/bodies
 
