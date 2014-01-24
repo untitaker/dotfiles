@@ -55,3 +55,6 @@
 [submodule "home/.vim/bundle/javacomplete"]
 	path = home/.vim/bundle/javacomplete
 	url = git://github.com/vim-scripts/javacomplete.git
+[submodule "home/.vim/bundle/todo.txt"]
+	path = home/.vim/bundle/todo.txt
+	url = git://github.com/freitass/todo.txt-vim.git
