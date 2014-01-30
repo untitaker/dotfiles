@@ -133,6 +133,8 @@ alias q=exit
 alias sudosu='sudo su'
 source ~/.homesick/repos/homeshick/homeshick.sh
 
+alias clipboard='xclip -selection clipboard'
+
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
