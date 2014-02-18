@@ -13,6 +13,7 @@ set message_cachedir = ~/.mutt/cache/bodies
 set sleep_time = 0  # don't wait between mailbox switch
 set delete
 set quit
+unset help  # hardcore!
 unset mark_old
 
 set folder_format="%2C %2N %2s %f"
@@ -42,7 +43,8 @@ folder-hook . "exec collapse-all"
 set sort=threads
 bind index gg first-entry
 bind index G last-entry
-bind index R group-reply
+bind index,pager R reply
+bind index,pager r group-reply
 bind index <space> collapse-thread
 
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
