@@ -28,9 +28,6 @@
 [submodule "home/.vim/bundle/vim-less"]
 	path = home/.vim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
-[submodule "home/.vim/bundle/vim-python-pep8-indent"]
-	path = home/.vim/bundle/vim-python-pep8-indent
-	url = git://github.com/hynek/vim-python-pep8-indent.git
 [submodule "home/.vim/bundle/vim-rst-tables"]
 	path = home/.vim/bundle/vim-rst-tables
 	url = git://github.com/nvie/vim-rst-tables.git
@@ -58,3 +55,6 @@
 [submodule "home/.vim/bundle/todo.txt"]
 	path = home/.vim/bundle/todo.txt
 	url = git://github.com/freitass/todo.txt-vim.git
+[submodule "home/.vim/bundle/vim-python-combined"]
+	path = home/.vim/bundle/vim-python-combined
+	url = git://github.com/mitsuhiko/vim-python-combined.git

@@ -41,10 +41,6 @@ syntax enable
 set hlsearch
 
 " Folding
-set nofoldenable
-set foldmethod=syntax
-set foldlevelstart=1
-set foldnestmax=2
 nmap <space> za
 
 " EasyMotion
