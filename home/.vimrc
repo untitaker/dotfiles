@@ -41,6 +41,7 @@ syntax enable
 set hlsearch
 
 " Folding
+set nofoldenable
 nmap <space> za
 
 " EasyMotion
