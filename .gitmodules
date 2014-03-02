@@ -58,3 +58,6 @@
 [submodule "home/.vim/bundle/vim-python-combined"]
 	path = home/.vim/bundle/vim-python-combined
 	url = git://github.com/mitsuhiko/vim-python-combined.git
+[submodule "home/.vim/bundle/vim-python-pep8-indent"]
+	path = home/.vim/bundle/vim-python-pep8-indent
+	url = git://github.com/hynek/vim-python-pep8-indent.git
