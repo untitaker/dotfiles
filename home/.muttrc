@@ -51,7 +51,7 @@ macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy a message to a mai
 macro index,pager M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 macro index,pager s "<save-message>+markus/archive <enter>" "archive"
-macro index \CS "<tag-thread><tag-prefix>s" "archive thread"
+macro index,pager \CS "<tag-thread><tag-prefix>s" "archive thread"
 
 set index_format="%4C %Z%?y?@& ? %{%b %d} %-15.15L <%?M?%03M&%4l?> %s"
 unset collapse_unread
