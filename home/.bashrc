@@ -53,10 +53,20 @@ if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
         COMPREPLY=($(compgen -W "$(ls $PROJ_HOME; ls $WORKON_HOME)" -- $cur))
     }
     va() {
-        if [ -d $WORKON_HOME$1 ]; then
-            workon $1
+        PROJNAME="$1"
+
+        if [ -z "$PROJNAME" ]; then
+            PROJNAME="$PWD"
+        fi
+
+        if [[ "$(realpath $PROJNAME)" == ~/projects/* ]]; then
+            PROJNAME="$(basename $(realpath $PROJNAME))"
+        fi
+
+        if [ -d $WORKON_HOME$PROJNAME ]; then
+            workon $PROJNAME
         else
-            proj $1 && \
+            proj $PROJNAME && \
                 echo -e "$C_YELLOW>> no venv found, cd'ing" || \
                 echo -e "$C_RED>> no venv or project dir found"
         fi
