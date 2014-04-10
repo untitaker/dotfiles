@@ -15,6 +15,7 @@ set delete
 set quit
 unset help  # hardcore!
 unset mark_old
+unset wait_key
 
 set folder_format="%2C %2N %2s %f"
 set editor="vim -c 'set textwidth=79'"
@@ -57,10 +58,10 @@ set index_format="%4C %Z%?y?@& ? %{%b %d} %-15.15L <%?M?%03M&%4l?> %s"
 unset collapse_unread
 
 macro index,pager F \
-    "<enter-command>unset wait_key<enter><shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
+    "<shell-escape>/usr/bin/notmuch-mutt --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
     "search mail, using notmuch"
 macro index,pager \" \
-    "<enter-command>unset wait_key<enter><pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
+    "<pipe-message>/usr/bin/notmuch-mutt thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
     "search and reconstruct owning thread, using notmuch"
 
 
