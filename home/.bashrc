@@ -25,7 +25,6 @@ export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export EDITOR="vim"
 export BROWSER="xdg-open"
 shopt -s autocd
-stty -ixon  # remove Ctrl-S binding
 export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
