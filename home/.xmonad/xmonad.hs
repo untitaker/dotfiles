@@ -18,11 +18,14 @@ import XMonad.Util.Run
 import XMonad.Actions.CopyWindow
 import Data.Monoid
 import System.Exit
+import System.Posix.Unistd
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 import XMonad.Hooks.EwmhDesktops
+
+
 
 
 ------------------------------------------------------------------------
@@ -168,13 +171,18 @@ myLayout = avoidStruts( smartBorders(
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
+
 main = do
 myPipe <- spawnPipe "statusbar left"
+host <- fmap nodeName getSystemID
 xmonad $ ewmh defaultConfig {
         -- simple stuff
           focusFollowsMouse  = True,
           borderWidth        = 1,
-          modMask            = mod4Mask,
+
+        -- chromebooks don't have a windows key
+          modMask            = (if host == "chromebot" then controlMask .|. mod1Mask
+                                else mod4Mask),
 
   -- The default number of workspaces (virtual screens) and their names.
   -- By default we use numeric strings, but any string may be used as a
