@@ -1,0 +1,39 @@
+[general]
+accounts = uberspace-markus
+
+# Multithreaded
+maxsyncaccounts = 3
+fsync = False
+
+[Account uberspace-markus]
+localrepository = uberspace-markus-local
+remoterepository = uberspace-markus-remote
+postsynchook = notmuch new
+
+# Run as daemon
+autorefresh = 5
+quick = 10
+
+status_backend = sqlite
+
+[Repository uberspace-markus-remote]
+type = IMAP
+ssl = yes
+cert_fingerprint = a6bf6aa375e074a6998d5a698225dd648f4b6f5f
+remotehost = draco.uberspace.de
+remoteuser = unti-markus
+
+maxconnections = 3
+keepalive = 60
+
+[Repository uberspace-markus-local]
+type = Maildir
+localfolders = ~/.mail/markus
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes \\\n          "
+peritem = "+markus/%(foldername)s"
+sep = " \\\n          "
+footer = "\n"
