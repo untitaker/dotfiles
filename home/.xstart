@@ -1,0 +1,78 @@
+#!/bin/bash
+set_escape_key() {
+    xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+}
+
+set_wallpaper() {
+    python3 -c 'if True:
+        import requests
+        import sys
+        def err(x):
+            print(x, file=sys.stderr)
+
+        def is_direct_link(x):
+            return x.endswith("jpg") or x.endswith("jpeg") or x.endswith("png")
+
+        for x in requests.get("http://www.reddit.com/r/wallpapers.json").json()["data"]["children"]:
+            url = x["data"]["url"]
+            if url.startswith("http://imgur.com/"):
+                imgur_id = url[len("http://imgur.com/"):]
+                j = requests.get("http://api.imgur.com/2/image/{}.json".format(imgur_id)).json()
+                try:
+                    j2 = j
+                    while "links" not in j2:
+                        j2 = j2["image"]
+                    url = j2["links"]["original"]
+                    break
+                except KeyError as e:
+                    err(j)
+                    err(e)
+                    continue
+
+            if is_direct_link(url):
+                break
+
+        assert is_direct_link(url), url
+        print(url)
+    ' | xargs wget -O ~/.background
+    feh --bg-fill --no-fehbg ~/.background
+}
+
+main() {
+    echo "Starting new session..."
+    xrdb -merge ~/.dotfiledata/solarized_xresources/solarized
+    source /etc/X11/xinit/xinitrc.d/30-dbus
+    source ~/.bash_profile
+
+    # Start the GnuPG agent and enable OpenSSH agent emulation
+    eval $(keychain --eval -Q)
+    xset +fp /usr/share/fonts/local/
+
+    twmnd &
+
+    xbindkeys &
+    (set_escape_key && sleep 5 && set_escape_key) &  # help, why does it only work like this
+    xsetroot -cursor_name left_ptr &
+    set_wallpaper &
+
+    # use setsid because otherwise ssh will ask for the password in the console
+    # lol
+    if setsid -w mount /mnt/media; then
+        mpd &
+        mpd_cover_bg &
+    else
+        notify-send "Could not mount $1"
+    fi &
+
+    unti_pwdhash_daemon &
+    unti_flux &
+
+    statusbar right &
+    while ! ps -A | grep dzen2; do
+        sleep 0.1
+    done
+
+    trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
+
+    xmonad # if xmonad exits, everything will be killed
+}
