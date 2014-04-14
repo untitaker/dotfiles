@@ -1,8 +1,6 @@
 #!/bin/sh
 #
 # LXDM wrapper to run around X sessions.
-set -x
-
 echo "Running X session wrapper"
 
 # Load profile
