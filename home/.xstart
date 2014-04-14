@@ -46,7 +46,6 @@ main() {
 
     # Start the GnuPG agent and enable OpenSSH agent emulation
     eval $(keychain --eval -Q)
-    xset +fp /usr/share/fonts/local/
 
     twmnd &
 
@@ -55,17 +54,7 @@ main() {
     xsetroot -cursor_name left_ptr &
     set_wallpaper &
 
-    # use setsid because otherwise ssh will ask for the password in the console
-    # lol
-    if setsid -w mount /mnt/media; then
-        mpd &
-        mpd_cover_bg &
-    else
-        notify-send "Could not mount $1"
-    fi &
-
-    unti_pwdhash_daemon &
-    unti_flux &
+    source ~/.xstart_$(hostname)
 
     statusbar right &
     while ! ps -A | grep dzen2; do
