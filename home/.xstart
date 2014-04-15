@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 set_escape_key() {
     xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 }
