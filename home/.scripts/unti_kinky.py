@@ -81,7 +81,7 @@ class MaildirItem(Item):
         while self.running:
             self.text = '^fg({title})MAIL: ^fg()'.format(title=title_color) + \
                     self._mail_status()
-            shell('inotifywait -r ' + self.maildir)
+            shell('inotifywait -r ' + self.maildir + ' &> /dev/null')
 
 class CputempItem(Item):
     def run(self):
@@ -108,6 +108,24 @@ class CpuUsageItem(Item):
                 cpu = line[2]
 
 
+class BatteryItem(Item):
+    def run(self):
+        while self.running:
+            rv = shell('upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+                       '| grep -E "state|to\ full|percentage"').split('\n')
+
+            data = {}
+            for l in rv:
+                if ':' not in l:
+                    continue
+                k, v = l.split(':')
+                k = k.strip()
+                v = v.strip()
+                data[k] = v
+
+            self.text = data['state'] + '; ' + data['percentage']
+            time.sleep(1)
+
 
 mail_item = MaildirItem()
 mail_item.maildir = '/home/untitaker/.mail/markus/INBOX'
@@ -116,6 +134,7 @@ bar.items = [
     mail_item,
     MpdItem(),
     CputempItem(),
+    BatteryItem(),
     VolumeItem(),
     DatetimeItem()
 ]
