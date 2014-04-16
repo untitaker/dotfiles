@@ -99,14 +99,6 @@ class CputempItem(Item):
             self.text = self.bar.between.join(core_temps)
             time.sleep(5)
 
-class CpuUsageItem(Item):
-    def run(self):
-        while self.running:
-            rv = shell('mpstat -P ON').split('\n')
-            for line in rv:
-                line = line.split()
-                cpu = line[2]
-
 
 class BatteryItem(Item):
     def run(self):
