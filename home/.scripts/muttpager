@@ -1,0 +1,3 @@
+#!/bin/sh
+# pandoc should be in ~/.cabal/bin
+cat $1 | iconv -f $2 -t utf-8 | pandoc -f html -t rst
