@@ -1,0 +1,33 @@
+[general]
+status_path=~/.vdirsyncer/status/
+
+[pair radicale]
+conflict_resolution = b wins
+a = radicale_local
+b = radicale_remote
+collections = computers,default,holidays,media,school
+
+[storage radicale_local]
+type = filesystem
+path = ~/.calendars/
+fileext = .ics
+
+[storage radicale_remote]
+type = caldav
+url = https://home.unterwaditzer.net/radicale/untitaker/
+username = untitaker
+
+[pair radicale_contacts]
+conflict_resolution = b wins
+a = radicale_contacts_local
+b = radicale_contacts_remote
+
+[storage radicale_contacts_local]
+type = filesystem
+path = ~/.contacts/
+fileext = .vcf
+
+[storage radicale_contacts_remote]
+type = carddav
+url = https://home.unterwaditzer.net/radicale/untitaker/contacts.vcf/
+username = untitaker

@@ -1,0 +1,4 @@
+[watdo]
+confirmation = False
+editor = vim -c 'set ft=todo'
+path = ~/.calendars/
