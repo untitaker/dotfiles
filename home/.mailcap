@@ -1,1 +1,1 @@
-text/html; ~/.local/bin/muttpager %s %{charset}; copiousoutput
+text/html; muttpager %s %{charset}; copiousoutput
