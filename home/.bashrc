@@ -33,8 +33,6 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='1;31'
 # kivy and python for android
 export ANDROIDSDK=/opt/android-sdk/
 export ANDROIDNDK=/opt/android-ndk/
-export ANDROIDNDKVER=r7
-export ANDROIDAPI=14
 
 export PROJ_HOME=$HOME/projects/
 _proj() {
