@@ -19,7 +19,7 @@ status_backend = sqlite
 [Repository uberspace-markus-remote]
 type = IMAP
 ssl = yes
-cert_fingerprint = a6bf6aa375e074a6998d5a698225dd648f4b6f5f
+cert_fingerprint = 6ca13aeb00dcdff4b265cf314915ef854d5e4fde
 remotehost = draco.uberspace.de
 remoteuser = unti-markus
 
