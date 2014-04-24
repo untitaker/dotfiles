@@ -37,17 +37,17 @@ export ANDROIDNDK=/opt/android-ndk/
 export PROJ_HOME=$HOME/projects/
 _proj() {
     local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W "$(ls $PROJ_HOME)" -- $cur))
+    COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME")" -- "$cur"))
 }
-proj() { cd $PROJ_HOME$1; }
+proj() { cd "$PROJ_HOME$1"; }
 alias vd=deactivate
-if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
+if [ "$(id -u)" != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     export WORKON_HOME=$HOME/venvs/
     . /usr/bin/virtualenvwrapper.sh
     _va () {
         local cur=${COMP_WORDS[COMP_CWORD]}
-        COMPREPLY=($(compgen -W "$(ls $PROJ_HOME; ls $WORKON_HOME)" -- $cur))
+        COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME"; ls "$WORKON_HOME")" -- "$cur"))
     }
     va() {
         PROJNAME="$1"
@@ -56,14 +56,14 @@ if [ `id -u` != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
             PROJNAME="$PWD"
         fi
 
-        if [[ "$(realpath $PROJNAME)" == ~/projects/* ]]; then
-            PROJNAME="$(basename $(realpath $PROJNAME))"
+        if [[ "$(realpath "$PROJNAME")" == ~/projects/* ]]; then
+            PROJNAME="$(basename "$(realpath "$PROJNAME")")"
         fi
 
-        if [ -d $WORKON_HOME$PROJNAME ]; then
-            workon $PROJNAME
+        if [ -d "$WORKON_HOME$PROJNAME" ]; then
+            workon "$PROJNAME"
         else
-            proj $PROJNAME && \
+            proj "$PROJNAME" && \
                 echo -e "$C_YELLOW>> no venv found, cd'ing" || \
                 echo -e "$C_RED>> no venv or project dir found"
         fi
