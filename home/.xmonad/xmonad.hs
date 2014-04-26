@@ -9,7 +9,6 @@
 
 import XMonad
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spiral
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -110,16 +109,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
-
-    --
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -159,12 +148,7 @@ myLayout = avoidStruts( smartBorders(
             Full
             ) )
   where
-     -- default tiling algorithm partitions the screen into two panes
-     -- parameters:
-     --   nmaster: default number of windows in master pane
-     --   delta:   step size (in percentage of screen size) when resizing panes
-     --   ratio:   default size of master pane
-     myTiled   = Tall 1 (3/100) (1/2)
+     myTiled = Tall 1 (3/100) (1/2)
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -194,7 +178,7 @@ xmonad $ ewmh defaultConfig {
   -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
   --
 
-          workspaces         = ["1","2","3","4","5","6","7","8","9"],
+          workspaces         = map show [1..9],
           normalBorderColor  = "#333333",
           focusedBorderColor = "#FF0000",
 

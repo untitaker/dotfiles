@@ -1,5 +1,5 @@
 #!/bin/bash
-dzen2_globalparams="-e '' -h 16 "
+dzen2_globalparams="-dock -e '' -h 16 "
 
 right() {
     (python -u $(which unti_kinky.py) | dzen2 -ta r -sa r $dzen2_globalparams) &> /tmp/kinky_log
