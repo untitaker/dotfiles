@@ -4,7 +4,8 @@ set_escape_key() {
 }
 
 set_wallpaper() {
-    python3 -c 'if True:
+    feh --bg-fill --no-fehbg ~/.background
+    while ! python3 -c 'if True:
         import requests
         import sys
         def err(x):
@@ -34,7 +35,10 @@ set_wallpaper() {
 
         assert is_direct_link(url), url
         print(url)
-    ' | xargs wget -O ~/.background
+    ' | xargs wget -O ~/.background; do
+        echo "Retrying download in 10 secs."
+        sleep 10
+    done
     feh --bg-fill --no-fehbg ~/.background
 }
 
