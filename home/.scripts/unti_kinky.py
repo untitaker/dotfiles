@@ -103,19 +103,28 @@ class CputempItem(Item):
 class BatteryItem(Item):
     def run(self):
         while self.running:
-            rv = shell('upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-                       '| grep -E "state|to\ full|percentage"').split('\n')
+            rv = shell(
+                'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
+            ).split('\n')
 
             data = {}
             for l in rv:
                 if ':' not in l:
                     continue
-                k, v = l.split(':')
+                k, v = l.split(':', 1)
                 k = k.strip()
                 v = v.strip()
                 data[k] = v
 
-            self.text = data['state'] + '; ' + data['percentage']
+            state = data['state']
+            percentage = data['percentage']
+
+            if state == 'charging':
+                _time = data.get('time to full', '???')
+            else:
+                _time = data.get('time to empty', '???')
+
+            self.text = '{} ({}); {}'.format(state, _time, percentage)
             time.sleep(1)
 
 
