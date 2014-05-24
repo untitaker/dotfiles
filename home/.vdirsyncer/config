@@ -5,7 +5,7 @@ status_path=~/.vdirsyncer/status/
 conflict_resolution = b wins
 a = radicale_local
 b = radicale_remote
-collections = computers,default,holidays,media,school
+collections = computers,default,holidays,holidays_auto,media,school,lessons_auto
 
 [storage radicale_local]
 type = filesystem
