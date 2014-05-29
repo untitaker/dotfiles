@@ -1,45 +1,46 @@
 [user]
-	email = markus@unterwaditzer.net
-	name = Markus Unterwaditzer
+    email = markus@unterwaditzer.net
+    name = Markus Unterwaditzer
 [core]
-	editor = $EDITOR
+    editor = $EDITOR
     attributesfile = ~/.gitattributes
 [color]
-	ui = true
+    ui = true
 [github]
-	user = untitaker
+    user = untitaker
 [format]
-	pretty = %Cred%h%Cblue %an %Cgreen%cr%C(yellow)%d\n        %s
+    pretty = %Cred%h%Cblue %an %Cgreen%cr%C(yellow)%d\n        %s
 [alias]
-	# hub: When cloning git repos with sth like "git clone untitaker/dotfiles",
-	# always add the ssh url as origin
-	clone = clone -p
-	p = push
-	pf = push -f
-	pl = pull
-	
-	fix = commit --amend
-	undo = reset --hard HEAD^
-	stat = status
-	s = status
-	sub = submodule
-	cd = checkout
-	b = branch
-	c = commit
-	lg = log
-	ca = commit -a
-	cm = commit -m
-	cam = commit -a -m
-	bump = !"git checkout $1;git rebase master"
+    # hub: When cloning git repos with sth like "git clone untitaker/dotfiles",
+    # always add the ssh url as origin
+    clone = clone -p
+    p = push
+    pf = push -f
+    pr = pull-request
+    pl = pull
+    
+    fix = commit --amend
+    undo = reset --hard HEAD^
+    stat = status
+    s = status
+    sub = submodule
+    cd = checkout
+    b = branch
+    c = commit
+    lg = log
+    ca = commit -a
+    cm = commit -m
+    cam = commit -a -m
+    bump = !"git checkout $1;git rebase master"
     # rebase all the branches
-	mbump = !git_mbump
+    mbump = !git_mbump
     # remove a submodule... not even sure this works.
     rm-sub = "!f(){ git rm --cached \"$1\";rm -r \"$1\";git config -f .gitmodules --remove-section \"submodule.$1\";git config -f .git/config --remove-section \"submodule.$1\";git add .gitmodules; }; f"
     # recursively execute a bash command on repo, its submodules and submodules of submodules
     resub = "!f(){ \"$@\"; git sub foreach git resub \"$@\"; }; f"
 [push]
-	default = matching
+    default = matching
 [help]
-	autocorrect = 5
+    autocorrect = 5
 [diff "diffpdf"]
     command = diffpdf
