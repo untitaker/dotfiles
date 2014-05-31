@@ -51,7 +51,8 @@ _va () {
 }
 va() {
     PROJNAME="$1"
-    [ -d "$PROJ_HOME$PROJNAME" ] || PROJNAME="$PWD$PROJNAME"
+    [ -d "$PROJ_HOME$PROJNAME" ] || [ -d "$WORKON_HOME$PROJNAME" ] || \
+        PROJNAME="$PWD$PROJNAME"
     PROJNAME="$(basename "$(realpath "$PROJNAME")")"
 
     echo -e "$C_GRAY> $PROJNAME"
