@@ -41,38 +41,26 @@ _proj() {
 }
 proj() { cd "$PROJ_HOME$1"; }
 alias vd=deactivate
-if [ "$(id -u)" != '0' ] && [ -f /usr/bin/virtualenvwrapper.sh ]; then
-    export VIRTUAL_ENV_DISABLE_PROMPT=1
-    export WORKON_HOME=$HOME/venvs/
-    . /usr/bin/virtualenvwrapper.sh
-    _va () {
-        local cur=${COMP_WORDS[COMP_CWORD]}
-        COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME"; ls "$WORKON_HOME")" -- "$cur"))
-    }
-    va() {
-        PROJNAME="$1"
 
-        if [ -z "$PROJNAME" ]; then
-            PROJNAME="$PWD"
-        fi
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export WORKON_HOME=$HOME/venvs/
+. /usr/bin/virtualenvwrapper.sh &> /dev/null
+_va () {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME"; ls "$WORKON_HOME")" -- "$cur"))
+}
+va() {
+    PROJNAME="$1"
+    [ -d "$PROJ_HOME$PROJNAME" ] || PROJNAME="$PWD$PROJNAME"
+    PROJNAME="$(basename "$(realpath "$PROJNAME")")"
 
-        if [[ "$(realpath "$PROJNAME")" == ~/projects/* ]]; then
-            PROJNAME="$(basename "$(realpath "$PROJNAME")")"
-        fi
+    echo -e "$C_GRAY> $PROJNAME"
+    vd &> /dev/null
+    proj "$PROJNAME" &> /dev/null || echo "no project found"
+    . "$WORKON_HOME$PROJNAME/bin/activate" &> /dev/null || echo "no venv found"
 
-        if [ -d "$WORKON_HOME$PROJNAME" ]; then
-            workon "$PROJNAME"
-        else
-            proj "$PROJNAME" && \
-                echo -e "$C_YELLOW>> no venv found, cd'ing" || \
-                echo -e "$C_RED>> no venv or project dir found"
-        fi
-    }
-    complete -F _va va
-else
-    alias va=proj
-    complete -F _proj va
-fi
+}
+complete -F _va va
 
 mkcd() {
     mkdir -p "$1" && cd "$1"
