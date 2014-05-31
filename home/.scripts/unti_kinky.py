@@ -85,7 +85,7 @@ class MaildirItem(Item):
         while self.running:
             self.text = ('^fg({title})MAIL: ^fg()' + self._mail_status()) \
                 .format(title=title_color)
-            shell('inotifywait -r ' + self.maildir + ' &> /dev/null')
+            shell('inotifywait -t 5 -r ' + self.maildir + ' &> /dev/null')
 
 
 class CputempItem(Item):
