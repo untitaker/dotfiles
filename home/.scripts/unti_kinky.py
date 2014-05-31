@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
 import sys
-import logging
-#logging.basicConfig(level=logging.DEBUG)
 import time
 import datetime
 import os
 sys.path.append('/home/untitaker/projects/kinky')
 from kinky import Item, StatusBar, shell, is_running
 
-title_color = '#888'
+title_color = '#666'
 separator_color = '#333'
 blue_color = '#3465A4'
 
 bar = StatusBar()
 bar.between = '^fg({sep}) | ^fg()'.format(sep=separator_color)
 
+
 class DatetimeItem(Item):
     def run(self):
         while self.running:
             self.text = datetime.datetime.now().strftime(
-                 '%H^fg({sep}):^fg()%M{between}%Y^fg({sep})/^fg()%m^fg({sep})/^fg()%d'
-                    .format(sep=separator_color ,between=self.bar.between)
+                '%H^fg({sep}):^fg()%M{between}%Y^fg({sep})/'
+                '^fg()%m^fg({sep})/^fg()%d'
+                .format(sep=separator_color, between=self.bar.between)
             )
             time.sleep(30)
+
 
 class VolumeItem(Item):
     def run(self):
         while self.running:
-            state = shell('amixer get Master | grep "Mono: Playback"').strip().split()
+            state = shell('amixer get Master | grep "Mono: Playback"') \
+                .strip().split()
             if not state:
                 continue
             vol = state[3].replace('[', '').replace(']', '')
@@ -42,6 +44,7 @@ class VolumeItem(Item):
             self.text = text
             time.sleep(.5)
 
+
 class MpdItem(Item):
     def run(self):
         while self.running:
@@ -55,6 +58,7 @@ class MpdItem(Item):
                 self.text = None
 
             time.sleep(0.3)
+
 
 class MaildirItem(Item):
     maildir = None
@@ -71,7 +75,7 @@ class MaildirItem(Item):
         return (
             '^fg(#FF0000){new}^fg()'if new
             else '{read}' if read
-            else '^fg(#666){read}^fg()'
+            else '^fg({title}){read}^fg({title})'
         ).format(new=new, read=read)
 
     def _send_notification(self, amount):
@@ -79,9 +83,10 @@ class MaildirItem(Item):
 
     def run(self):
         while self.running:
-            self.text = '^fg({title})MAIL: ^fg()'.format(title=title_color) + \
-                    self._mail_status()
+            self.text = ('^fg({title})MAIL: ^fg()' + self._mail_status()) \
+                .format(title=title_color)
             shell('inotifywait -r ' + self.maildir + ' &> /dev/null')
+
 
 class CputempItem(Item):
     def run(self):
@@ -91,9 +96,10 @@ class CputempItem(Item):
                 if line.startswith('Core ')
             ]
             core_temps = [
-                '^fg(#666)' + \
-                str(float(core.split()[2].replace('°C', ''))) + \
-                '^fg()'
+                '^fg({title}){temp}^fg()'.format(
+                    temp=float(core.split()[2].replace('°C', '')),
+                    title=title_color
+                )
                 for core in cores
             ]
             self.text = self.bar.between.join(core_temps)
@@ -120,11 +126,14 @@ class BatteryItem(Item):
             percentage = data['percentage']
 
             if state == 'charging':
-                _time = data.get('time to full', '???')
+                _time = data.get('time to full', None)
             else:
-                _time = data.get('time to empty', '???')
+                _time = data.get('time to empty', None)
 
-            self.text = '{} ({}); {}'.format(state, _time, percentage)
+            if _time:
+                self.text = '{} ({}); {}'.format(state, _time, percentage)
+            else:
+                self.text = '{}; {}'.format(state, percentage)
             time.sleep(1)
 
 
