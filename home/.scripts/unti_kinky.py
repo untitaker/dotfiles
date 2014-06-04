@@ -76,7 +76,7 @@ class MaildirItem(Item):
             '^fg(#FF0000){new}^fg()'if new
             else '{read}' if read
             else '^fg({title}){read}^fg({title})'
-        ).format(new=new, read=read)
+        ).format(new=new, read=read, title='{title}')
 
     def _send_notification(self, amount):
         shell('notify-send "You have {} new mails!"'.format(amount))
