@@ -5,37 +5,7 @@ set_escape_key() {
 
 set_wallpaper() {
     feh --bg-fill --no-fehbg ~/.background
-    while ! python3 -c 'if True:
-        import requests
-        import sys
-        def err(x):
-            print(x, file=sys.stderr)
-
-        def is_direct_link(x):
-            return x.endswith("jpg") or x.endswith("jpeg") or x.endswith("png")
-
-        for x in requests.get("http://www.reddit.com/r/wallpapers.json").json()["data"]["children"]:
-            url = x["data"]["url"]
-            if url.startswith("http://imgur.com/"):
-                imgur_id = url[len("http://imgur.com/"):]
-                j = requests.get("http://api.imgur.com/2/image/{}.json".format(imgur_id)).json()
-                try:
-                    j2 = j
-                    while "links" not in j2:
-                        j2 = j2["image"]
-                    url = j2["links"]["original"]
-                    break
-                except KeyError as e:
-                    err(j)
-                    err(e)
-                    continue
-
-            if is_direct_link(url):
-                break
-
-        assert is_direct_link(url), url
-        print(url)
-    ' | xargs wget -O ~/.background; do
+    while ! set_wallpaper.py | xargs wget -O ~/.background; do
         echo "Retrying download in 10 secs."
         sleep 10
     done
