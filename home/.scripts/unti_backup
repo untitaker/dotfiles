@@ -1,14 +1,20 @@
 #!/bin/sh
-set -e
+set -ex
 check_size() {
     ssh untiserver du -s /mnt/media/backups/bup/
 }
+
+if [ "$HOSTNAME" != "untiserver" ]; then
+    remote_flag="-r untiserver:"
+else
+    remote_flag=""
+fi
 
 size_before="$(check_size)"
 for folder in `cat ~/.backup-folders`; do
     echo -e $C_RED$folder$C_RESET
     bup index ~/$folder/
-    bup save -n $HOSTNAME-$folder -r untiserver: ~/$folder/
+    bup save -n $HOSTNAME-$folder $remote_flag ~/$folder/
 done
 
 
