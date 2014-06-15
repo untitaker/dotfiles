@@ -16,6 +16,7 @@ fileext = .ics
 type = caldav
 url = https://home.unterwaditzer.net/radicale/untitaker/
 username = untitaker
+item_types =
 
 [pair radicale_contacts]
 conflict_resolution = b wins
