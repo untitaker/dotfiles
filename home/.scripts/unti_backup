@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+check_size() {
+    ssh untiserver du -s /mnt/media/backups/bup/
+}
+
+size_before="$(check_size)"
+for folder in `cat ~/.backup-folders`; do
+    echo -e $C_RED$folder$C_RESET
+    bup index ~/$folder/
+    bup save -n $HOSTNAME-$folder -r untiserver: ~/$folder/
+done
+
+
+echo
+echo "Before:"
+echo "$size_before"
+echo "After:"
+check_size
+
