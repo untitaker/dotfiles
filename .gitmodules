@@ -25,9 +25,6 @@
 [submodule "home/.vim/bundle/vim-less"]
 	path = home/.vim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
-[submodule "home/.vim/bundle/vim-rst-tables"]
-	path = home/.vim/bundle/vim-rst-tables
-	url = git://github.com/nvie/vim-rst-tables.git
 [submodule "home/.vim/bundle/supertab"]
 	path = home/.vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
