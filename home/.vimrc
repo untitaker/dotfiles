@@ -53,6 +53,23 @@ let g:SuperTabDefaultCompletionType = "context"
 " Jedi
 let g:jedi#popup_on_dot = 0  " Disable the automatic suggestions
 
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+noremap <f7> :w<CR>:SyntasticCheck<CR>
+
+let g:syntastic_python_checkers = ['flake8', 'python']
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = 'X'
+let g:syntastic_style_error_symbol = 'X'
+
+let g:syntastic_warning_symbol = 'x'
+let g:syntastic_style_warning_symbol = 'x'
+
 " taglist
 noremap <f4> :TlistToggle<CR>
 
