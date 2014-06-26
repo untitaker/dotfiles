@@ -55,3 +55,6 @@
 [submodule "home/.vim/bundle/riv.vim"]
 	path = home/.vim/bundle/riv.vim
 	url = https://github.com/Rykka/riv.vim
+[submodule "home/.vim/bundle/syntastic"]
+	path = home/.vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
