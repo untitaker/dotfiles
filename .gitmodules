@@ -19,9 +19,6 @@
 [submodule "home/.vim/bundle/vim-easymotion"]
 	path = home/.vim/bundle/vim-easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
-[submodule "home/.vim/bundle/vim-flake8"]
-	path = home/.vim/bundle/vim-flake8
-	url = git://github.com/nvie/vim-flake8.git
 [submodule "home/.vim/bundle/vim-less"]
 	path = home/.vim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
