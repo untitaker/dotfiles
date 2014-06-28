@@ -11,8 +11,6 @@
 #   - Somehow line wrapping fucks up in my bash prompt if i don't use escaped brackets []
 #     around colors
 
-stty -ixon  # i want to use ctrl-s
-
 export C_RESET="\e[0m"
 export C_BLACK="\e[0;30m"
 export C_RED="\e[0;31m"

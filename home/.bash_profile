@@ -4,5 +4,11 @@ if [ -f "$arch_gitcomplete" ]; then
 fi
 
 PATH=$PATH:~/.gem/ruby/*/bin/:~/.cabal/bin/
+
+if [[ $- == *i* ]]; then
+    # i want to use ctrl-s
+    stty -ixon
+fi
+
 source ~/.bashrc
 export _JAVA_AWT_WM_NONREPARENTING=1
