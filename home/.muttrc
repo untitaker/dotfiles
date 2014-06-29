@@ -90,6 +90,7 @@ set realname="Markus Unterwaditzer"
 
 # GNUPG
 #
+set pgp_auto_decode=yes
 set pgp_use_gpg_agent=yes
 set pgp_sign_as=0xFAAC788C
 set pgp_timeout=60
