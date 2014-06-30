@@ -34,6 +34,10 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='1;31'
 export ANDROIDSDK=/opt/android-sdk/
 export ANDROIDNDK=/opt/android-ndk/
 
+# mates
+export MATES_DIR=~/.contacts/
+export MATES_INDEX=~/.mates_index
+
 export PROJ_HOME=$HOME/projects/
 _proj() {
     local cur=${COMP_WORDS[COMP_CWORD]}

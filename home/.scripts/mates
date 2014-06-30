@@ -1,0 +1,54 @@
+#!/bin/sh
+
+USAGE_HELP="Usage: $0 COMMAND
+Commands:
+    index:      Rewrite the index.
+    mutt-query: Execute a mutt query."
+
+
+err() {
+    local msg="$1"
+    [ -n "$msg" ] && echo "$msg"
+    exit 1
+}
+
+
+main() {
+    [ -n "$MATES_DIR" ] || err "You need to set MATES_DIR"
+    [ -n "$MATES_INDEX" ] || err "You need to set MATES_INDEX"
+    [ -n "$MATES_GREP" ] || MATES_GREP='grep -i'
+    cmd="$1"
+    shift
+
+    case "$cmd" in
+        index)       command_index ;;
+        mutt-query)  command_mutt_query "$@" ;;
+        *)           command_help ;;
+    esac
+}
+
+get_index() {
+    find "$MATES_DIR" -mindepth 1 | while read fname; do
+        local name="$($MATES_GREP '^FN:' "$fname" | cut -d ':' -f '2-' | head -1)"
+        local emails="$($MATES_GREP '^EMAIL' "$fname" | cut -d ':' -f '2-')"
+        for email in $emails; do
+            printf "%s\t%s\t\n" "$email" "$name"
+        done
+    done
+}
+
+command_index() {
+    get_index > "$MATES_INDEX"
+}
+
+
+command_mutt_query() {
+    echo
+    $MATES_GREP "$1" "$MATES_INDEX"
+}
+
+command_help() {
+    err "$USAGE_HELP"
+}
+
+main "$@"

@@ -29,7 +29,7 @@ unset markers # don't add plus signs to wrapped urls (needed for url selection i
 unset mark_old
 bind editor <Tab> complete-query
 bind editor ^T complete
-set query_command= "abook --mutt-query '%s'"
+set query_command= "mates mutt-query '%s'"
 auto_view text/html
 alternative_order text/plain text/html text/enriched
 
