@@ -14,7 +14,7 @@ set_wallpaper() {
 
 main() {
     echo "Starting new session..."
-    xrdb -merge ~/.dotfiledata/solarized_xresources/solarized
+    xrdb -merge ~/.dotfiledata/base16_xresources/base16-default.dark.xresources
     source /etc/X11/xinit/xinitrc.d/30-dbus
     source ~/.bash_profile
 

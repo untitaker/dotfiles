@@ -17,7 +17,7 @@ export C_RED="\e[0;31m"
 export C_GREEN="\e[0;32m"
 export C_YELLOW="\e[0;33m"
 export C_WHITE="\e[0;37m"
-export C_GRAY="\e[0;92m"  # kinda
+export C_GRAY="\e[1;30m"  # kinda
 
 # CONFIGS
 export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin

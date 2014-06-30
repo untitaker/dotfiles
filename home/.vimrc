@@ -80,7 +80,7 @@ set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
 set incsearch   " do incremental searching
 set number      " show line numbers
-colo solarized " color scheme
+colo base16-default " color scheme
 set background=dark " Remote hosts will assume otherwise without this
 se t_Co=16
 
