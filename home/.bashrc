@@ -89,7 +89,9 @@ untitaker_venv() {
 }
 
 untitaker_vcs() {
-    if [ -d .git ]; then
+    git_top="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if [ "$?" == "0" ]; then
+        cd "$git_top"
         if [ "$(command git status | grep -ci 'not staged')" != "0" ]; then
             branch_color=${C_RED}
         elif [ "$(command git status | grep -ci 'untracked')" != "0" ]; then
