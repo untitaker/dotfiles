@@ -12,6 +12,7 @@ blue_color = '#3465A4'
 
 bar = StatusBar()
 bar.between = '^fg({sep}) | ^fg()'.format(sep=separator_color)
+bar.error_value = '^fg({#FF0000)restarting^fg()'
 
 
 class DatetimeItem(Item):
@@ -122,6 +123,8 @@ class BatteryItem(Item):
                 v = v.strip()
                 data[k] = v
 
+            if 'state' not in data:  # no battery in this device
+                break
             state = data['state']
             percentage = data['percentage']
 
