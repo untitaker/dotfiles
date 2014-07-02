@@ -17,7 +17,7 @@ bar.error_value = '^fg({#FF0000)restarting^fg()'
 
 class DatetimeItem(Item):
     def run(self):
-        while self.running:
+        while True:
             self.text = datetime.datetime.now().strftime(
                 '%H^fg({sep}):^fg()%M{between}%Y^fg({sep})/'
                 '^fg()%m^fg({sep})/^fg()%d'
@@ -28,7 +28,7 @@ class DatetimeItem(Item):
 
 class VolumeItem(Item):
     def run(self):
-        while self.running:
+        while True:
             state = shell('amixer get Master | grep "Mono: Playback"') \
                 .strip().split()
             if not state:
@@ -48,7 +48,7 @@ class VolumeItem(Item):
 
 class MpdItem(Item):
     def run(self):
-        while self.running:
+        while True:
             if is_running('ncmpcpp'):
                 self.text = '^fg({title})MPD: ^fg({blu}){song}^fg()'.format(
                     title=title_color,
@@ -83,7 +83,7 @@ class MaildirItem(Item):
         shell('notify-send "You have {} new mails!"'.format(amount))
 
     def run(self):
-        while self.running:
+        while True:
             self.text = ('^fg({title})MAIL: ^fg()' + self._mail_status()) \
                 .format(title=title_color)
             shell('inotifywait -t 5 -r ' + self.maildir + ' &> /dev/null')
@@ -91,7 +91,7 @@ class MaildirItem(Item):
 
 class CputempItem(Item):
     def run(self):
-        while self.running:
+        while True:
             cores = [
                 line for line in shell('sensors').split('\n')
                 if line.startswith('Core ')
@@ -109,7 +109,7 @@ class CputempItem(Item):
 
 class BatteryItem(Item):
     def run(self):
-        while self.running:
+        while True:
             rv = shell(
                 'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
             ).split('\n')
