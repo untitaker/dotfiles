@@ -39,7 +39,8 @@
     # recursively execute a bash command on repo, its submodules and submodules of submodules
     resub = "!f(){ \"$@\"; git sub foreach git resub \"$@\"; }; f"
 [push]
-    default = simple
+    # old name of upstream, for compat
+    default = tracking
 [help]
     autocorrect = 5
 [diff "diffpdf"]
