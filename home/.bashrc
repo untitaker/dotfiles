@@ -125,7 +125,6 @@ export PS1
 
 # TYPOS AND OTHER ALIASES
 
-alias ls='ls --color=auto'
 alias lsa='ls -a'
 alias lsl='ls -l'
 alias lssize='du -sh *| sort -rh'
