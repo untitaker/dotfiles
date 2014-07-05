@@ -40,6 +40,9 @@ endif
 syntax enable
 set hlsearch
 
+" i don't edit Modula 2
+au BufNewFile,BufRead *.md  setf markdown
+
 " Folding
 set nofoldenable
 nmap <space> za
