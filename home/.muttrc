@@ -140,7 +140,7 @@ color markers       red             white
 color attachment    white           default
 color search        black   yellow
 color status        color12         color10
-color indicator     brightblack     yellow
+color indicator     black           yellow
 color tree          color9          default  # arrow in threads
 
 # color0  black
