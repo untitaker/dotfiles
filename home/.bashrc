@@ -51,8 +51,14 @@ export WORKON_HOME=$HOME/venvs/
 . /usr/bin/virtualenvwrapper.sh &> /dev/null
 _va () {
     local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME"; ls "$WORKON_HOME")" -- "$cur"))
+
+    COMPREPLY=($(compgen -W "$(
+        for suggestion in $(find -L "$PROJ_HOME" "$WORKON_HOME" -maxdepth 1 -mindepth 1 -type d); do
+            echo "$(basename "$suggestion")"
+        done
+    )" -- "$cur"))
 }
+
 va() {
     PROJNAME="$1"
     [ -d "$PROJ_HOME$PROJNAME" ] || [ -d "$WORKON_HOME$PROJNAME" ] || \
