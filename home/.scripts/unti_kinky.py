@@ -12,7 +12,7 @@ blue_color = '#3465A4'
 
 bar = StatusBar()
 bar.between = '^fg({sep}) | ^fg()'.format(sep=separator_color)
-bar.error_value = '^fg({#FF0000)restarting^fg()'
+bar.error_value = '^fg({#FF0000)broken^fg()'
 
 
 class DatetimeItem(Item):
@@ -140,6 +140,17 @@ class BatteryItem(Item):
             time.sleep(1)
 
 
+class NetctlItem(Item):
+    def run(self):
+        if shell('which netctl-auto') is None:
+            return
+
+        while True:
+            rv = shell('sudo netctl-auto current').strip()
+            self.text = rv or '^fg(#FF0000)disconnected^fg()'
+            time.sleep(10)
+
+
 mail_item = MaildirItem()
 mail_item.maildir = '/home/untitaker/.mail/markus/INBOX'
 
@@ -148,6 +159,7 @@ bar.items = [
     MpdItem(),
     CputempItem(),
     BatteryItem(),
+    NetctlItem(),
     VolumeItem(),
     DatetimeItem()
 ]
