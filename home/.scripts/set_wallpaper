@@ -1,0 +1,65 @@
+#!/usr/bin/python2
+from __future__ import print_function
+import requests
+import newspaper
+import os
+import subprocess
+import time
+
+
+def launch_feh():
+    print('Launching feh')
+    subprocess.check_call('feh --bg-fill --no-fehbg ~/.background', shell=True)
+
+
+def is_direct_link(x):
+    return x.endswith("jpg") or x.endswith("jpeg") or x.endswith("png")
+
+def get_wallpaper_url():
+    r = requests.get("http://www.reddit.com/r/wallpapers.json")
+    j = r.json()
+
+    for x in j["data"]["children"]:
+        try:
+            url = x["data"]["url"]
+            if x['data']['is_self']:
+                continue
+            print(url)
+            if not is_direct_link(url):
+                site = newspaper.Article(url)
+                site.download()
+                site.parse()
+                url = site.top_image
+            return url
+
+        except Exception as e:
+            print(e)
+            continue
+
+
+def main():
+    launch_feh()
+    url = get_wallpaper_url()
+
+    print('Downloading {}'.format(url))
+    r = requests.get(url)
+    r.raise_for_status()
+
+    with open(os.path.expanduser('~/.background'), 'wb+') as f:
+        f.write(r.content)
+
+    launch_feh()
+
+
+def _main():
+    for trial in range(1, 11):
+        try:
+            return main()
+        except Exception as e:
+            print(e)
+            print('Retrying in {} seconds'.format(trial))
+            time.sleep(trial)
+
+
+if __name__ == '__main__':
+    _main()
