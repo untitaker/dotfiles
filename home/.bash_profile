@@ -3,7 +3,11 @@ if [ -f "$arch_gitcomplete" ]; then
     source "$arch_gitcomplete"
 fi
 
-PATH=$PATH:~/.gem/ruby/*/bin/:~/.cabal/bin/
+for path in ~/.gem/ruby/*/bin/; do
+    PATH=$PATH:$path
+done
+
+PATH=$PATH:~/.cabal/bin/
 
 if [[ $- == *i* ]]; then
     # i want to use ctrl-s
