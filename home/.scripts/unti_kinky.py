@@ -110,10 +110,12 @@ class CputempItem(Item):
 class BatteryItem(Item):
     def run(self):
         while True:
-            rv = shell(
-                'upower -i /org/freedesktop/UPower/devices/battery_BAT0'
-            ).split('\n')
+            rv = shell('upower -i '
+                       '/org/freedesktop/UPower/devices/battery_BAT0')
+            if not rv:
+                break
 
+            rv = rv.split('\n')
             data = {}
             for l in rv:
                 if ':' not in l:
