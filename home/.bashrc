@@ -95,28 +95,34 @@ untitaker_venv() {
 }
 
 untitaker_vcs() {
-    git_top="$(git rev-parse --show-toplevel 2>/dev/null)"
-    if [ "$?" == "0" ]; then
+    if [ ! -d .git ]; then
+        local git_top="$(timeout 0.1 git rev-parse --show-toplevel 2>/dev/null)"
+        [ -z "$git_top" ] && return
         cd "$git_top"
-        if [ "$(command git status | grep -ci 'not staged')" != "0" ]; then
-            branch_color=${C_RED}
-        elif [ "$(command git status | grep -ci 'untracked')" != "0" ]; then
-            branch_color=${C_YELLOW}
-        elif [ "$(command git status | grep -ci 'to be committed')" != "0" ]; then
-            branch_color=${C_GREEN}
-        else 
-            branch_color=${C_RESET}
-        fi
-
-        
-        current_branch="$(command git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
-        if [ "$current_branch" != "" ]; then
-            current_branch=" branch${branch_color} $current_branch"
-        else
-            current_branch="${branch_color} unnamed branch"
-        fi
-        echo -e "${C_GRAY},$current_branch${C_RESET}"
     fi
+
+    local status="$(timeout 1 git status)"
+    [ -z "$status" ] && echo "${C_GRAY}, git broke${C_RESET}" && return
+
+    if echo "$status" | grep -qi 'not staged'; then
+        branch_color=${C_RED}
+    elif echo "$status" | grep -qi 'untracked'; then
+        branch_color=${C_YELLOW}
+    elif echo "$status" | grep -qi 'to be committed'; then
+        branch_color=${C_GREEN}
+    else
+        branch_color=${C_RESET}
+    fi
+
+    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
+
+    if [ -n "$current_branch" ]; then
+        current_branch=" branch${branch_color} $current_branch"
+    else
+        current_branch="${branch_color} unknown branch"
+    fi
+
+    echo -e "${C_GRAY},$current_branch${C_RESET}"
 }
 
 untitaker_exitcode() {
