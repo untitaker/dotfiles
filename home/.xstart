@@ -16,7 +16,6 @@ main() {
 
     xbindkeys &
     (set_escape_key && sleep 5 && set_escape_key) &  # help, why does it only work like this
-    xsetroot -cursor_name left_ptr &
     set_wallpaper &
 
     source ~/.xstart_$(hostname)
