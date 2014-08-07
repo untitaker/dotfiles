@@ -12,7 +12,7 @@ blue_color = '#3465A4'
 
 bar = StatusBar()
 bar.between = '^fg({sep}) | ^fg()'.format(sep=separator_color)
-bar.error_value = '^fg({#FF0000)broken^fg()'
+bar.error_value = '^fg(#FF0000)broken^fg()'
 
 
 class DatetimeItem(Item):
@@ -148,7 +148,8 @@ class NetctlItem(Item):
             return
 
         while True:
-            rv = shell('sudo netctl-auto current').strip()
+            rv = shell('SUDO_ASKPASS=/bin/false '
+                       'sudo -A netctl-auto current').strip()
             self.text = rv or '^fg(#FF0000)disconnected^fg()'
             time.sleep(10)
 
