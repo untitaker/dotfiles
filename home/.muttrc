@@ -24,7 +24,12 @@ set tilde
 
 
 unset confirmappend
+set reply_to
+set include
+set askcc
+set fast_reply
 set quit
+
 unset markers # don't add plus signs to wrapped urls (needed for url selection in urxvt)
 unset mark_old
 bind editor <Tab> complete-query
