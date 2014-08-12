@@ -26,7 +26,6 @@ set tilde
 unset confirmappend
 set reply_to
 set include
-set askcc
 set fast_reply
 set quit
 
