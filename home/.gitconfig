@@ -18,6 +18,7 @@
     pf = push -f
     pr = pull-request
     pl = pull
+    cp = cherry-pick
     
     fix = commit --amend
     undo = reset --hard HEAD^
