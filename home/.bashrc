@@ -101,8 +101,8 @@ untitaker_vcs() {
         cd "$git_top"
     fi
 
-    local status="$(timeout 1 git status)"
-    [ -z "$status" ] && echo "${C_GRAY}, git broke${C_RESET}" && return
+    local status="$(timeout 5 git status)"
+    [ -z "$status" ] && echo -e "${C_GRAY}, git broke${C_RESET}" && return
 
     if echo "$status" | grep -qi 'not staged'; then
         branch_color=${C_RED}
