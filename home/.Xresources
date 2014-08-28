@@ -21,6 +21,8 @@ URxvt.keysym.C-Up: perl:font-size:increase
 URxvt.keysym.C-Down: perl:font-size:decrease
 URxvt.urlLauncher: xdg-open
 URxvt.matcher.button: 1
+! no underlining of links
+urxvt.matcher.rend.0: -Uline
 URxvt.iso14755: False
 
 URxvt.tabbed.tabbar-fg: 4
