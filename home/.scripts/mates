@@ -2,8 +2,13 @@
 
 USAGE_HELP="Usage: $0 COMMAND
 Commands:
-    index:      Rewrite the index.
-    mutt-query: Execute a mutt query."
+    index:      Rewrite/create the index.
+    mutt-query: Execute a mutt query.
+
+Environment variables:
+    MATES_DIR: Path to vdir collection.
+    MATES_INDEX: Path to index file.
+    MATES_GREP: Optional, grep binary to use."
 
 
 err() {
