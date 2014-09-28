@@ -55,3 +55,6 @@
 [submodule "home/.vim/bundle/vim-colors-base16"]
 	path = home/.vim/bundle/vim-colors-base16
 	url = https://github.com/chriskempson/base16-vim
+[submodule "home/.vim/bundle/rust"]
+	path = home/.vim/bundle/rust
+	url = https://github.com/wting/rust.vim
