@@ -39,6 +39,7 @@ endif
 " Also switch on highlighting the last used search pattern.
 syntax enable
 set hlsearch
+set listchars=tab:  ,trail:·,extends:>,precedes:<,nbsp:%
 
 " i don't edit Modula 2
 au BufNewFile,BufRead *.md  setf markdown
