@@ -48,8 +48,11 @@ command_index() {
 
 
 command_mutt_query() {
-    echo
-    $MATES_GREP "$1" "$MATES_INDEX"
+    if [ -z "$1" ]; then
+        cat "$MATES_INDEX"
+    else
+        $MATES_GREP "$1" "$MATES_INDEX"
+    fi
 }
 
 command_help() {
