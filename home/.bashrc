@@ -150,6 +150,10 @@ alias clipboard='xclip -selection clipboard'
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
+m() {
+    mutt "$(mates mutt-query "$1" | selecta)"
+}
+
 # PACMAN
 alias p='yaourt'
 alias p-clean='p -Rs $(p -Qdtq)'

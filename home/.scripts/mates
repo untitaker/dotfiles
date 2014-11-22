@@ -37,7 +37,7 @@ get_index() {
         local name="$($MATES_GREP '^FN:' "$fname" | cut -d ':' -f '2-' | head -1)"
         local emails="$($MATES_GREP '^EMAIL' "$fname" | cut -d ':' -f '2-')"
         for email in $emails; do
-            printf "%s\t%s\t\n" "$email" "$name"
+            printf "%s <%s>\n" "$name" "$email"
         done
     done
 }
