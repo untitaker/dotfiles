@@ -20,7 +20,6 @@ export C_WHITE="\e[0;37m"
 export C_GRAY="\e[1;30m"  # kinda
 
 # CONFIGS
-export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export EDITOR="vim"
 export BROWSER="xdg-open"

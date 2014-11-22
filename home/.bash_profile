@@ -3,6 +3,12 @@ if [ -f "$arch_gitcomplete" ]; then
     source "$arch_gitcomplete"
 fi
 
+export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
+
+for path in ~/.scripts/*/; do
+    PATH=$path:$PATH
+done
+
 for path in ~/.gem/ruby/*/bin/; do
     PATH=$PATH:$path
 done
