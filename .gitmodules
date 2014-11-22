@@ -58,3 +58,6 @@
 [submodule "home/.vim/bundle/rust"]
 	path = home/.vim/bundle/rust
 	url = https://github.com/wting/rust.vim
+[submodule "home/.scripts/selecta"]
+	path = home/.scripts/selecta
+	url = https://github.com/garybernhardt/selecta.git
