@@ -22,9 +22,9 @@ main() {
 
     statusbar right &
     while ! ps -A | grep dzen2; do
-        sleep 0.1
+        sleep 1
     done
-    sleep 3
+    sleep 5
 
     trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
 
