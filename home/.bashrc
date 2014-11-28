@@ -151,7 +151,7 @@ alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
 m() {
-    mutt "$(mates mutt-query | unti_selecta -s "$1")"
+    mutt "$(mates mutt-query | selecta)"
 }
 
 # PACMAN
