@@ -27,7 +27,7 @@ shopt -s autocd
 export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;31'
+alias grep="grep --color=auto"
 
 # kivy and python for android
 export ANDROIDSDK=/opt/android-sdk/
