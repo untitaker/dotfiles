@@ -159,3 +159,11 @@ alias p='yaourt'
 alias p-clean='p -Rs $(p -Qdtq)'
 alias p-update='p -Syu --devel --aur'
 
+
+# FUZZY FINDER
+
+function insert-selecta-path-in-command-line() {
+    READLINE_LINE+=$(find * -type f | selecta)
+}
+
+bind -x '"\C-s":"insert-selecta-path-in-command-line"'
