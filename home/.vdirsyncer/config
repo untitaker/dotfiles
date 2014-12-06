@@ -5,7 +5,7 @@ status_path=~/.vdirsyncer/status/
 conflict_resolution = b wins
 a = radicale_local
 b = radicale_remote
-collections = from a
+collections = ["from a"]
 
 [storage radicale_local]
 type = filesystem
@@ -16,7 +16,7 @@ fileext = .ics
 type = caldav
 url = https://home.unterwaditzer.net/radicale/untitaker/
 username = untitaker
-item_types =
+item_types = []
 
 [pair radicale_contacts]
 conflict_resolution = b wins
