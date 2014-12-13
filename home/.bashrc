@@ -147,6 +147,10 @@ source ~/.homesick/repos/homeshick/homeshick.sh
 
 alias clipboard='xclip -selection clipboard'
 
+alias p='yaourt'
+alias p-clean='p -Rs $(p -Qdtq)'
+alias p-update='p -Syu --devel --aur'
+
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
@@ -154,10 +158,7 @@ m() {
     mutt "$(mates mutt-query | selecta)"
 }
 
-# PACMAN
-alias p='yaourt'
-alias p-clean='p -Rs $(p -Qdtq)'
-alias p-update='p -Syu --devel --aur'
+
 
 
 # FUZZY FINDER
