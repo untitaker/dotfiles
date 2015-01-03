@@ -27,11 +27,11 @@
     sub = submodule
     cd = checkout
     b = branch
-    c = commit
+    c = commit -v
     lg = log
-    ca = commit -a
-    cm = commit -m
-    cam = commit -a -m
+    ca = commit -va
+    cm = commit -vm
+    cam = commit -vam
     bump = !"git checkout $1;git rebase master"
     # rebase all the branches
     mbump = !git_mbump
