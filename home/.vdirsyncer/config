@@ -1,34 +1,34 @@
 [general]
 status_path=~/.vdirsyncer/status/
 
-[pair radicale]
+[pair calendars]
 conflict_resolution = b wins
-a = radicale_local
-b = radicale_remote
+a = calendars_local
+b = calendars_remote
 collections = ["from a"]
 
-[storage radicale_local]
+[storage calendars_local]
 type = filesystem
 path = ~/.calendars/
 fileext = .ics
 
-[storage radicale_remote]
+[storage calendars_remote]
 type = caldav
-url = https://home.unterwaditzer.net/radicale/untitaker/
+url = https://home.unterwaditzer.net/baikal/cal.php/
 username = untitaker
 item_types = []
 
-[pair radicale_contacts]
+[pair contacts]
 conflict_resolution = b wins
-a = radicale_contacts_local
-b = radicale_contacts_remote
+a = contacts_local
+b = contacts_remote
 
-[storage radicale_contacts_local]
+[storage contacts_local]
 type = filesystem
 path = ~/.contacts/
 fileext = .vcf
 
-[storage radicale_contacts_remote]
+[storage contacts_remote]
 type = carddav
-url = https://home.unterwaditzer.net/radicale/untitaker/contacts.vcf/
+url = https://home.unterwaditzer.net/baikal/card.php/addressbooks/untitaker/default/
 username = untitaker
