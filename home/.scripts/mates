@@ -4,6 +4,9 @@ USAGE_HELP="Usage: $0 COMMAND
 Commands:
     index:      Rewrite/create the index.
     mutt-query: Execute a mutt query.
+    add:        Take mail from stdin, add sender to contacts. Print filename.
+    add-edit:   Same as add, but open file in $EDITOR afterwards. If the file
+                is cleared, the contact is removed.
 
 Environment variables:
     MATES_DIR: Path to vdir collection.
@@ -28,6 +31,8 @@ main() {
     case "$cmd" in
         index)       command_index ;;
         mutt-query)  command_mutt_query "$@" ;;
+        add)         command_add "$@" ;;
+        add-edit)    command_add_edit "$@" ;;
         *)           command_help ;;
     esac
 }
@@ -44,6 +49,39 @@ get_index() {
 
 command_index() {
     get_index > "$MATES_INDEX"
+}
+
+
+command_add() {
+    local header="$($MATES_GREP "^From:" | sed -e 's/^From: //')"
+    local email="$(echo "$header" | sed -e 's/[^<]*<\(.*\)>/\1/')"
+    local name="$(echo "$header" | sed -e 's/ *<[^>]*> *//')"
+
+    while [ -z "$uid" ] || [ -f "$filename" ]; do
+        local uid="$(uuidgen)"
+        local filename="$MATES_DIR/${uid}.vcf"
+        local tmpname="$MATES_DIR/${uid}.tmp"
+    done
+
+    echo "BEGIN:VCARD
+VERSION:3.0
+FN:$name
+EMAIL:$email
+UID:$uid
+END:VCARD" > "$tmpname"
+    mv -n "$tmpname" "$filename"
+    echo "$filename"
+}
+
+
+command_add_edit() {
+    local filename="$(command_add)"
+    # http://unix.stackexchange.com/a/77593
+    sh -c '$EDITOR -- "$@" <$0' /dev/tty "$filename"
+    if [ -z "$(cat $filename)" ]; then
+        rm $filename
+        err "Contact not saved."
+    fi
 }
 
 

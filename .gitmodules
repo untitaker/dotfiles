@@ -58,3 +58,6 @@
 [submodule "home/.scripts/selecta"]
 	path = home/.scripts/selecta
 	url = https://github.com/garybernhardt/selecta.git
+[submodule "home/.vim/bundle/vim-icalendar"]
+	path = home/.vim/bundle/vim-icalendar
+	url = https://github.com/vim-scripts/icalendar.vim
