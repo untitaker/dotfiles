@@ -5,7 +5,7 @@ Commands:
     index:      Rewrite/create the index.
     mutt-query: Execute a mutt query.
     add:        Take mail from stdin, add sender to contacts. Print filename.
-    add-edit:   Same as add, but open file in $EDITOR afterwards. If the file
+    add-edit:   Same as add, but open file in \$EDITOR afterwards. If the file
                 is cleared, the contact is removed.
 
 Environment variables:
