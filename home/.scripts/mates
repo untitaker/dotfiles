@@ -52,7 +52,7 @@ command_index() {
 }
 
 
-command_add() {
+add_contact() {
     local header="$($MATES_GREP "^From:" | sed -e 's/^From: //')"
     local email="$(echo "$header" | sed -e 's/[^<]*<\(.*\)>/\1/')"
     local name="$(echo "$header" | sed -e 's/ *<[^>]*> *//')"
@@ -74,13 +74,21 @@ END:VCARD" > "$tmpname"
 }
 
 
+command_add() {
+    add_contact
+    command_index
+}
+
+
 command_add_edit() {
-    local filename="$(command_add)"
+    local filename="$(add_contact)"
     # http://unix.stackexchange.com/a/77593
     sh -c '$EDITOR -- "$@" <$0' /dev/tty "$filename"
     if [ -z "$(cat $filename)" ]; then
         rm $filename
         err "Contact not saved."
+    else
+        command_index
     fi
 }
 
