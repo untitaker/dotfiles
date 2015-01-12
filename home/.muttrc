@@ -35,7 +35,7 @@ bind editor <Tab> complete-query
 bind editor ^T complete
 set query_command= "mates mutt-query '%s'"
 
-macro index,pager A "<pipe-message>mates add-edit<enter>" "add the sender address"
+macro index,pager A "<pipe-message>mates add | xargs mates edit<enter>" "add the sender address"
 auto_view text/html
 alternative_order text/plain text/html text/enriched
 

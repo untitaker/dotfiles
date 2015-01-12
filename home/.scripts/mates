@@ -2,16 +2,23 @@
 
 USAGE_HELP="Usage: $0 COMMAND
 Commands:
-    index:      Rewrite/create the index.
-    mutt-query: Execute a mutt query.
-    add:        Take mail from stdin, add sender to contacts. Print filename.
-    add-edit:   Same as add, but open file in \$EDITOR afterwards. If the file
-                is cleared, the contact is removed.
+    index:
+        Rewrite/create the index.
+    mutt-query <query>:
+        Search for contact, output is usable for mutt's query_command.
+    file-query <query>:
+        Search for contact, return just the filename.
+    add:
+        Take mail from stdin, add sender to contacts. Print filename.
+    edit <file-or-query>:
+        Open contact (given by filepath or search-string) in \$MATES_EDITOR. If
+        the file is cleared, the contact is removed.
 
 Environment variables:
     MATES_DIR: Path to vdir collection.
     MATES_INDEX: Path to index file.
-    MATES_GREP: Optional, grep binary to use."
+    MATES_GREP: Optional, grep binary to use.
+    MATES_EDITOR: The editor to use. Default to \$EDITOR."
 
 
 err() {
@@ -22,17 +29,21 @@ err() {
 
 
 main() {
-    [ -n "$MATES_DIR" ] || err "You need to set MATES_DIR"
-    [ -n "$MATES_INDEX" ] || err "You need to set MATES_INDEX"
+    [ -n "$MATES_DIR" ] || err "You need to set \$MATES_DIR"
+    [ -n "$MATES_INDEX" ] || err "You need to set \$MATES_INDEX"
     [ -n "$MATES_GREP" ] || MATES_GREP='grep -i'
+    [ -n "$MATES_EDITOR" ] || MATES_EDITOR="$EDITOR"
+    [ -n "$MATES_EDITOR" ] || err "You need to set either \$MATES_EDITOR or \$EDITOR."
+
     cmd="$1"
     shift
 
     case "$cmd" in
         index)       command_index ;;
         mutt-query)  command_mutt_query "$@" ;;
+        file-query)  command_file_query "$@" ;;
         add)         command_add "$@" ;;
-        add-edit)    command_add_edit "$@" ;;
+        edit)        command_edit "$@" ;;
         *)           command_help ;;
     esac
 }
@@ -42,15 +53,14 @@ get_index() {
         local name="$($MATES_GREP '^FN:' "$fname" | cut -d ':' -f '2-' | head -1)"
         local emails="$($MATES_GREP '^EMAIL' "$fname" | cut -d ':' -f '2-')"
         for email in $emails; do
-            printf "%s <%s>\n" "$name" "$email"
+            printf "%s\t%s\t%s\n" "$email" "$name" "$fname"
         done
-    done
+    done | sed -e 's/\r//g'
 }
 
 command_index() {
     get_index > "$MATES_INDEX"
 }
-
 
 add_contact() {
     local header="$($MATES_GREP "^From:" | sed -e 's/^From: //')"
@@ -80,13 +90,21 @@ command_add() {
 }
 
 
-command_add_edit() {
-    local filename="$(add_contact)"
-    # http://unix.stackexchange.com/a/77593
-    sh -c '$EDITOR -- "$@" <$0' /dev/tty "$filename"
-    if [ -z "$(cat $filename)" ]; then
-        rm $filename
-        err "Contact not saved."
+command_edit() {
+    local filename="$1"
+    if [ ! -f "$filename" ]; then
+        filename="$(command_file_query "$filename")"
+        echo "$filename"
+        if [ "$(echo "$filename" | wc -l)" != "1" ]; then
+            err "Ambiguous query."
+        fi
+    fi
+    # clear stdin, http://unix.stackexchange.com/a/77593
+    sh -c '$0 -- "$1" <$2' "$MATES_EDITOR" "$filename" /dev/tty
+
+    if [ -z "$(cat "$filename")" ]; then
+        rm "$filename"
+        err "Contact empty, removed."
     else
         command_index
     fi
@@ -94,12 +112,15 @@ command_add_edit() {
 
 
 command_mutt_query() {
-    if [ -z "$1" ]; then
-        cat "$MATES_INDEX"
-    else
-        $MATES_GREP "$1" "$MATES_INDEX"
-    fi
+    echo
+    $MATES_GREP "$1" "$MATES_INDEX" | cut -f '-2'
 }
+
+
+command_file_query() {
+    $MATES_GREP "$1" "$MATES_INDEX" | cut -f '3-'
+}
+
 
 command_help() {
     err "$USAGE_HELP"

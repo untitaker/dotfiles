@@ -154,12 +154,6 @@ alias p-update='p -Syu --devel --aur'
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
-m() {
-    mutt "$(mates mutt-query | selecta)"
-}
-
-
-
 
 # FUZZY FINDER
 
