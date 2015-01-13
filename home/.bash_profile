@@ -3,7 +3,7 @@ if [ -f "$arch_gitcomplete" ]; then
     source "$arch_gitcomplete"
 fi
 
-export PATH=$PATH:~/.scripts:/sbin:/usr/sbin:~/.local/bin:~/bin
+export PATH=$PATH:/sbin:/usr/sbin
 
 for path in ~/.scripts/*/; do
     PATH=$path:$PATH
@@ -13,7 +13,7 @@ for path in ~/.gem/ruby/*/bin/; do
     PATH=$PATH:$path
 done
 
-PATH=$PATH:~/.cabal/bin/
+PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:$PATH
 
 if [[ $- == *i* ]]; then
     # i want to use ctrl-s
