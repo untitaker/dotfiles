@@ -150,6 +150,7 @@ alias clipboard='xclip -selection clipboard'
 alias p='yaourt'
 alias p-clean='p -Rs $(p -Qdtq)'
 alias p-update='p -Syu --devel --aur'
+alias feh='feh --scale-down'
 
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
