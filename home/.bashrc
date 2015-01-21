@@ -163,7 +163,7 @@ m() {
 # FUZZY FINDER
 
 function insert_selecta_path_in_command_line() {
-    READLINE_LINE+=$(find * -type f | selecta)
+    READLINE_LINE+=$(find . -type f | selecta)
 }
 
 bind -x '"\C-s":"insert_selecta_path_in_command_line"'
