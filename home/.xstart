@@ -21,10 +21,7 @@ main() {
     source ~/.xstart_$(hostname)
 
     statusbar right &
-    while ! ps -A | grep dzen2; do
-        sleep 1
-    done
-    sleep 5
+    sleep 3
 
     trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
 
