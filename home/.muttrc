@@ -41,7 +41,11 @@ alternative_order text/plain text/html text/enriched
 
 # sidebar
 set sidebar_visible = yes
-set sidebar_width = 24
+set sidebar_width = 25
+set sidebar_shortpath = yes
+set sidebar_format = "%B%> !%F *%N .%S"
+macro index,pager y "<enter-command>toggle sidebar_visible<enter><refresh>"
+color sidebar_new yellow default
 bind index,pager <right> sidebar-open
 bind index,pager <down> sidebar-next
 bind index,pager <up> sidebar-prev
