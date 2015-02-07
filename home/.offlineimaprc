@@ -1,5 +1,6 @@
 [general]
 accounts = uberspace-markus
+sockettimeout = 20
 
 # Multithreaded
 maxsyncaccounts = 3
