@@ -10,9 +10,6 @@
 [submodule "home/.vim/bundle/nerdcommenter"]
 	path = home/.vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "home/.vim/bundle/pythoncomplete"]
-	path = home/.vim/bundle/pythoncomplete
-	url = git://github.com/vim-scripts/pythoncomplete.git
 [submodule "home/.vim/bundle/vim-easymotion"]
 	path = home/.vim/bundle/vim-easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
@@ -28,9 +25,6 @@
 [submodule "home/.vim/bundle/jedi-vim"]
 	path = home/.vim/bundle/jedi-vim
 	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "home/.vim/bundle/javacomplete"]
-	path = home/.vim/bundle/javacomplete
-	url = git://github.com/vim-scripts/javacomplete.git
 [submodule "home/.vim/bundle/todo.txt"]
 	path = home/.vim/bundle/todo.txt
 	url = git://github.com/freitass/todo.txt-vim.git
