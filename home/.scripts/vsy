@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while true; do
+    vdirsyncer sync --max-workers=2
+    echo "Exited with $?"
+    sleep 1300
+done
