@@ -5,7 +5,7 @@ status_path=~/.vdirsyncer/status/
 conflict_resolution = b wins
 a = calendars_local
 b = calendars_remote
-collections = ["from a"]
+collections = ["computers", "default", "holidays", "holidays-auto", "lessons-auto", "media", "school"]
 
 [storage calendars_local]
 type = filesystem
