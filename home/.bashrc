@@ -156,14 +156,13 @@ alias xtr=extract
 which hub &> /dev/null && alias git=hub
 
 m() {
-    mutt "$(MATES_GREP='fzf -q' mates email-query)"
+    email="$(MATES_GREP='fzf -q' mates email-query "$1")" && mutt "$email"
 }
-
 
 # FUZZY FINDER
 
-function insert_selecta_path_in_command_line() {
+function fuzzy_path_completion() {
     READLINE_LINE+=$(fzf)
 }
 
-bind -x '"\C-s":"insert_selecta_path_in_command_line"'
+bind -x '"\C-s":"fuzzy_path_completion"'
