@@ -6,7 +6,7 @@ set_escape_key() {
 main() {
     echo "Starting new session..."
     xrdb -merge ~/.dotfiledata/base16_xresources/base16-tomorrow.dark.xresources
-    source /etc/X11/xinit/xinitrc.d/30-dbus
+    source /etc/X11/xinit/xinitrc.d/30-dbus.sh
     source ~/.bash_profile
 
     # Start the GnuPG agent and enable OpenSSH agent emulation
