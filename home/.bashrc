@@ -52,8 +52,8 @@ _va () {
     local cur=${COMP_WORDS[COMP_CWORD]}
 
     COMPREPLY=($(compgen -W "$(
-        for suggestion in $(find -L "$PROJ_HOME" "$WORKON_HOME" -maxdepth 1 -mindepth 1 -type d); do
-            echo "$(basename "$suggestion")"
+        find -L "$PROJ_HOME" "$WORKON_HOME" -maxdepth 1 -mindepth 1 -type d | while read f; do
+            basename "$f"
         done
     )" -- "$cur"))
 }
@@ -162,7 +162,9 @@ m() {
 # FUZZY FINDER
 
 function fuzzy_path_completion() {
-    READLINE_LINE+=$(fzf)
+    local append="$(fzf)"
+    append="$(printf '%q' "$append")"  # escape string for shell
+    READLINE_LINE+="$append"
 }
 
 bind -x '"\C-s":"fuzzy_path_completion"'
