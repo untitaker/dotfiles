@@ -2,7 +2,6 @@
     email = markus@unterwaditzer.net
     name = Markus Unterwaditzer
 [core]
-    editor = $EDITOR
     attributesfile = ~/.gitattributes
 [color]
     ui = true
