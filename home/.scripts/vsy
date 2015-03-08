@@ -1,7 +1,21 @@
 #!/bin/sh
+set -e
 
-while true; do
-    vdirsyncer sync --max-workers=2
-    echo "Exited with $?"
-    sleep 1300
+watch() {
+    local path="$1"
+    local collection="$(echo $path | sed -e 's/\/home\/untitaker\/\.//')"
+    echo "Watching $collection"
+    while inotifywait -rq -e create -e delete -t 1200 "$path"; do
+        sleep 0.1
+        if vdirsyncer sync "$collection"; then
+            echo "$collection finished"
+        else
+            printf "%s%s finished with %s%s" "$C_RED" "$collection" "$?" "$C_RESET"
+        fi
+    done
+}
+
+for dir in ~/.calendars/* ~/.contacts; do
+    watch "$dir" &
 done
+wait
