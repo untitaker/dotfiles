@@ -1,21 +1,43 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-watch() {
+_inotifywait() {
     local path="$1"
-    local collection="$(echo $path | sed -e 's/\/home\/untitaker\/\.//')"
-    echo "Watching $collection"
-    while inotifywait -rq -e create -e delete -t 1200 "$path"; do
-        sleep 0.1
-        if vdirsyncer sync "$collection"; then
-            echo "$collection finished"
-        else
-            printf "%s%s finished with %s%s" "$C_RED" "$collection" "$?" "$C_RESET"
-        fi
-    done
+    echo "Watching $path"
+    inotifywait -rq -e create -e delete -e move -t 1200 --include='.(vcf|ics)$' $path || \
+        [ "$?" == "2" ]  # exit 2 is for timeouts
 }
 
-for dir in ~/.calendars/* ~/.contacts; do
-    watch "$dir" &
-done
-wait
+_path2collection() {
+    echo "${1//\/home\/untitaker\/\./}"
+}
+
+_sync() {
+    local path="$1"
+    local collection="$(_path2collection "$path")"
+    vdirsyncer sync "$collection" || \
+        echo -e "$C_RED\"sync $@\" finished with ${?}$C_RESET"
+    cd "$path"
+    git init -q
+    git add -A
+    git commit -m "$(date)"
+}
+
+_watch() {
+    local path="$1"
+    while _inotifywait "$path"; do
+        sleep 0.1
+        _sync "$path"
+    done
+    echo -e "${C_RED}Error happened.$C_RESET"
+}
+
+main() {
+    trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
+    for dir in ~/.calendars/* ~/.contacts; do
+        _watch "$dir" &
+    done
+    wait
+}
+
+main "$@"
