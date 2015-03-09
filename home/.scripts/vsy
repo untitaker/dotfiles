@@ -4,7 +4,7 @@ set -e
 _inotifywait() {
     local path="$1"
     echo "Watching $path"
-    inotifywait -rq -e create -e delete -e move -t 1200 --include='.(vcf|ics)$' $path || \
+    inotifywait -rq -e create -e delete -e move -t 1200 --include='.(vcf|ics)$' "$path" || \
         [ "$?" == "2" ]  # exit 2 is for timeouts
 }
 
@@ -15,19 +15,23 @@ _path2collection() {
 _sync() {
     local path="$1"
     local collection="$(_path2collection "$path")"
-    vdirsyncer sync "$collection" || \
-        echo -e "$C_RED\"sync $@\" finished with ${?}$C_RESET"
+    local logtmp="/tmp/${RANDOM}.tmp"
+    (vdirsyncer sync "$collection" 2>&1 | tee "$logtmp") || \
+        echo -e "$C_RED\"sync $collection\" finished with ${?}$C_RESET"
     cd "$path"
     git init -q
-    git add -A
-    git commit -m "$(date)"
+    if ! git diff-index --quiet HEAD; then
+        git commit --allow-empty -m "$(cat $logtmp)"
+    fi
+    rm "$logtmp"
 }
 
 _watch() {
     local path="$1"
-    while _inotifywait "$path"; do
-        sleep 0.1
+    while true; do
         _sync "$path"
+        _inotifywait "$path"
+        sleep 0.1
     done
     echo -e "${C_RED}Error happened.$C_RESET"
 }
