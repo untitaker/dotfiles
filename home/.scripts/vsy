@@ -21,6 +21,7 @@ _sync() {
     cd "$path"
     git init -q
     if ! git diff-index --quiet HEAD; then
+        git add -A
         git commit --allow-empty -m "$(cat $logtmp)"
     fi
     rm "$logtmp"
