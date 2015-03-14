@@ -36,6 +36,7 @@ export ANDROIDNDK=/opt/android-ndk/
 # mates
 export MATES_DIR=~/.contacts/
 export MATES_INDEX=~/.mates_index
+which vedit &> /dev/null && export MATES_EDITOR=vedit || true
 
 export PROJ_HOME=$HOME/projects/
 _proj() {
