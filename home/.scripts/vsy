@@ -20,11 +20,16 @@ _sync() {
         echo -e "$C_RED\"sync $collection\" finished with ${?}$C_RESET"
     cd "$path"
     git init -q
-    if ! git diff-index --quiet HEAD; then
+    if _is_dirty; then
         git add -A
         git commit --allow-empty -m "$(cat $logtmp)"
     fi
     rm "$logtmp"
+}
+
+_is_dirty() {
+    (! git diff-index --quiet HEAD) ||
+        [[ $(git status --porcelain | tail -n1) != "" ]]
 }
 
 _watch() {
