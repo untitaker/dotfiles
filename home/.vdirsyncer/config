@@ -1,5 +1,6 @@
 [general]
 status_path=~/.vdirsyncer/status/
+password_command = vdirsyncer-password
 
 [pair calendars]
 conflict_resolution = b wins
@@ -15,6 +16,7 @@ fileext = .ics
 [storage calendars_remote]
 type = caldav
 url = https://home.unterwaditzer.net/baikal/cal.php/
+verify_fingerprint = BB:BC:34:04:BB:BF:15:E5:90:2E:31:38:62:3C:02:7B:D1:99:06:82
 username = untitaker
 item_types = []
 
@@ -31,4 +33,5 @@ fileext = .vcf
 [storage contacts_remote]
 type = carddav
 url = https://home.unterwaditzer.net/baikal/card.php/addressbooks/untitaker/default/
+verify_fingerprint = BB:BC:34:04:BB:BF:15:E5:90:2E:31:38:62:3C:02:7B:D1:99:06:82
 username = untitaker
