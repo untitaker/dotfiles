@@ -31,6 +31,12 @@ def get_wallpaper_url():
                 site = newspaper.Article(url)
                 site.download()
                 site.parse()
+
+                # Use better image detector -- don't use first one, but largest
+                # one.
+                site.top_img = None
+                site.set_reddit_top_img()
+
                 url = site.top_image
             return url
 
