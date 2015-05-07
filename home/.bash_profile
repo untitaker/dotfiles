@@ -3,6 +3,9 @@ if [ -f "$arch_gitcomplete" ]; then
     source "$arch_gitcomplete"
 fi
 
+# Start the GnuPG agent and enable OpenSSH agent emulation
+eval $(keychain --eval --noask -q -Q --agents gpg,ssh ~/.ssh/id_)
+
 export PATH=$PATH:/sbin:/usr/sbin
 
 for path in ~/.scripts/*/; do
