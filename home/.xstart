@@ -10,7 +10,7 @@ main() {
     source ~/.bash_profile
 
     # Start the GnuPG agent and enable OpenSSH agent emulation
-    eval $(keychain --eval -Q ~/.ssh/id_*)
+    eval $(keychain --eval --noask -Q --agents gpg,ssh ~/.ssh/id_)
 
     twmnd &
 

@@ -169,3 +169,5 @@ function fuzzy_path_completion() {
 }
 
 bind -x '"\C-s":"fuzzy_path_completion"'
+
+export FZF_TMUX=0
