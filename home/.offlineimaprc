@@ -1,6 +1,7 @@
 [general]
 accounts = uberspace-markus
 sockettimeout = 20
+pythonfile=~/.offlineimap.py
 
 # Multithreaded
 maxsyncaccounts = 3
@@ -22,7 +23,8 @@ type = IMAP
 ssl = yes
 cert_fingerprint = 6ca13aeb00dcdff4b265cf314915ef854d5e4fde
 remotehost = draco.uberspace.de
-remoteuser = unti-markus
+remoteusereval = get_imap_user()
+remotepasseval = get_imap_password()
 idlefolders = ['INBOX']
 
 maxconnections = 3
