@@ -22,7 +22,7 @@ _sync() {
     git init -q
     if _is_dirty; then
         git add -A
-        git commit --allow-empty -m "$(cat $logtmp)"
+        git commit --allow-empty -m "$(date; echo; cat $logtmp)"
     fi
     rm "$logtmp"
 }
