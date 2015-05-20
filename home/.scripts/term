@@ -1,7 +1,12 @@
 #!/bin/sh
-cmd=""
-[ "$DISPLAY" != "" ] && cmd="urxvt -e"
-$cmd sh -c "tmux -q has-session && tmux attach-session -d || tmux new-session -n$USER -s$USER@$HOSTNAME"
-if [ ! -z "$1" ]; then
-    tmux neww "$1"
+
+[ "$DISPLAY" != "" ] && vte="urxvt -e" || vte=""
+[ ! -z "$1" ] && neww="\\; neww '$1'" || neww=""
+
+$vte sh -c "
+if tmux -q has-session; then
+    tmux attach-session -d $neww
+else
+    tmux new-session -n$USER -s$USER@$HOSTNAME $neww
 fi
+"
