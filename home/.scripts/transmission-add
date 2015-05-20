@@ -1,0 +1,11 @@
+#!/bin/sh
+zenity --question --text "Do you want to add this torrent?"
+[ "$?" == 0 ] || exit 1
+
+user="untitaker"
+passwd="$(pass www/home.unterwaditzer.net | head -1)"
+
+TRANSMISSION_RESPONSE=$(transmission-remote https://home.unterwaditzer.net/transmission -n $user:$passwd -a "$1")
+if [ "$?" == 0 ]; then notify-send "Added torrent!"
+else notify-send "$TRANSMISSION_RESPONSE"
+fi
