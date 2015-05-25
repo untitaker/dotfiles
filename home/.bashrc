@@ -166,6 +166,7 @@ m() {
 
 function fuzzy_path_completion() {
     local append="$(fzf)"
+    [ -z "$append" ] && return
     append="$(printf '%q' "$append")"  # escape string for shell
     READLINE_LINE+="$append"
 }
