@@ -3,10 +3,10 @@
 [ "$DISPLAY" != "" ] && vte="termite -e" || vte=""
 [ ! -z "$1" ] && neww="\\; neww '$1'" || neww=""
 
-$vte sh -c "
+$vte "sh -c '
 if tmux -q has-session; then
     tmux attach-session -d $neww
 else
     tmux new-session -n$USER -s$USER@$HOSTNAME $neww
 fi
-"
+'"
