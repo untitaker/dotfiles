@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$DISPLAY" != "" ] && vte="urxvt -e" || vte=""
+[ "$DISPLAY" != "" ] && vte="termite -e" || vte=""
 [ ! -z "$1" ] && neww="\\; neww '$1'" || neww=""
 
 $vte sh -c "
