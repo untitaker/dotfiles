@@ -105,7 +105,7 @@ color quoted4       color166        color0
 color signature     color240        color0        
 color bold          color235        color0        
 color underline     color235        color0        
-color normal        color244        color0        
+color normal        white           color0
 #
 color body          color245        color0        "[;:][-o][)/(|]"    # emoticons
 color body          color245        color0        "[;:][)(|]"         # emoticons
