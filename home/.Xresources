@@ -9,23 +9,3 @@ Xcursor.theme: Vanilla-DMZ-AA
 ! dzen2
 dzen2.font: -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
 dzen2.background: #000
-
-! terminal ------------------------------------------------------------
-URxvt.font: xft:Source Code Pro:size=10
-URxvt.boldFont: xft:Source Code Pro:size=10
-URxvt.scrollBar: none
-URxvt.letterSpace: 0
-URxvt.perl-ext-common: default,matcher,url-picker,font-size
-URxvt.keysym.C-y: perl:url-picker
-URxvt.keysym.C-Up: perl:font-size:increase
-URxvt.keysym.C-Down: perl:font-size:decrease
-URxvt.urlLauncher: xdg-open
-URxvt.matcher.button: 1
-! no underlining of links
-urxvt.matcher.rend.0: -Uline
-URxvt.iso14755: False
-
-URxvt.tabbed.tabbar-fg: 4
-URxvt.tabbed.tabbar-bg: 0
-URxvt.tabbed.tab-fg: 15
-URxvt.tabbed.tab-bg: 0
