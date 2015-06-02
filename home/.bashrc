@@ -36,7 +36,12 @@ export ANDROIDNDK=/opt/android-ndk/
 # mates
 export MATES_DIR=~/.contacts/
 export MATES_INDEX=~/.mates_index
+export MATES_GREP='fzf --exit-0 --select-1 -q'
 which vedit &> /dev/null && export MATES_EDITOR=vedit || true
+
+m() {
+    email="$(mates email-query "$1")" && mutt "$email"
+}
 
 export PROJ_HOME=$HOME/projects/
 _proj() {
@@ -154,10 +159,6 @@ alias feh='feh --scale-down'
 
 alias xtr=extract
 which hub &> /dev/null && alias git=hub
-
-m() {
-    email="$(MATES_GREP='fzf -q' mates email-query "$1")" && mutt "$email"
-}
 
 # FUZZY FINDER
 
