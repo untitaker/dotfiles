@@ -48,7 +48,6 @@ alias vd=deactivate
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export WORKON_HOME=$HOME/venvs/
-[ -f /usr/bin/virtualenvwrapper.sh ] && . /usr/bin/virtualenvwrapper.sh
 _va () {
     local cur=${COMP_WORDS[COMP_CWORD]}
 
