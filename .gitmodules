@@ -52,6 +52,3 @@
 [submodule "home/.vim/bundle/rust"]
 	path = home/.vim/bundle/rust
 	url = https://github.com/rust-lang/rust.vim
-[submodule "home/.vim/bundle/racer"]
-	path = home/.vim/bundle/racer
-	url = https://github.com/phildawes/racer.git
