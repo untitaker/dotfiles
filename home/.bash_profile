@@ -1,7 +1,5 @@
-arch_gitcomplete="/usr/share/git/completion/git-completion.bash"
-if [ -f "$arch_gitcomplete" ]; then
-    source "$arch_gitcomplete"
-fi
+source "/usr/share/git/completion/git-completion.bash"
+source "/etc/profile.d/fzf.bash"
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
 eval $(keychain --eval --noask -q -Q --agents gpg,ssh ~/.ssh/id_)
