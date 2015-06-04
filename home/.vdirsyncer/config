@@ -16,7 +16,7 @@ fileext = .ics
 [storage calendars_remote]
 type = caldav
 url = https://home.unterwaditzer.net/baikal/cal.php/
-verify_fingerprint = BB:BC:34:04:BB:BF:15:E5:90:2E:31:38:62:3C:02:7B:D1:99:06:82
+verify_fingerprint = A1:67:18:03:1F:BD:D6:0E:5D:4D:42:67:82:67:A1:67:38:79:67:BB
 username = untitaker
 item_types = []
 
@@ -33,5 +33,5 @@ fileext = .vcf
 [storage contacts_remote]
 type = carddav
 url = https://home.unterwaditzer.net/baikal/card.php/addressbooks/untitaker/default/
-verify_fingerprint = BB:BC:34:04:BB:BF:15:E5:90:2E:31:38:62:3C:02:7B:D1:99:06:82
+verify_fingerprint = A1:67:18:03:1F:BD:D6:0E:5D:4D:42:67:82:67:A1:67:38:79:67:BB
 username = untitaker
