@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ "$DISPLAY" != "" ] && vte="termite -e" || vte=""
+[ "$DISPLAY" != "" ] && vte="termite -e" || vte="sh -c"
 [ ! -z "$1" ] && neww="\\; neww '$1'" || neww=""
 
 $vte "sh -c '
