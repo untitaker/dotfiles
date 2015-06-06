@@ -17,7 +17,8 @@ export C_RED="\e[0;31m"
 export C_GREEN="\e[0;32m"
 export C_YELLOW="\e[0;33m"
 export C_WHITE="\e[0;37m"
-export C_GRAY="\e[1;30m"  # kinda
+#export C_GRAY="\e[1;30m"  # kinda
+export C_GRAY="\e[0;90m"
 
 # CONFIGS
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
@@ -105,8 +106,8 @@ untitaker_vcs() {
         cd "$git_top"
     fi
 
-    local status="$(timeout 5 git status)"
-    [ -z "$status" ] && echo -e "${C_GRAY}, git broke${C_RESET}" && return
+    local status="$(timeout 0.2 git status)"
+    [ -z "$status" ] && echo -e "${C_GRAY}, git timed out${C_RESET}" && return
 
     if echo "$status" | grep -qi 'not staged'; then
         branch_color=${C_RED}
