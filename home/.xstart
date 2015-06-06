@@ -8,9 +8,9 @@ main() {
     source /etc/X11/xinit/xinitrc.d/30-dbus.sh
     source ~/.bash_profile
 
+    sxhkd -f 100 &
     twmnd &
 
-    xbindkeys &
     (set_escape_key && sleep 5 && set_escape_key) &  # help, why does it only work like this
     set_wallpaper &
 

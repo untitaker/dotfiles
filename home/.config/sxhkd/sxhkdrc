@@ -1,0 +1,34 @@
+# random software
+
+super + shift + Return
+    term
+
+super + shift + f
+    pcmanfm
+
+super + shift + b
+    firefox
+
+super + p
+    dmenu_run -nf '#666' -nb '#000' -sf '#000' -sb '#3465A4' -fn Montecarlo:size=8
+
+# volume
+
+super + ctrl + {j, k, space}
+    amixer -q set Master {1-, 1+, toggle}
+
+# mpd
+
+super + ctrl + space
+    mpc toggle
+
+super + ctrl + {h, l}
+    mpc {prev, next, toggle}
+
+super + ctrl + shift + {j, k}
+    mpc volume {-1, +1}
+
+# make sxhkd reload its configuration files
+
+super + q
+    pkill -USR1 -x sxhkd
