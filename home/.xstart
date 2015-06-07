@@ -1,8 +1,4 @@
 #!/bin/bash
-set_escape_key() {
-    xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-}
-
 main() {
     echo "Starting new session..."
     source /etc/X11/xinit/xinitrc.d/30-dbus.sh
@@ -11,7 +7,6 @@ main() {
     sxhkd -f 100 &
     twmnd &
 
-    (set_escape_key && sleep 5 && set_escape_key) &  # help, why does it only work like this
     set_wallpaper &
 
     source ~/.xstart_$(hostname)
