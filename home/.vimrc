@@ -12,6 +12,7 @@ command Q q!
 nmap ; :
 nmap QQ :q!<enter>
 nmap qq :q<enter>
+vnoremap // y/<C-R>"<CR>
 
 " set default encoding
 set encoding=utf-8
