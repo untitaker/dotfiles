@@ -19,7 +19,7 @@ super + ctrl + {j, k, space}
 
 # mpd
 
-super + ctrl + space
+super + ctrl + shift + space
     mpc toggle
 
 super + ctrl + {h, l}
