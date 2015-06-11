@@ -130,13 +130,35 @@ untitaker_vcs() {
     echo -e "${C_GRAY},$current_branch${C_RESET}"
 }
 
+satinized_env() {
+    env | grep -vE '(PATH|VIRTUAL_ENV|PWD)'
+}
+
+envdiff() {
+    cur_env="$(satinized_env)"
+    if [ "$ORIG_ENV" != "$cur_env" ]; then
+        diff \
+            --changed-group-format='%>' --unchanged-group-format='' \
+            <(echo "$ORIG_ENV") <(echo "$cur_env")
+    fi
+}
+
+untitaker_envdiff() {
+    changes="$(envdiff)"
+
+    if [ ! -z "$changes" ]; then
+        echo -e "$C_GRAY, ${C_YELLOW}dirty env$C_RESET"
+    fi
+}
+
+
 untitaker_exitcode() {
     code=$?
     [ $code != 0 ] && echo -e "${C_GRAY}, ${C_RED}exit $code${C_RESET}"
 }
 
 PS1="\n\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
-PS1+='`untitaker_exitcode``untitaker_venv``untitaker_vcs`'
+PS1+='`untitaker_exitcode``untitaker_envdiff``untitaker_venv``untitaker_vcs`'
 PS1+="\n\[${C_GRAY}\]\$\[${C_RESET}\] "
 export PS1
 
@@ -173,3 +195,4 @@ function fuzzy_path_completion() {
 bind -x '"\C-s":"fuzzy_path_completion"'
 
 export FZF_TMUX=0
+ORIG_ENV="$(satinized_env)"
