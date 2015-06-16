@@ -21,5 +21,6 @@ if [[ $- == *i* ]]; then
     stty -ixon
 fi
 
-source ~/.bashrc
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+source ~/.bashrc
