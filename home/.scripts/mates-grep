@@ -1,0 +1,7 @@
+#!/bin/sh
+exec fzf \
+    --exit-0 \
+    --select-1 \
+    --with-nth=1,2 \
+    -d $'\t' \
+    -q "$@"
