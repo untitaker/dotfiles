@@ -165,8 +165,7 @@ xmonad $ ewmh defaultConfig {
           borderWidth        = 1,
 
         -- chromebooks don't have a windows key
-          modMask            = (if host == "chromebot" then controlMask .|. mod1Mask
-                                else mod4Mask),
+          modMask            = mod4Mask,
 
   -- The default number of workspaces (virtual screens) and their names.
   -- By default we use numeric strings, but any string may be used as a

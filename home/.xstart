@@ -5,6 +5,7 @@ main() {
     source ~/.bash_profile
 
     sxhkd -f 100 &
+    xmodmap -e 'add Mod4 = Caps_Lock'
     twmnd &
 
     set_wallpaper &
