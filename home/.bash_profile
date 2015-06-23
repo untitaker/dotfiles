@@ -2,7 +2,9 @@ source "/usr/share/git/completion/git-completion.bash"
 source "/etc/profile.d/fzf.bash"
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
-eval $(keychain --eval --noask -q -Q --agents gpg,ssh ~/.ssh/id_)
+if which keychain &> /dev/null; then
+    eval $(keychain --eval --noask -q -Q --agents gpg,ssh ~/.ssh/id_)
+fi
 
 export PATH=$PATH:/sbin:/usr/sbin
 
