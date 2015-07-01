@@ -49,3 +49,6 @@
 [submodule "home/.vim/bundle/rust"]
 	path = home/.vim/bundle/rust
 	url = https://github.com/rust-lang/rust.vim
+[submodule "dwm"]
+	path = dwm
+	url = http://git.suckless.org/dwm

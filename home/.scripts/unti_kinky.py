@@ -6,22 +6,27 @@ import os
 sys.path.append('/home/untitaker/projects/kinky')
 from kinky import Item, StatusBar, shell, is_running
 
-title_color = '#666'
-separator_color = '#333'
-blue_color = '#3465A4'
+normal_color = '\x01'
+selected_color = '\x02'
+urgent_color = '\x03'
+urgent2_color = '\x04'
+grey_color = '\x05'
+
+#normal_color = selected_color = urgent_color = urgent2_color = grey_color = ''
 
 bar = StatusBar()
-bar.between = '^fg({sep}) | ^fg()'.format(sep=separator_color)
-bar.error_value = '^fg(#FF0000)broken^fg()'
+bar.between = ' {}| {}'.format(grey_color, normal_color)
+bar.error_value = '{}broken{}'.format(urgent_color, normal_color)
 
 
 class DatetimeItem(Item):
     def run(self):
         while True:
             self.text = datetime.datetime.now().strftime(
-                '%H^fg({sep}):^fg()%M{between}%Y^fg({sep})/'
-                '^fg()%m^fg({sep})/^fg()%d'
-                .format(sep=separator_color, between=self.bar.between)
+                '%H {g}: {n}%M{between}'
+                '%Y {g}/ {n}%m {g}/ {n}%d'
+                .format(g=grey_color, between=self.bar.between,
+                        n=normal_color)
             )
             time.sleep(30)
 
@@ -35,13 +40,10 @@ class VolumeItem(Item):
                 continue
             vol = state[3].replace('[', '').replace(']', '')
             mute = state[5]
-            text = '^fg({title})VOL: '.format(title=title_color)
-            text += (
-                '^fg(#FF0000)'
-                if mute == '[off]' else
-                '^fg({blu})'.format(blu=blue_color)
-            )
-            text += vol + '^fg()'
+            text = 'VOL: '
+            if mute == '[off]':
+                text += urgent_color
+            text += vol
             self.text = text
             time.sleep(.5)
 
@@ -50,9 +52,8 @@ class MpdItem(Item):
     def run(self):
         while True:
             if is_running('ncmpcpp'):
-                self.text = '^fg({title})MPD: ^fg({blu}){song}^fg()'.format(
-                    title=title_color,
-                    blu=blue_color,
+                self.text = 'MPD: {select}{song}'.format(
+                    select=selected_color,
                     song=shell('mpc | head -1 | cut -c-50')
                 )
             else:
@@ -74,18 +75,16 @@ class MaildirItem(Item):
 
         self._prev_new = new
         return (
-            '^fg(#FF0000){new}^fg()'if new
-            else '{read}' if read
-            else '^fg({title}){read}^fg({title})'
-        ).format(new=new, read=read, title='{title}')
+            '{urgent}{new}' if new
+            else '{read}'
+        ).format(urgent=urgent_color, normal=normal_color, new=new, read=read)
 
     def _send_notification(self, amount):
         shell('notify-send "You have {} new mails!"'.format(amount))
 
     def run(self):
         while True:
-            self.text = ('^fg({title})MAIL: ^fg()' + self._mail_status()) \
-                .format(title=title_color)
+            self.text = ('MAIL: ' + self._mail_status())
             shell('inotifywait -t 5 -r ' + self.maildir + ' &> /dev/null')
 
 
@@ -97,10 +96,7 @@ class CputempItem(Item):
                 if line.startswith('Core ')
             ]
             core_temps = [
-                '^fg({title}){temp}^fg()'.format(
-                    temp=float(core.split()[2].replace('°C', '')),
-                    title=title_color
-                )
+                repr(float(core.split()[2].replace('°C', '')))
                 for core in cores
             ]
             self.text = self.bar.between.join(core_temps)

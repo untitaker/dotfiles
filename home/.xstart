@@ -9,13 +9,19 @@ main() {
     twmnd &
 
     set_wallpaper &
+    statusbar &
 
     source ~/.xstart_$(hostname)
 
-    statusbar right &
-    sleep 3
+   # XXX
+    #trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
 
-    trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
-
-    xmonad # if xmonad exits, everything will be killed
+    while true; do
+        if dwm; then
+            break
+        else
+            cd ~/.homesick/repos/dotfiles/
+            make dwm
+        fi
+    done
 }
