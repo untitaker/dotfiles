@@ -15,7 +15,7 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 // for dwm-statuscolors patch
-#define NUMCOLORS         5
+#define NUMCOLORS         6
 static const char colors[NUMCOLORS][3][8] = {
   // border   foreground background
   { "#333333", "#ffffff", "#000000" },  // normal
@@ -23,6 +23,7 @@ static const char colors[NUMCOLORS][3][8] = {
   { "#000000", "#ff0000", "#000000" },  // urgent
   { "#ff0000", "#ffffff", "#ff0000" },  // urgent 2
   { "#000000", "#333333", "#000000" },  // greyed out
+  { "#000000", "#888888", "#000000" },  // slightly greyed out
   // add more here
 };
 

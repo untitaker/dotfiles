@@ -11,8 +11,7 @@ selected_color = '\x02'
 urgent_color = '\x03'
 urgent2_color = '\x04'
 grey_color = '\x05'
-
-#normal_color = selected_color = urgent_color = urgent2_color = grey_color = ''
+title_color = '\x06'
 
 bar = StatusBar()
 bar.between = ' {}| {}'.format(grey_color, normal_color)
@@ -40,9 +39,8 @@ class VolumeItem(Item):
                 continue
             vol = state[3].replace('[', '').replace(']', '')
             mute = state[5]
-            text = 'VOL: '
-            if mute == '[off]':
-                text += urgent_color
+            text = '{}VOL: '.format(title_color)
+            text += urgent_color if mute == '[off]' else selected_color
             text += vol
             self.text = text
             time.sleep(.5)
@@ -76,7 +74,7 @@ class MaildirItem(Item):
         self._prev_new = new
         return (
             '{urgent}{new}' if new
-            else '{read}'
+            else '{normal}{read}'
         ).format(urgent=urgent_color, normal=normal_color, new=new, read=read)
 
     def _send_notification(self, amount):
@@ -84,7 +82,7 @@ class MaildirItem(Item):
 
     def run(self):
         while True:
-            self.text = ('MAIL: ' + self._mail_status())
+            self.text = (title_color + 'MAIL: ' + self._mail_status())
             shell('inotifywait -t 5 -r ' + self.maildir + ' &> /dev/null')
 
 
@@ -96,7 +94,7 @@ class CputempItem(Item):
                 if line.startswith('Core ')
             ]
             core_temps = [
-                repr(float(core.split()[2].replace('°C', '')))
+                title_color + repr(float(core.split()[2].replace('°C', '')))
                 for core in cores
             ]
             self.text = self.bar.between.join(core_temps)
