@@ -31,4 +31,4 @@ super + ctrl + shift + {j, k}
 # make sxhkd reload its configuration files
 
 super + q
-    pkill -USR1 -x sxhkd
+    cd ~/.homesick/repos/dotfiles/ && make config-reload
