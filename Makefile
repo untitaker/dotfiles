@@ -1,7 +1,7 @@
 dwm:
 	make clean
 	cd dwm && \
-		cat ../dwm-6.1-statuscolors.diff | git apply && \
+		git apply --verbose ../dwm-patches/* && \
 		cp ../dwm_config.h ./config.h && \
 		make && \
 		cp dwm ~/.local/bin/
