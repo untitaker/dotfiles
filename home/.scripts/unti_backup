@@ -1,6 +1,5 @@
 #!/bin/sh
-set -ex
-
+set -x
 
 if [ "$HOSTNAME" != "untiserver" ]; then
     remote_flag="-r untiserver:"
