@@ -22,10 +22,8 @@ class DatetimeItem(Item):
     def run(self):
         while True:
             self.text = datetime.datetime.now().strftime(
-                '%H {g}: {n}%M{between}'
-                '%Y {g}/ {n}%m {g}/ {n}%d'
-                .format(g=grey_color, between=self.bar.between,
-                        n=normal_color)
+                '%H:%M{between}%Y/%m/%d'
+                .format(between=self.bar.between)
             )
             time.sleep(30)
 
