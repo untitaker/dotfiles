@@ -31,4 +31,4 @@ super + ctrl + shift + {j, k}
 # make sxhkd reload its configuration files
 
 super + q
-    cd ~/.homesick/repos/dotfiles/ && make config-reload
+    killall dwm
