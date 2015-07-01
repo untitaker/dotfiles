@@ -1,4 +1,4 @@
-dwm:
+dwm: dwm_config.h dwm/
 	make clean
 	cd dwm && \
 		cat ../dwm-6.1-statuscolors.diff | git apply && \
