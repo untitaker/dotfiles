@@ -6,7 +6,7 @@ password_command = vdirsyncer-password
 conflict_resolution = b wins
 a = calendars_local
 b = calendars_remote
-collections = ["computers", "default", "holidays", "holidays-auto", "lessons-auto", "media", "school"]
+collections = ["from b"]
 
 [storage calendars_local]
 type = filesystem

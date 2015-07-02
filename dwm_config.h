@@ -3,7 +3,8 @@
 /* appearance */
 static const char *fonts[] = {
     "Terminus:size=8",
-    "Sans:size=10.5",
+    "Monospace:size=8",
+    "Sans:size=8",
     "VL Gothic:size=10.5",
     "WenQuanYi Micro Hei:size=10.5",
 };
