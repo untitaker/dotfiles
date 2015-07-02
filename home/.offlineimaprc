@@ -25,7 +25,6 @@ cert_fingerprint = 6ca13aeb00dcdff4b265cf314915ef854d5e4fde
 remotehost = draco.uberspace.de
 remoteusereval = get_imap_user()
 remotepasseval = get_imap_password()
-idlefolders = ['INBOX']
 
 maxconnections = 3
 keepalive = 60
@@ -33,7 +32,6 @@ keepalive = 60
 [Repository uberspace-markus-local]
 type = Maildir
 localfolders = ~/.mail/markus
-idlefolders = ['INBOX']
 
 [mbnames]
 enabled = yes
