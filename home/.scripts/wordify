@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sometimes useful when creating fzf queries automatically
+tr -cd '[:alnum:]'
