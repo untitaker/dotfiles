@@ -29,6 +29,10 @@ set include
 set fast_reply
 set quit
 
+set forward_format="Fwd: %s"
+set mime_forward=yes
+set forward_decode=no
+
 unset markers # don't add plus signs to wrapped urls (needed for url selection in urxvt)
 unset mark_old
 bind editor <Tab> complete-query
