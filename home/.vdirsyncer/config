@@ -7,6 +7,7 @@ conflict_resolution = b wins
 a = calendars_local
 b = calendars_remote
 collections = ["from b"]
+metadata = ["color", "displayname"]
 
 [storage calendars_local]
 type = filesystem
