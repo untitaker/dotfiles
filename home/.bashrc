@@ -196,6 +196,10 @@ bind -x '"\C-s":"fuzzy_path_completion"'
 export FZF_TMUX=0
 ORIG_ENV="$(satinized_env)"
 
-t() {
-    todo list $1 computers default
+todo() {
+    if [ -z "$1" ]; then
+        command todo list computers default
+    else
+        command todo $@
+    fi
 }
