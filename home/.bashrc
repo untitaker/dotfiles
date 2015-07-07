@@ -195,3 +195,7 @@ bind -x '"\C-s":"fuzzy_path_completion"'
 
 export FZF_TMUX=0
 ORIG_ENV="$(satinized_env)"
+
+t() {
+    todo list $1 computers default
+}
