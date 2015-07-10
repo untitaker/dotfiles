@@ -12,6 +12,9 @@ super + shift + b
 super + p
     dmenu_run -nf '#666' -nb '#000' -sf '#000' -sb '#3465A4' -fn Montecarlo:size=8
 
+super + shift + m
+    update_mail
+
 # volume
 
 super + ctrl + {j, k, space}
