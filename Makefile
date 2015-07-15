@@ -10,7 +10,6 @@ dwm:
 config-reload:
 	pkill -USR1 -x sxhkd
 	make dwm
-	killall dwm
 
 clean:
 	cd dwm && git checkout -- .

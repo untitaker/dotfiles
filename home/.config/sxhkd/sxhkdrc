@@ -10,7 +10,10 @@ super + shift + b
     firefox
 
 super + p
-    dmenu_run -nf '#666' -nb '#000' -sf '#000' -sb '#3465A4' -fn Montecarlo:size=8
+    dmenu_run -nf '#666' -nb '#000' -sf '#000' -sb '#3465A4' -fn Terminus:size=8
+
+super + shift + p
+    passmenu -nf '#666' -nb '#000' -sf '#000' -sb '#3465A4' -fn Terminus:size=8
 
 super + shift + m
     update_mail
