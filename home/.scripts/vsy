@@ -1,30 +1,40 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
-_inotifywait() {
+_watch() {
     local path="$1"
-    echo "Watching $path"
-    inotifywait -rq -e create -e delete -e move -t 1200 --include='.(vcf|ics)$' "$path" || \
-        [ "$?" == "2" ]  # exit 2 is for timeouts
+    local collection="$(_path2collection $path)"
+    (
+        echo "Initial sync"
+        while true; do
+            inotifywait \
+                -rq \
+                -e create -e delete -e move \
+                -t 1200 \
+                --include='.(vcf|ics)$' \
+                "$path" || [ "$?" == "2" ]
+        done
+    ) | while read event; do  # exit 2 is for timeouts
+        echo -e "$C_RED$collection: $event$C_RESET" 1>&2
+        echo "sync $collection"
+        echo "!vsy autocommit $path"
+    done
 }
 
 _path2collection() {
     echo "${1//\/home\/untitaker\/\./}"
 }
 
-_sync() {
+autocommit() {
     local path="$1"
     local collection="$(_path2collection "$path")"
-    local logtmp="/tmp/${RANDOM}.tmp"
-    (vdirsyncer sync "$collection" 2>&1 | tee "$logtmp") || \
-        echo -e "$C_RED\"sync $collection\" finished with ${?}$C_RESET"
     cd "$path"
     git init -q
     if _is_dirty; then
         git add -A
-        git commit --allow-empty -m "$(date; echo; cat $logtmp)"
+        git commit --allow-empty -m "$(date)"
     fi
-    rm "$logtmp"
 }
 
 _is_dirty() {
@@ -32,22 +42,23 @@ _is_dirty() {
         [[ $(git status --porcelain | tail -n1) != "" ]]
 }
 
-_watch() {
-    local path="$1"
-    while true; do
-        _sync "$path"
-        _inotifywait "$path"
-        sleep 0.1
-    done
-    echo -e "${C_RED}Error happened.$C_RESET"
-}
-
 main() {
-    trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
-    for dir in ~/.calendars/* ~/.contacts; do
-        _watch "$dir" &
-    done
-    wait
+    (
+        trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
+        for dir in ~/.calendars/* ~/.contacts; do
+            _watch "$dir" &
+        done
+        wait
+    ) | (
+        while read command; do
+            echo "$command"
+        done
+    ) | vdirsyncer repl
+
 }
 
-main "$@"
+if [ -z "$1" ]; then
+    main
+else
+    $@
+fi
