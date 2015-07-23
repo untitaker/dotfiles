@@ -45,6 +45,9 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:%
 " i don't edit Modula 2
 au BufNewFile,BufRead *.md  set filetype=markdown
 
+" don't create swapfiles for passwords
+au BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
+
 " Folding
 set nofoldenable
 nmap <space> za
