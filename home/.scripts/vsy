@@ -16,9 +16,11 @@ _watch() {
                 "$path" || [ "$?" == "2" ]
         done
     ) | while read event; do  # exit 2 is for timeouts
-        echo -e "$C_RED$collection: $event$C_RESET" 1>&2
+        echo -e "$collection: $C_RED$event$C_RESET" 1>&2
         echo "sync $collection"
         echo "!vsy autocommit $path"
+    done | vdirsyncer repl 2>&1 | while read line; do
+        echo "$collection: $line"
     done
 }
 
@@ -35,7 +37,7 @@ autocommit() {
         git add -A
         git commit --allow-empty -m "$(date)"
     else
-        echo "$collection: Nothing to commit"
+        echo "Nothing to commit"
     fi
 }
 
@@ -45,18 +47,11 @@ _is_dirty() {
 }
 
 main() {
-    (
-        trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
-        for dir in ~/.calendars/* ~/.contacts; do
-            _watch "$dir" &
-        done
-        wait
-    ) | (
-        while read command; do
-            echo "$command"
-        done
-    ) | vdirsyncer repl
-
+    trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
+    for dir in ~/.calendars/* ~/.contacts; do
+        _watch "$dir" &
+    done
+    wait
 }
 
 if [ -z "$1" ]; then
