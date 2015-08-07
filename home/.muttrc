@@ -9,6 +9,7 @@ set postponed=+markus/drafts
 set record=+markus/sent
 set header_cache = ~/.mutt/cache/headers
 set message_cachedir = ~/.mutt/cache/bodies
+alternates "^markus-(.*)@unterwaditzer\.net$"
 
 set sleep_time = 0  # don't wait between mailbox switch
 set delete
