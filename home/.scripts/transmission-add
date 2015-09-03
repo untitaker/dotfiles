@@ -1,6 +1,4 @@
 #!/bin/sh
-zenity --question --text "Do you want to add this torrent?"
-[ "$?" == 0 ] || exit 1
 
 user="untitaker"
 passwd="$(pass www/home.unterwaditzer.net | head -1)"

@@ -70,6 +70,7 @@ let g:syntastic_aggregate_errors = 1
 noremap <f7> :w<CR>:SyntasticCheck<CR>
 
 let g:syntastic_python_checkers = ['flake8', 'python']
+let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_tex_checkers = []
 
 " Better :sign interface symbols
