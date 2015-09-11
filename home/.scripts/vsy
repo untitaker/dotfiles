@@ -17,7 +17,12 @@ _watch() {
         done
     ) | while read event; do  # exit 2 is for timeouts
         echo -e "$collection: $C_RED$event$C_RESET" 1>&2
-        echo "sync $collection"
+        if [[ "$collection" = calendars* ]]; then
+            echo "sync rs_$collection"
+            echo "sync dav_$collection"
+        else
+            echo "sync $collection"
+        fi
         echo "!vsy autocommit $path"
     done | vdirsyncer repl 2>&1 | while read line; do
         echo "$collection: $line"
