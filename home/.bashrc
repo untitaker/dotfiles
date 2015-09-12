@@ -118,7 +118,7 @@ untitaker_vcs() {
         branch_color=${C_RESET}
     fi
 
-    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)"
+    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
 
     if [ -n "$current_branch" ]; then
         current_branch=" branch${branch_color} $current_branch"
