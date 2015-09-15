@@ -101,7 +101,6 @@ source /etc/Muttrc.gpg.dist
 # server settings
 set sendmail = "/usr/bin/msmtp"
 set ssl_force_tls = yes
-set ssl_starttls = yes
 
 set from="markus@unterwaditzer.net"
 set realname="Markus Unterwaditzer"
