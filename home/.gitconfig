@@ -1,6 +1,7 @@
 [user]
     email = markus@unterwaditzer.net
     name = Markus Unterwaditzer
+    signingkey = FAAC788C
 [core]
     attributesfile = ~/.gitattributes
 [color]

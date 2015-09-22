@@ -50,8 +50,10 @@ alternative_order text/plain text/html text/enriched
 # sidebar
 set sidebar_visible = yes
 set sidebar_width = 25
-set sidebar_shortpath = yes
-set sidebar_format = "%B%> !%F *%N .%S"
+
+# commented because the latest AUR packages removed the patch
+#set sidebar_shortpath = yes
+#set sidebar_format = "%B%> !%F *%N .%S"
 macro index,pager y "<enter-command>toggle sidebar_visible<enter><refresh>"
 color sidebar_new yellow default
 bind index,pager <right> sidebar-open
