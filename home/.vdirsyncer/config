@@ -50,4 +50,4 @@ type = carddav
 url = https://home.unterwaditzer.net/baikal/card.php/addressbooks/untitaker/default/
 verify_fingerprint = A1:67:18:03:1F:BD:D6:0E:5D:4D:42:67:82:67:A1:67:38:79:67:BB
 username = untitaker
-password.fetch = ["command", "vdirsyncer-password"]
+password.fetch = ["command", "vdirsyncer-password", "baikal"]
