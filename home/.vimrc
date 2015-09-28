@@ -60,6 +60,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " Jedi
 let g:jedi#popup_on_dot = 0  " Disable the automatic suggestions
+let g:jedi#smart_auto_mappings = 0  " Disable auto-typing `import` while inserting
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
