@@ -24,5 +24,6 @@ if [[ $- == *i* ]]; then
 fi
 
 export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_STYLE_OVERRIDE=GTK+
 
 source ~/.bashrc
