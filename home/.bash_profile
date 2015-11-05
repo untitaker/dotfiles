@@ -1,5 +1,9 @@
-source "/usr/share/git/completion/git-completion.bash" &> /dev/null
-source "/etc/profile.d/fzf.bash" &> /dev/null
+git_comp_sh="/usr/share/git/completion/git-completion.bash"
+[ -f "$git_comp_sh" ] && . "$git_comp_sh"
+fzf_comp_sh="/etc/profile.d/fzf.bash"
+[ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
+unset fzf_comp_sh
+unset git_comp_sh
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
 if which keychain &> /dev/null; then

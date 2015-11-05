@@ -1,5 +1,6 @@
 [general]
 status_path = ~/.vdirsyncer/status/
+password_command = "LOL"
 
 [pair dav_calendars]
 conflict_resolution = a wins
