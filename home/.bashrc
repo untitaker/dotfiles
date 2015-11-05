@@ -105,7 +105,7 @@ untitaker_vcs() {
         cd "$git_top"
     fi
 
-    local status="$(timeout 0.2 git status)"
+    local status="$(timeout 1 git status)"
     [ -z "$status" ] && echo -e "${C_GRAY}, git timed out${C_RESET}" && return
 
     if echo "$status" | grep -qi 'not staged'; then
@@ -118,7 +118,7 @@ untitaker_vcs() {
         branch_color=${C_RESET}
     fi
 
-    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
+    local current_branch="$(timeout 1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
 
     if [ -n "$current_branch" ]; then
         current_branch=" branch${branch_color} $current_branch"
