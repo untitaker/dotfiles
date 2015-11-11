@@ -142,7 +142,9 @@ class NetctlItem(Item):
         while True:
             rv = shell('SUDO_ASKPASS=/bin/false '
                        'sudo -A netctl-auto current').strip()
-            self.text = rv or '^fg(#FF0000)disconnected^fg()'
+            disconnected = '{}disconnected {}' \
+                .format(urgent_color, normal_color)
+            self.text = rv or disconnected
             time.sleep(10)
 
 
