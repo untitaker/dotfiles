@@ -20,7 +20,7 @@ for path in ~/.gem/ruby/*/bin/; do
     PATH=$PATH:$path
 done
 
-PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:$PATH
+PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:~/.cargo/bin/:$PATH
 
 if [[ $- == *i* ]]; then
     # i want to use ctrl-s
