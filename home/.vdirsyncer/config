@@ -2,7 +2,7 @@
 status_path = ~/.vdirsyncer/status/
 
 [pair dav_calendars]
-conflict_resolution = a wins
+conflict_resolution = b wins
 a = calendars_local
 b = calendars_dav
 collections = ["from b"]
