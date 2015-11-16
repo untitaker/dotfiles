@@ -53,6 +53,7 @@ _is_dirty() {
 
 main() {
     trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
+    trap 'killall vdirsyncer' TERM EXIT
     for dir in ~/.calendars/* ~/.contacts; do
         _watch "$dir" &
     done
