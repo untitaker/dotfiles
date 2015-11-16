@@ -8,6 +8,7 @@ _watch() {
     (
         echo "Initial sync"
         while true; do
+            sleep 5
             inotifywait \
                 -rq \
                 -e create -e delete -e move \
