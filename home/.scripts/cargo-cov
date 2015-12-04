@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 PKGID="$(cargo pkgid)"
 [ -z "$PKGID" ] && exit 1
 ORIGIN="${PKGID%#*}"
@@ -6,12 +7,9 @@ ORIGIN="${ORIGIN:7}"
 PKGNAMEVER="${PKGID#*#}"
 PKGNAME="${PKGNAMEVER%:*}"
 shift
-cargo test --no-run || exit $?
-EXE=($ORIGIN/target/debug/$PKGNAME-*)
-if [ ${#EXE[@]} -ne 1 ]; then
-    echo 'Non-unique test file, retrying...' >2
-    rm -f ${EXE[@]}
-    cargo test --no-run || exit $?
-fi
+rm -rf $ORIGIN/target/debug
+cargo test --no-run
 rm -rf $ORIGIN/target/cov
-kcov $ORIGIN/target/cov $ORIGIN/target/debug/$PKGNAME-* "$@"
+for exe in $ORIGIN/target/debug/$PKGNAME-* $ORIGIN/target/debug/lib-*; do
+    kcov $ORIGIN/target/cov $exe "$@"
+done
