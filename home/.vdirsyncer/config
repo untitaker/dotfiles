@@ -32,7 +32,7 @@ item_types = []
 type = remotestorage_calendars
 account = untitaker@shack.unterwaditzer.net
 verify = false
-verify_fingerprint = E9:94:ED:76:42:6A:90:B6:3A:4E:9A:37:74:AB:32:21:24:26:86:24
+verify_fingerprint = C7:70:3B:4E:B1:BE:2F:E5:5A:2A:48:3A:A8:40:26:E3:6C:E5:AE:48
 access_token.fetch = ["command", "vdirsyncer-password", "remotestorage"]
 
 [pair contacts]
