@@ -191,6 +191,7 @@ function fuzzy_path_completion() {
     READLINE_LINE+="$append"
 }
 
+set -o emacs
 bind -x '"\C-s":"fuzzy_path_completion"'
 
 export FZF_TMUX=0
