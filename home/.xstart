@@ -14,7 +14,18 @@ main() {
 
     #trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
 
-    while ! dwm; do
+    while true; do
+        output="$(dwm 2>&1)"
+        if [ $? = 0 ]; then break; fi
+        echo "dwm crashed or was killed"
+
+        if echo "$output" | grep -q "another window manager"; then
+            echo "Other window manager running, waiting a bit..."
+            sleep 5
+            continue
+        fi
+
+        echo "Recompiling dwm"
         cd ~/.homesick/repos/dotfiles/
         make config-reload
     done  # restart dwm only if its been killed manually
