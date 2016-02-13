@@ -5,14 +5,14 @@ status_path = ~/.vdirsyncer/status/
 conflict_resolution = b wins
 a = calendars_local
 b = calendars_dav
-collections = ["from b"]
+collections = ["from a", "from b"]
 metadata = ["color", "displayname"]
 
 [pair rs_calendars]
 conflict_resolution = b wins
 a = calendars_local
 b = calendars_rs
-collections = ["from a"]
+collections = ["from a", "from b"]
 metadata = ["color", "displayname"]
 
 [storage calendars_local]
@@ -36,6 +36,7 @@ access_token.fetch = ["command", "vdirsyncer-password", "remotestorage"]
 conflict_resolution = b wins
 a = contacts_local
 b = contacts_remote
+collections = null
 
 [storage contacts_local]
 type = filesystem
