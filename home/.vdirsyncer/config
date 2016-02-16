@@ -22,7 +22,7 @@ fileext = .ics
 
 [storage calendars_dav]
 type = caldav
-url = https://home.unterwaditzer.net/baikal/cal.php/
+url = https://home.unterwaditzer.net/
 username = untitaker
 password.fetch = ["command", "vdirsyncer-password", "baikal"]
 item_types = []
@@ -45,6 +45,6 @@ fileext = .vcf
 
 [storage contacts_remote]
 type = carddav
-url = https://home.unterwaditzer.net/baikal/card.php/addressbooks/untitaker/default/
+url = https://home.unterwaditzer.net/baikal/html/dav.php/addressbooks/untitaker/default/
 username = untitaker
 password.fetch = ["command", "vdirsyncer-password", "baikal"]

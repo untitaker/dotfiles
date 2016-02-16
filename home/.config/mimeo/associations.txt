@@ -1,18 +1,18 @@
-/usr/bin/firefox
+/usr/bin/firefox %U
   ^http:
   ^https:
   ^www.
   text/html
   .htm$
   .html$
-/usr/bin/zathura
+/usr/bin/zathura %F
   application/pdf
   .pdf$
-/home/untitaker/.scripts/transmission-add
+/home/untitaker/.scripts/transmission-add %U
   ^magnet:
 term "mutt %u"
   ^mailto:
-/usr/bin/libreoffice
+/usr/bin/libreoffice %F
   .doc$
   .docx$
   .ppt$
