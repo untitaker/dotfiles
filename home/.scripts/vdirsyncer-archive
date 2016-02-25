@@ -1,2 +1,0 @@
-#!/bin/sh
-grep -rilE 'STATUS\:(COMPLETED|CANCELLED)' ~/.calendars/ | grep '\.ics$' | xargs rm -v
