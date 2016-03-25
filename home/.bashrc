@@ -201,6 +201,6 @@ todo() {
     if [ -z "$1" ]; then
         command todo list computers default
     else
-        command todo $@
+        command todo "$@"
     fi
 }
