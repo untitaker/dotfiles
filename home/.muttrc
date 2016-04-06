@@ -1,4 +1,7 @@
 # vim: filetype=muttrc
+#
+# This requires neomutt: http://www.neomutt.org/
+
 set charset=UTF-8
 
 set folder=~/.mail/
@@ -60,7 +63,9 @@ color sidebar_new yellow default
 bind index,pager <right> sidebar-open
 bind index,pager <down> sidebar-next
 bind index,pager <up> sidebar-prev
-set sidebar_delim = ' '
+set sidebar_divider_char = ' '
+set sidebar_short_path
+set sidebar_folder_indent
 
 # messages index
 folder-hook . "exec collapse-all"
