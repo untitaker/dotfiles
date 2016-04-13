@@ -21,7 +21,7 @@ status_backend = sqlite
 [Repository uberspace-markus-remote]
 type = IMAP
 ssl = yes
-cert_fingerprint = 6ca13aeb00dcdff4b265cf314915ef854d5e4fde
+cert_fingerprint = c58c20c8fd755aa4448bf4f6920d42b86324b2fa
 remotehost = draco.uberspace.de
 remoteusereval = get_imap_user()
 remotepasseval = get_imap_password()
