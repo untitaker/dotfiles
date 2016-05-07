@@ -10,7 +10,7 @@ fsync = False
 [Account uberspace-markus]
 localrepository = uberspace-markus-local
 remoterepository = uberspace-markus-remote
-postsynchook = notmuch new
+postsynchook = offlineimap-postsync
 
 # Run as daemon
 autorefresh = 5
