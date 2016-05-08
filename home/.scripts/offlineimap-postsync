@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
+set -e
 notmuch new
 cd ~/.mail/
 echo .notmuch > .gitignore
