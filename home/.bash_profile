@@ -1,6 +1,6 @@
 git_comp_sh="/usr/share/git/completion/git-completion.bash"
 [ -f "$git_comp_sh" ] && . "$git_comp_sh"
-fzf_comp_sh="/etc/profile.d/fzf.bash"
+fzf_comp_sh="/usr/share/fzf/key-bindings.bash"
 [ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
 unset fzf_comp_sh
 unset git_comp_sh
