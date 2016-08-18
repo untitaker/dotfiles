@@ -1,6 +1,6 @@
 import os
 
-def get_login_info(key='www/webmail.draco.uberspace.de'):
+def get_login_info(key='www/webmail.draco.uberspace.de/login'):
   cmd = "pass %s" % key
   p = os.popen(cmd)
   password = p.readline().strip()
