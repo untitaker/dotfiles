@@ -141,7 +141,8 @@ class NetctlItem(Item):
 
         while True:
             rv = shell('SUDO_ASKPASS=/bin/false '
-                       'sudo -A netctl-auto current').strip()
+                       'sudo -A netctl-auto list').splitlines()
+            rv, = (x[1:].strip() for x in rv if x.startswith('*'))
             disconnected = '{}disconnected {}' \
                 .format(urgent_color, normal_color)
             self.text = rv or disconnected
