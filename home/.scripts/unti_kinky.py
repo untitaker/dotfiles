@@ -18,6 +18,10 @@ bar.between = ' {}| {}'.format(grey_color, normal_color)
 bar.error_value = '{}broken{}'.format(urgent_color, normal_color)
 
 
+def watch_dir(p):
+    shell('inotifywait -rq -e create -e delete -e move ' + p)
+
+
 class DatetimeItem(Item):
     def run(self):
         while True:
@@ -81,7 +85,7 @@ class MaildirItem(Item):
     def run(self):
         while True:
             self.text = (title_color + 'MAIL: ' + self._mail_status())
-            shell('inotifywait -t 5 -r ' + self.maildir + ' &> /dev/null')
+            watch_dir(self.maildir)
 
 
 class CputempItem(Item):
@@ -149,10 +153,27 @@ class NetctlItem(Item):
             time.sleep(10)
 
 
+class KhalItem(Item):
+    calendars = None
+    def run(self):
+        if shell('which khal') is None:
+            return
+
+        rv = ' '.join(x.strip() for x in shell('khal list').splitlines())
+        self.text = rv
+
+        assert self.calendars
+        watch_dir(self.calendars)
+
+
 mail_item = MaildirItem()
 mail_item.maildir = '/home/untitaker/.mail/markus/INBOX'
 
+khal_item = KhalItem()
+khal_item.calendars = '/home/untitaker/.calendars/'
+
 bar.items = [
+    khal_item,
     mail_item,
     MpdItem(),
     CputempItem(),
