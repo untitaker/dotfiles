@@ -54,6 +54,7 @@ alternative_order text/plain text/html text/enriched
 set sidebar_visible = yes
 set sidebar_width = 25
 
+set mail_check_stats
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
 
 macro index,pager y "<enter-command>toggle sidebar_visible<enter><refresh>"
