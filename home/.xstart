@@ -24,6 +24,11 @@ main() {
             echo "Other window manager running, waiting a bit..."
             sleep 5
             continue
+        elif echo "$output" | grep -qi "fatal error"; then
+            echo "Fatal error?!"
+            notify-send "dwm crashed" &
+            openbox
+            break
         fi
 
         echo "Recompiling dwm"
