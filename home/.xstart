@@ -17,7 +17,8 @@ main() {
     while true; do
         output="$(dwm 2>&1)"
         if [ $? = 0 ]; then break; fi
-        echo "dwm crashed or was killed"
+        echo "dwm crashed or was killed. Output:"
+        echo "$output"
 
         if echo "$output" | grep -q "another window manager"; then
             echo "Other window manager running, waiting a bit..."
