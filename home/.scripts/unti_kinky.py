@@ -159,7 +159,7 @@ class KhalItem(Item):
         if shell('which khal') is None:
             return
 
-        rv = ' '.join(x.strip() for x in shell('khal list').splitlines())
+        rv = ' '.join(x.strip() for x in shell('khal list week').splitlines())
         self.text = rv
 
         assert self.calendars
