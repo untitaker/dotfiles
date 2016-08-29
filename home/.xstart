@@ -28,7 +28,6 @@ main() {
             echo "Fatal error?!"
             notify-send "dwm crashed" &
             openbox
-            break
         fi
 
         echo "Recompiling dwm"
