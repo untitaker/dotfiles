@@ -1,7 +1,7 @@
 #!/bin/sh
 
 user="untitaker"
-passwd="$(pass www/home.unterwaditzer.net | head -1)"
+passwd="$(pass www/home.unterwaditzer.net/login | head -1)"
 
 TRANSMISSION_RESPONSE=$(transmission-remote https://home.unterwaditzer.net/transmission -n $user:$passwd -a "$1")
 if [ "$?" == 0 ]; then notify-send "Added torrent!"
