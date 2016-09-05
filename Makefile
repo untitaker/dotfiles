@@ -12,8 +12,8 @@ config-reload:
 	make dwm
 
 clean:
-	cd dwm && git checkout -- *.c *.h
 	cd dwm && git ls-files --others --exclude-standard | xargs rm || true
+	cd dwm && git checkout -- *.c *.h
 
 error:
 	$(error No default goal)
