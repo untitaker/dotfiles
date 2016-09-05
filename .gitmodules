@@ -58,3 +58,6 @@
 [submodule "home/.vim/bundle/vim-mustache-handlebars"]
 	path = home/.vim/bundle/vim-mustache-handlebars
 	url = https://github.com/mustache/vim-mustache-handlebars
+[submodule "home/.vim/bundle/vim-racer"]
+	path = home/.vim/bundle/vim-racer
+	url = https://github.com/racer-rust/vim-racer

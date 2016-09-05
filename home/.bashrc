@@ -34,6 +34,10 @@ alias grep="grep --color=auto"
 export ANDROIDSDK=/opt/android-sdk/
 export ANDROIDNDK=/opt/android-ndk/
 
+# racer (Rust autocompletion)
+
+export RUST_SRC_PATH=~/projects/rust/src/
+
 # mates
 export MATES_DIR=~/.contacts/
 export MATES_INDEX=~/.mates_index
