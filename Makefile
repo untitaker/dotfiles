@@ -12,7 +12,7 @@ config-reload:
 	make dwm
 
 clean:
-	cd dwm && git checkout -- .
+	cd dwm && git checkout -- *.c *.h
 	cd dwm && git ls-files --others --exclude-standard | xargs rm || true
 
 error:
