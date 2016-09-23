@@ -155,28 +155,10 @@ class NetctlItem(Item):
                                                        normal_color)
             time.sleep(10)
 
-
-class KhalItem(Item):
-    calendars = None
-    def run(self):
-        if shell('which khal') is None:
-            return
-
-        rv = ' '.join(x.strip() for x in shell('khal list -f "{start} {title};" week').splitlines())[:10]
-        self.text = rv
-
-        assert self.calendars
-        watch_dir(self.calendars)
-
-
 mail_item = MaildirItem()
 mail_item.maildir = '/home/untitaker/.mail/markus/INBOX'
 
-khal_item = KhalItem()
-khal_item.calendars = '/home/untitaker/.calendars/'
-
 bar.items = [
-    khal_item,
     mail_item,
     MpdItem(),
     CputempItem(),
