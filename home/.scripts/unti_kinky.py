@@ -162,7 +162,7 @@ class KhalItem(Item):
         if shell('which khal') is None:
             return
 
-        rv = ' '.join(x.strip() for x in shell('khal list -f "{start} {title};" week').splitlines())
+        rv = ' '.join(x.strip() for x in shell('khal list -f "{start} {title};" week').splitlines())[:10]
         self.text = rv
 
         assert self.calendars
