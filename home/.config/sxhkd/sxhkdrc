@@ -21,7 +21,7 @@ super + shift + m
 # volume
 
 super + ctrl + {j, k, space}
-    amixer -q set Master {1-, 1+, toggle}
+    amixer -D pulse -q set Master {1-, 1+, toggle}
 
 # mpd
 
