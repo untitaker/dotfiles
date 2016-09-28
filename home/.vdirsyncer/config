@@ -1,17 +1,10 @@
 [general]
 status_path = ~/.vdirsyncer/status/
 
-[pair dav_calendars]
+[pair calendars]
 conflict_resolution = b wins
 a = calendars_local
 b = calendars_dav
-collections = ["from a", "from b"]
-metadata = ["color", "displayname"]
-
-[pair rs_calendars]
-conflict_resolution = b wins
-a = calendars_local
-b = calendars_rs
 collections = ["from a", "from b"]
 metadata = ["color", "displayname"]
 
@@ -22,29 +15,24 @@ fileext = .ics
 
 [storage calendars_dav]
 type = caldav
-url = https://home.unterwaditzer.net/
+url = https://nextcloud.unterwaditzer.net/
 username = untitaker
-password.fetch = ["command", "vdirsyncer-password", "baikal"]
+password.fetch = ["command", "vdirsyncer-password", "nextcloud"]
 item_types = []
-
-[storage calendars_rs]
-type = remotestorage_calendars
-account = untitaker@shack.unterwaditzer.net
-access_token.fetch = ["command", "vdirsyncer-password", "remotestorage"]
 
 [pair contacts]
 conflict_resolution = b wins
 a = contacts_local
-b = contacts_remote
-collections = null
+b = contacts_dav
+collections = [["default", null, "default"]]
 
 [storage contacts_local]
 type = filesystem
 path = ~/.contacts/
 fileext = .vcf
 
-[storage contacts_remote]
+[storage contacts_dav]
 type = carddav
-url = https://home.unterwaditzer.net/baikal/html/dav.php/addressbooks/untitaker/default/
+url = https://nextcloud.unterwaditzer.net/
 username = untitaker
-password.fetch = ["command", "vdirsyncer-password", "baikal"]
+password.fetch = ["command", "vdirsyncer-password", "nextcloud"]
