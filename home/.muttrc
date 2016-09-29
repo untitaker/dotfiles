@@ -3,6 +3,7 @@
 # This requires neomutt: http://www.neomutt.org/
 
 set charset=UTF-8
+set hostname = "unterwaditzer.net"  # Don't reveal actual box I sent email from
 
 set folder=~/.mail/
 source ~/.mutt/mailboxes
