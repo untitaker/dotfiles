@@ -16,6 +16,7 @@
     clone = clone -p
     p = push
     pf = push -f
+    f = fetch
     pr = pull-request
     pl = pull
     cp = cherry-pick
