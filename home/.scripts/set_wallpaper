@@ -16,7 +16,7 @@ def is_direct_link(x):
     return x.endswith("jpg") or x.endswith("jpeg") or x.endswith("png")
 
 def get_wallpaper_url():
-    r = requests.get("http://www.reddit.com/r/wallpapers.json",
+    r = requests.get("http://www.reddit.com/r/earthporn.json",
                      headers={'User-Agent':
                               'wallpaper script -- markus@unterwaditzer.net'})
     j = r.json()
