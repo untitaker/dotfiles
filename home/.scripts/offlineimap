@@ -1,0 +1,29 @@
+#!/bin/sh
+set -e
+
+_is_dirty() {
+    (! git diff-index --quiet HEAD) ||
+        [[ $(git status --porcelain | tail -n1) != "" ]]
+}
+
+while mbsync -a; do
+    notmuch new
+    cd ~/.mail/
+    echo .notmuch > .gitignore
+    echo .mbsyncstate >> .gitignore
+    echo .uidvalidity >> .gitignore
+    git init -q
+    git add -A
+    git commit -m "$(date)" || ! _is_dirty
+
+    echo "Syncing in 5 minutes"
+    sleep 60
+    echo "Syncing in 4 minutes"
+    sleep 60
+    echo "Syncing in 3 minutes"
+    sleep 60
+    echo "Syncing in 2 minutes"
+    sleep 60
+    echo "Syncing in 1 minute"
+    sleep 60
+done

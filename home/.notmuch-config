@@ -48,7 +48,7 @@ primary_email=markus@unterwaditzer.net
 #
 [new]
 tags=unread;inbox;
-ignore=.git
+ignore=.git;.mbsyncstate;.uidvalidity
 
 # Search configuration
 #

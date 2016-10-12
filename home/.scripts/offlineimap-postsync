@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-notmuch new
-cd ~/.mail/
-echo .notmuch > .gitignore
-git init -q
-git add -A
-git commit -m "$(date)"

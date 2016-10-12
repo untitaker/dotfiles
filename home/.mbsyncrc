@@ -1,0 +1,20 @@
+IMAPAccount untispace
+Host draco.uberspace.de
+User unti-markus
+PassCmd "pass www/webmail.draco.uberspace.de/login | head -1"
+SSLType IMAPS
+
+IMAPStore untispace-remote
+Account untispace
+
+MaildirStore untispace-local
+Path ~/.mail/markus/
+Inbox ~/.mail/markus/INBOX/
+Flatten .
+
+Channel untispace
+Master :untispace-remote:
+Slave :untispace-local:
+Patterns *
+Create Both
+SyncState *
