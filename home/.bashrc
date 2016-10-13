@@ -203,7 +203,7 @@ ORIG_ENV="$(satinized_env)"
 
 todo() {
     if [ -z "$1" ]; then
-        command todo list computers default
+        command todo list $(ls ~/.calendars/ | grep -v media)
     else
         command todo "$@"
     fi

@@ -6,7 +6,9 @@ _is_dirty() {
         [[ $(git status --porcelain | tail -n1) != "" ]]
 }
 
-while mbsync -a; do
+while true; do
+
+    mbsync -a
     notmuch new
     cd ~/.mail/
     echo .notmuch > .gitignore
@@ -16,14 +18,6 @@ while mbsync -a; do
     git add -A
     git commit -m "$(date)" || ! _is_dirty
 
-    echo "Syncing in 5 minutes"
-    sleep 60
-    echo "Syncing in 4 minutes"
-    sleep 60
-    echo "Syncing in 3 minutes"
-    sleep 60
-    echo "Syncing in 2 minutes"
-    sleep 60
-    echo "Syncing in 1 minute"
-    sleep 60
+    echo "Syncing in at most 5 minutes"
+    inotifywait -rq -e create -e delete -e move -t 300 ~/.mail/ || [ "$?" = "2" ]
 done
