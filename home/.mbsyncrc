@@ -18,3 +18,4 @@ Slave :untispace-local:
 Patterns *
 Create Both
 SyncState *
+Expunge Both
