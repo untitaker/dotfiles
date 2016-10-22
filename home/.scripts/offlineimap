@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+export MBSYNC_UBERSPACE_PASSWORD="$(pass www/webmail.draco.uberspace.de/login | head -1)"
+
 _is_dirty() {
     (! git diff-index --quiet HEAD) ||
         [[ $(git status --porcelain | tail -n1) != "" ]]

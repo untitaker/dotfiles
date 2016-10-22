@@ -1,7 +1,7 @@
 IMAPAccount untispace
 Host draco.uberspace.de
 User unti-markus
-PassCmd "pass www/webmail.draco.uberspace.de/login | head -1"
+PassCmd "echo $MBSYNC_UBERSPACE_PASSWORD"
 SSLType IMAPS
 
 IMAPStore untispace-remote

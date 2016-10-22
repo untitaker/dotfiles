@@ -17,7 +17,7 @@ fileext = .ics
 type = caldav
 url = https://nextcloud.unterwaditzer.net/
 username = untitaker
-password.fetch = ["command", "vdirsyncer-password", "nextcloud"]
+password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
 item_types = []
 
 [pair contacts]
@@ -35,4 +35,4 @@ fileext = .vcf
 type = carddav
 url = https://nextcloud.unterwaditzer.net/
 username = untitaker
-password.fetch = ["command", "vdirsyncer-password", "nextcloud"]
+password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]

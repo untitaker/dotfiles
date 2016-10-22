@@ -2,6 +2,8 @@
 set -e
 set -o pipefail
 
+export VDIRSYNCER_NEXTCLOUD_PASSWORD="$(pass www/nextcloud.unterwaditzer.net/login | head -1)"
+
 _watch() {
     local path="$1"
     local collection="$(_path2collection $path)"
@@ -18,9 +20,11 @@ _watch() {
         done
     ) | while read event; do  # exit 2 is for timeouts
         echo -e "$collection: $C_RED$event$C_RESET" 1>&2
-        echo "sync $collection"
-        echo "!vsy autocommit $path"
-    done | vdirsyncer repl 2>&1 | while read line; do
+        echo "vdirsyncer sync $collection"
+        echo "_autocommit $path"
+    done | while read cmd; do
+        $cmd
+    done | while read line; do
         echo "$collection: $line"
     done
 }
@@ -29,7 +33,7 @@ _path2collection() {
     echo "${1//\/home\/untitaker\/\./}"
 }
 
-autocommit() {
+_autocommit() {
     local path="$1"
     local collection="$(_path2collection "$path")"
     cd "$path"
@@ -49,15 +53,10 @@ _is_dirty() {
 
 main() {
     trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
-    trap 'killall vdirsyncer' TERM EXIT
     for dir in ~/.calendars/* ~/.contacts; do
         _watch "$dir" &
     done
     wait
 }
 
-if [ -z "$1" ]; then
-    main
-else
-    $@
-fi
+main
