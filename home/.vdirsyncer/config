@@ -1,38 +1,38 @@
 [general]
-status_path = ~/.vdirsyncer/status/
+status_path = "~/.vdirsyncer/status/"
 
 [pair calendars]
-conflict_resolution = b wins
-a = calendars_local
-b = calendars_dav
+conflict_resolution = "b wins"
+a = "calendars_local"
+b = "calendars_dav"
 collections = ["computers", "default", "holidays", "holidays-auto", "media", "ssl-certs", "tiss"]
 metadata = ["color", "displayname"]
 
 [storage calendars_local]
-type = filesystem
-path = ~/.calendars/
-fileext = .ics
+type = "filesystem"
+path = "~/.calendars/"
+fileext = ".ics"
 
 [storage calendars_dav]
-type = caldav
-url = https://nextcloud.unterwaditzer.net/
-username = untitaker
+type = "caldav"
+url = "https://nextcloud.unterwaditzer.net/"
+username = "untitaker"
 password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
 item_types = []
 
 [pair contacts]
-conflict_resolution = b wins
-a = contacts_local
-b = contacts_dav
+conflict_resolution = "b wins"
+a = "contacts_local"
+b = "contacts_dav"
 collections = [["default", null, "default"]]
 
 [storage contacts_local]
-type = filesystem
-path = ~/.contacts/
-fileext = .vcf
+type = "filesystem"
+path = "~/.contacts/"
+fileext = ".vcf"
 
 [storage contacts_dav]
-type = carddav
-url = https://nextcloud.unterwaditzer.net/
-username = untitaker
+type = "carddav"
+url = "https://nextcloud.unterwaditzer.net/"
+username = "untitaker"
 password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
