@@ -14,7 +14,7 @@ _watch() {
             inotifywait \
                 -rq \
                 -e create -e delete -e move \
-                -t 1200 \
+                -t 300 \
                 --include='.(vcf|ics)$' \
                 "$path" || [ "$?" = "2" ]
         done
