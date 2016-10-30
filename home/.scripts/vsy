@@ -11,7 +11,7 @@ _watch() {
         echo "Initial sync"
         while true; do
             sleep 5
-            timeout 300 inotifywait \
+            timeout --foreground 300 inotifywait \
                 -rq \
                 -e create -e delete -e move \
                 --include='.(vcf|ics)$' \
