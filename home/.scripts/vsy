@@ -11,12 +11,11 @@ _watch() {
         echo "Initial sync"
         while true; do
             sleep 5
-            inotifywait \
+            timeout 300 inotifywait \
                 -rq \
                 -e create -e delete -e move \
-                -t 300 \
                 --include='.(vcf|ics)$' \
-                "$path" || [ "$?" = "2" ]
+                "$path" || [ "$?" = "124" ]
         done
     ) | while read event; do  # exit 2 is for timeouts
         echo -e "$collection: $C_RED$event$C_RESET" 1>&2
