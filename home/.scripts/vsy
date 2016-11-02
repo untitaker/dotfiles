@@ -58,4 +58,8 @@ main() {
     wait
 }
 
-main
+if [ -z "$@" ]; then
+    main
+else
+    vdirsyncer "$@"
+fi
