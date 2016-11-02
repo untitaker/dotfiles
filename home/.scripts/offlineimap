@@ -1,7 +1,10 @@
 #!/bin/sh
 set -e
+set -o pipefail
 
 export MBSYNC_UBERSPACE_PASSWORD="$(pass www/webmail.draco.uberspace.de/login | head -1)"
+
+[ -n "$MBSYNC_UBERSPACE_PASSWORD" ]
 
 _is_dirty() {
     (! git diff-index --quiet HEAD) ||
