@@ -14,10 +14,10 @@ _is_dirty() {
 (
     echo "Initial sync"
     while true; do
-        timeout --foreground 300 inotifywait -rq -e create -e delete -e move \
+        inotifywait -rq -e create -e delete -e move -t 300 \
             --exclude='(\.mbsyncstate)' \
         ~/.mail/*/ \
-        || [ "$?" = "124" ]
+        || ([ "$?" = "2" ] && echo "Timeout")
         sleep 1
     done
 ) | while read line; do

@@ -9,6 +9,11 @@ path = ~/.calendars/media/
 color = auto
 readonly = False
 
+[[fsinf]]
+path = ~/.calendars/media/
+color = auto
+readonly = True
+
 [[default]]
 path = ~/.calendars/default/
 color = auto
