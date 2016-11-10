@@ -3,6 +3,7 @@ from __future__ import print_function
 import requests
 import newspaper
 import os
+import sys
 import subprocess
 import time
 
@@ -13,7 +14,7 @@ def launch_feh():
 
 
 def is_direct_link(x):
-    return x.endswith("jpg") or x.endswith("jpeg") or x.endswith("png")
+    return any(y in x for y in (".jpg", ".jpeg", ".png") )
 
 def get_wallpaper_url():
     r = requests.get("http://www.reddit.com/r/earthporn.json",
@@ -38,7 +39,8 @@ def get_wallpaper_url():
                 site.set_reddit_top_img()
 
                 url = site.top_image
-            return url
+            if url:
+                yield url
 
         except Exception as e:
             print(e)
@@ -47,11 +49,19 @@ def get_wallpaper_url():
 
 def main():
     launch_feh()
-    url = get_wallpaper_url()
-
-    print('Downloading {}'.format(url))
-    r = requests.get(url)
-    r.raise_for_status()
+    for url in get_wallpaper_url():
+        try:
+            print('Downloading {}'.format(url))
+            r = requests.get(url)
+            r.raise_for_status()
+        except Exception as e:
+            print(e)
+            continue
+        else:
+            break
+    else:
+        print('Nothing found!')
+        sys.exit(1)
 
     with open(os.path.expanduser('~/.background'), 'wb+') as f:
         f.write(r.content)
@@ -64,6 +74,8 @@ def _main():
         try:
             return main()
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             print(e)
             print('Retrying in {} seconds'.format(trial))
             time.sleep(trial)
