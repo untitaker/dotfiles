@@ -135,7 +135,7 @@ class BatteryItem(Item):
                 self.text = '{} ({}); {}'.format(state, _time, percentage)
             else:
                 self.text = '{}; {}'.format(state, percentage)
-            time.sleep(1)
+            time.sleep(5)
 
 
 class NetctlItem(Item):
