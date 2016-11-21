@@ -104,6 +104,7 @@ class CputempItem(Item):
 
 
 class BatteryItem(Item):
+    _color = ''
     def run(self):
         while True:
             rv = shell('upower -i '
@@ -124,7 +125,12 @@ class BatteryItem(Item):
             if 'state' not in data:  # no battery in this device
                 break
             state = data['state']
-            percentage = data['percentage']
+            percentage = int(data['percentage'].strip('%'))
+            battery_empty = percentage < 10
+            if battery_empty and not self._color:
+                self._color = urgent2_color
+            else:
+                self._color = ''
 
             if state == 'charging':
                 _time = data.get('time to full', None)
@@ -132,10 +138,12 @@ class BatteryItem(Item):
                 _time = data.get('time to empty', None)
 
             if _time:
-                self.text = '{} ({}); {}'.format(state, _time, percentage)
+                self.text = '{}{} ({}); {}%'.format(
+                    self._color, state, _time, percentage)
             else:
-                self.text = '{}; {}'.format(state, percentage)
-            time.sleep(5)
+                self.text = '{}{}; {}%'.format(
+                    self._color, state, percentage)
+            time.sleep(1 if self._color or battery_empty else 5)
 
 
 class NetctlItem(Item):
