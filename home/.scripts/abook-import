@@ -1,8 +1,0 @@
-#!/bin/sh
-
-CONTACTS_PATH="$HOME/.contacts"
-
-(for f in $CONTACTS_PATH/*; do
-    cat "$f"
-    echo
-done) | abook --convert --informat vcard --outformat abook --outfile ~/.abook/addressbook
