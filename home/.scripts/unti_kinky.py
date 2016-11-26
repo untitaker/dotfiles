@@ -133,7 +133,7 @@ class BatteryItem(Item):
             state = data['state']
             percentage = int(data['percentage'].strip('%'))
             battery_empty = percentage < 10
-            if battery_empty and not self._color:
+            if battery_empty and (not self._color or state == 'charging'):
                 self._color = urgent2_color
             else:
                 self._color = ''
