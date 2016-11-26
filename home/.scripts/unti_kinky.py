@@ -3,8 +3,9 @@ import sys
 import time
 import datetime
 import os
+
 sys.path.append('/home/untitaker/projects/kinky')
-from kinky import Item, StatusBar, shell, is_running
+from kinky import Item, StatusBar, shell, is_running, shell_stream
 
 normal_color = '\x01'
 selected_color = '\x02'
@@ -29,23 +30,28 @@ class DatetimeItem(Item):
                 '%H:%M{between}%Y/%m/%d'
                 .format(between=self.bar.between)
             )
-            time.sleep(30)
+            time.sleep(10)
 
 
 class VolumeItem(Item):
     def run(self):
-        while True:
-            state = shell('amixer get Master | grep "Mono: Playback"') \
-                .strip().split()
-            if not state:
+        self._set_vol()
+        for line in shell_stream('pactl subscribe'):
+            if "'change' on sink" not in line:
                 continue
-            vol = state[3].replace('[', '').replace(']', '')
-            mute = state[5]
-            text = '{}VOL: '.format(title_color)
-            text += urgent_color if mute == '[off]' else selected_color
-            text += vol
-            self.text = text
-            time.sleep(.5)
+            self._set_vol()
+
+    def _set_vol(self):
+        state = shell('amixer get Master | grep "Left: Playback" | head -1') \
+            .strip().split()
+        if not state:
+            return
+        vol = state[-2].replace('[', '').replace(']', '')
+        mute = state[-1]
+        text = '{}VOL: '.format(title_color)
+        text += urgent_color if mute == '[off]' else selected_color
+        text += vol
+        self.text = text
 
 
 class MpdItem(Item):
@@ -143,7 +149,7 @@ class BatteryItem(Item):
             else:
                 self.text = '{}{}; {}%'.format(
                     self._color, state, percentage)
-            time.sleep(1 if self._color or battery_empty else 5)
+            time.sleep(1 if self._color or battery_empty else 20)
 
 
 class NetctlItem(Item):
