@@ -35,3 +35,6 @@ super + ctrl + shift + {j, k}
 
 super + q
     killall dwm
+
+super + shift + l
+    xscreensaver-command --lock
