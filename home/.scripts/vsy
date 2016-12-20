@@ -4,6 +4,8 @@ set -o pipefail
 
 export VDIRSYNCER_NEXTCLOUD_PASSWORD="$(pass www/nextcloud.unterwaditzer.net/login | head -1)"
 
+[ -n "$VDIRSYNCER_NEXTCLOUD_PASSWORD" ]
+
 _watch() {
     local path="$1"
     local collection="$(_path2collection $path)"
