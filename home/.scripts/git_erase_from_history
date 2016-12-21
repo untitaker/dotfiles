@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "WARNING: THIS WILL DELETE THE SPECIFIED FILE FROM YOUR ENTIRE HISTORY."
-echo "Press ^C to cancel"
-read
 
 set -o errexit
  
@@ -20,6 +17,10 @@ if [ ! -d .git ]; then
     echo "Error: must run this script from the root of a git repository"
     exit 1
 fi
+
+echo "WARNING: THIS WILL DELETE THE SPECIFIED FILE FROM YOUR ENTIRE HISTORY."
+echo "Press ^C to cancel"
+read
  
 # remove all paths passed as arguments from the history of the repo
 files=$@
