@@ -201,10 +201,12 @@ bind -x '"\C-s":"fuzzy_path_completion"'
 export FZF_TMUX=0
 ORIG_ENV="$(satinized_env)"
 
+todo_cmd="$(dirname $(realpath $(which todo)))/python -mtodoman"
+
 todo() {
     if [ -z "$1" ]; then
-        command todo list $(ls ~/.calendars/ | grep -v media)
+        $todo_cmd list $(ls ~/.calendars/ | grep -v media)
     else
-        command todo "$@"
+        $todo_cmd "$@"
     fi
 }
