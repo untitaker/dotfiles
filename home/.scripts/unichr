@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "
+from unicodedata import name
+for i in range(0x20, 0xe007F):
+    try:
+        c = chr(i)
+        print('{}\t{}'.format(c, name(c)))
+    except Exception:
+        pass
+" | python3 | fzf | cut -f '1'
