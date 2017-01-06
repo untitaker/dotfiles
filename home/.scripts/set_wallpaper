@@ -25,7 +25,7 @@ def get_wallpaper_url():
     for x in j["data"]["children"]:
         try:
             url = x["data"]["url"]
-            if x['data']['is_self']:
+            if x['data']['is_self'] or x['data']['stickied']:
                 continue
             print(url)
             if not is_direct_link(url):
