@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for job in $(travis show $@ | grep -E '^#(.*)(errored|failed)' | cut -d' ' -f'1' | tr -d '#'); do
+    echo "Restarting $job"
+    travis restart "$job"
+done
