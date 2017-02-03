@@ -59,7 +59,7 @@ main() {
     wait
 }
 
-if [ -z "$@" ]; then
+if [ -z "$1" ]; then
     main
 else
     vdirsyncer "$@"
