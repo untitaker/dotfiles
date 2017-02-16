@@ -61,3 +61,6 @@
 [submodule "home/.vim/bundle/vim-racer"]
 	path = home/.vim/bundle/vim-racer
 	url = https://github.com/racer-rust/vim-racer
+[submodule "home/.vim/bundle/vim-smali"]
+	path = home/.vim/bundle/vim-smali
+	url = https://github.com/kelwin/vim-smali
