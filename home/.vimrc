@@ -106,6 +106,7 @@ autocmd FileType ruby,python,javascript,c,cpp,objc silent! setlocal colorcolumn=
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
 \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType tex setlocal shiftwidth=2
 let python_highlight_all=1
 let python_highlight_exceptions=0
 let python_highlight_builtins=0
