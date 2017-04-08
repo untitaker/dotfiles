@@ -207,6 +207,8 @@ if which todo &> /dev/null; then
     todo() {
         if [ -z "$1" ]; then
             $todo_cmd list $(ls ~/.calendars/ | grep -v media)
+        elif [ -d $HOME/.calendars/$1 ]; then
+            $todo_cmd list $1
         else
             $todo_cmd "$@"
         fi
