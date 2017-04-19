@@ -1,4 +1,4 @@
 #!/bin/sh
-pass www/zid.tuwien.ac.at/login | head -1 | sudo openconnect --passwd-on-stdin vpn.tuwien.ac.at \
+pass www/iu.zid.tuwien.ac.at/login | head -1 | sudo openconnect --passwd-on-stdin vpn.tuwien.ac.at \
     --authgroup TU_getunnelt \
-    -u "$(pass www/zid.tuwien.ac.at/login | grep login: | sed -e 's/login: //g')"
+    -u "$(pass www/iu.zid.tuwien.ac.at/login | grep login: | sed -e 's/login: //g')"
