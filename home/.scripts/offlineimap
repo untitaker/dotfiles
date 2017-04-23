@@ -10,24 +10,7 @@ _is_dirty() {
         [[ $(git status --porcelain | tail -n1) != "" ]]
 }
 
-(
-    echo "Initial sync"
-    if [ "$1" = "-o" ]; then
-        exit
-    fi
-
-    while true; do
-        inotifywait -rq -e create -e delete -e move -t 300 \
-            --exclude='(\.mbsyncstate)' \
-        ~/.mail/*/ \
-        || ([ "$?" = "2" ] && echo "Timeout")
-        if [ "$1" = "-o" ]; then
-            exit
-        fi
-        sleep 1
-    done
-) | while read line; do
-    echo -e "$C_RED$line$C_RESET"
+while true; do
     mbsync -a
     notmuch new
     cd ~/.mail/
@@ -37,4 +20,15 @@ _is_dirty() {
     git init -q
     git add -A
     git commit -m "$(date)" || ! _is_dirty
+
+    if [ "$1" = "-o" ]; then
+        exit
+    fi
+
+    echo -ne "$C_RED"
+    inotifywait -rq -e create -e delete -e move -t 300 \
+        --exclude='(\.mbsyncstate)' \
+    ~/.mail/*/ \
+    || ([ "$?" = "2" ] && echo "Timeout")
+    echo -e "$C_RESET"
 done
