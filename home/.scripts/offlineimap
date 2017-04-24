@@ -30,5 +30,5 @@ while true; do
         --exclude='(\.mbsyncstate)' \
     ~/.mail/*/ \
     || ([ "$?" = "2" ] && echo "Timeout")
-    echo -e "$C_RESET"
+    echo -ne "$C_RESET"
 done
