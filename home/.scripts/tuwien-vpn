@@ -1,4 +1,10 @@
 #!/bin/sh
+if [ "$1" = "-a" ]; then
+    authgroup=Alles_getunnelt
+else
+    authgroup=TU_getunnelt
+fi
+
 pass www/iu.zid.tuwien.ac.at/login | head -1 | sudo openconnect --passwd-on-stdin vpn.tuwien.ac.at \
-    --authgroup TU_getunnelt \
+    --authgroup $authgroup \
     -u "$(pass www/iu.zid.tuwien.ac.at/login | grep login: | sed -e 's/login: //g')"
