@@ -64,3 +64,6 @@
 [submodule "home/.config/nvim/bundle/vim-smali"]
 	path = home/.config/nvim/bundle/vim-smali
 	url = https://github.com/kelwin/vim-smali
+[submodule "home/.config/nvim/bundle/deoplete"]
+	path = home/.config/nvim/bundle/deoplete
+	url = https://github.com/Shougo/deoplete.nvim
