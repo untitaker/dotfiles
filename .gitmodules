@@ -1,66 +1,66 @@
-[submodule "home/.vim/bundle/vim-pathogen"]
-	path = home/.vim/bundle/vim-pathogen
+[submodule "home/.config/nvim/bundle/vim-pathogen"]
+	path = home/.config/nvim/bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-[submodule "home/.vim/bundle/buftabs"]
-	path = home/.vim/bundle/buftabs
+[submodule "home/.config/nvim/bundle/buftabs"]
+	path = home/.config/nvim/bundle/buftabs
 	url = git://github.com/vim-scripts/buftabs.git
-[submodule "home/.vim/bundle/Jinja"]
-	path = home/.vim/bundle/Jinja
+[submodule "home/.config/nvim/bundle/Jinja"]
+	path = home/.config/nvim/bundle/Jinja
 	url = git://github.com/vim-scripts/Jinja.git
-[submodule "home/.vim/bundle/nerdcommenter"]
-	path = home/.vim/bundle/nerdcommenter
+[submodule "home/.config/nvim/bundle/nerdcommenter"]
+	path = home/.config/nvim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "home/.vim/bundle/vim-easymotion"]
-	path = home/.vim/bundle/vim-easymotion
+[submodule "home/.config/nvim/bundle/vim-easymotion"]
+	path = home/.config/nvim/bundle/vim-easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
-[submodule "home/.vim/bundle/vim-less"]
-	path = home/.vim/bundle/vim-less
+[submodule "home/.config/nvim/bundle/vim-less"]
+	path = home/.config/nvim/bundle/vim-less
 	url = git://github.com/groenewege/vim-less.git
-[submodule "home/.vim/bundle/supertab"]
-	path = home/.vim/bundle/supertab
+[submodule "home/.config/nvim/bundle/supertab"]
+	path = home/.config/nvim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule "home/.vim/bundle/vim-fugitive"]
-	path = home/.vim/bundle/vim-fugitive
+[submodule "home/.config/nvim/bundle/vim-fugitive"]
+	path = home/.config/nvim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "home/.vim/bundle/jedi-vim"]
-	path = home/.vim/bundle/jedi-vim
+[submodule "home/.config/nvim/bundle/jedi-vim"]
+	path = home/.config/nvim/bundle/jedi-vim
 	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "home/.vim/bundle/todo.txt"]
-	path = home/.vim/bundle/todo.txt
+[submodule "home/.config/nvim/bundle/todo.txt"]
+	path = home/.config/nvim/bundle/todo.txt
 	url = git://github.com/freitass/todo.txt-vim.git
-[submodule "home/.vim/bundle/vim-python-combined"]
-	path = home/.vim/bundle/vim-python-combined
+[submodule "home/.config/nvim/bundle/vim-python-combined"]
+	path = home/.config/nvim/bundle/vim-python-combined
 	url = git://github.com/mitsuhiko/vim-python-combined.git
-[submodule "home/.vim/bundle/vim-python-pep8-indent"]
-	path = home/.vim/bundle/vim-python-pep8-indent
+[submodule "home/.config/nvim/bundle/vim-python-pep8-indent"]
+	path = home/.config/nvim/bundle/vim-python-pep8-indent
 	url = git://github.com/hynek/vim-python-pep8-indent.git
-[submodule "home/.vim/bundle/riv.vim"]
-	path = home/.vim/bundle/riv.vim
+[submodule "home/.config/nvim/bundle/riv.vim"]
+	path = home/.config/nvim/bundle/riv.vim
 	url = https://github.com/Rykka/riv.vim
-[submodule "home/.vim/bundle/syntastic"]
-	path = home/.vim/bundle/syntastic
+[submodule "home/.config/nvim/bundle/syntastic"]
+	path = home/.config/nvim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "home/.vim/bundle/vim-colors-base16"]
-	path = home/.vim/bundle/vim-colors-base16
+[submodule "home/.config/nvim/bundle/vim-colors-base16"]
+	path = home/.config/nvim/bundle/vim-colors-base16
 	url = https://github.com/chriskempson/base16-vim
-[submodule "home/.vim/bundle/vim-icalendar"]
-	path = home/.vim/bundle/vim-icalendar
+[submodule "home/.config/nvim/bundle/vim-icalendar"]
+	path = home/.config/nvim/bundle/vim-icalendar
 	url = https://github.com/vim-scripts/icalendar.vim
-[submodule "home/.vim/bundle/rust"]
-	path = home/.vim/bundle/rust
+[submodule "home/.config/nvim/bundle/rust"]
+	path = home/.config/nvim/bundle/rust
 	url = https://github.com/rust-lang/rust.vim
 [submodule "dwm"]
 	path = dwm
 	url = http://git.suckless.org/dwm
-[submodule "home/.vim/bundle/vim-javascript"]
-	path = home/.vim/bundle/vim-javascript
+[submodule "home/.config/nvim/bundle/vim-javascript"]
+	path = home/.config/nvim/bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
-[submodule "home/.vim/bundle/vim-mustache-handlebars"]
-	path = home/.vim/bundle/vim-mustache-handlebars
+[submodule "home/.config/nvim/bundle/vim-mustache-handlebars"]
+	path = home/.config/nvim/bundle/vim-mustache-handlebars
 	url = https://github.com/mustache/vim-mustache-handlebars
-[submodule "home/.vim/bundle/vim-racer"]
-	path = home/.vim/bundle/vim-racer
+[submodule "home/.config/nvim/bundle/vim-racer"]
+	path = home/.config/nvim/bundle/vim-racer
 	url = https://github.com/racer-rust/vim-racer
-[submodule "home/.vim/bundle/vim-smali"]
-	path = home/.vim/bundle/vim-smali
+[submodule "home/.config/nvim/bundle/vim-smali"]
+	path = home/.config/nvim/bundle/vim-smali
 	url = https://github.com/kelwin/vim-smali

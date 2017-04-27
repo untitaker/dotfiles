@@ -214,3 +214,7 @@ if which todo &> /dev/null; then
         fi
     }
 fi
+
+if which nvim &> /dev/null; then
+    alias vim=nvim
+fi
