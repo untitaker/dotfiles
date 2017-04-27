@@ -7,6 +7,10 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 filetype plugin indent on
 call pathogen#infect()
 
+" Hardcode such that it works in virtualenv
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
 " aliases
 command Q q!
 nmap ; :
