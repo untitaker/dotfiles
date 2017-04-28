@@ -70,3 +70,6 @@
 [submodule "home/.config/nvim/bundle/deoplete-jedi"]
 	path = home/.config/nvim/bundle/deoplete-jedi
 	url = https://github.com/zchee/deoplete-jedi
+[submodule "home/.config/nvim/bundle/javacomplete2"]
+	path = home/.config/nvim/bundle/javacomplete2
+	url = https://github.com/artur-shaik/vim-javacomplete2
