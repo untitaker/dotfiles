@@ -119,6 +119,17 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 \ softtabstop=4 smartindent
 \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
+" Java
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_completion_start_length = 2
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = []
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#omni_patterns = {}
+
 autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype icalendar
 
 " bash-ish autocompletion
