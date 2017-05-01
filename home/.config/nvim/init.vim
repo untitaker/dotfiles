@@ -149,7 +149,7 @@ noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
 
 " Automatic word-wrapping with W
-map W gq
+noremap W gq
 
 " modelines
 set modeline
