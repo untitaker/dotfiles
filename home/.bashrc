@@ -23,6 +23,10 @@ export C_GRAY="\e[0;90m"
 # CONFIGS
 export PYTHONPATH=$PYTHONPATH:~/.local/lib
 export EDITOR="vim"
+if which nvim &> /dev/null; then
+    alias vim=nvim
+    export EDITOR="nvim"
+fi
 export BROWSER="xdg-open"
 shopt -s autocd
 export HISTCONTROL=ignoreboth
@@ -213,8 +217,4 @@ if which todo &> /dev/null; then
             $todo_cmd "$@"
         fi
     }
-fi
-
-if which nvim &> /dev/null; then
-    alias vim=nvim
 fi
