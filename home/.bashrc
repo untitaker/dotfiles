@@ -181,6 +181,7 @@ alias sudosu='sudo su'
 source ~/.homesick/repos/homeshick/homeshick.sh
 
 alias clipboard='xclip -selection clipboard'
+alias f=pcmanfm
 
 alias p='yaourt'
 alias p-clean='p -Rs $(p -Qdtq)'
