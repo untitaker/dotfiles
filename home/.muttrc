@@ -70,7 +70,7 @@ set sidebar_folder_indent
 # messages index
 folder-hook . "exec collapse-all"
 set sort=threads
-bind index gg first-entry
+bind index g first-entry
 bind index G last-entry
 bind index,pager R reply
 bind index,pager r group-reply
@@ -96,7 +96,7 @@ macro index,pager \" \
 # messages
 set pager_stop
 set pager_index_lines = 12
-bind pager gg top
+bind pager g top
 bind pager G bottom
 bind pager k previous-line
 bind pager j next-line
