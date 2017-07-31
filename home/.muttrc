@@ -6,6 +6,7 @@ set charset=UTF-8
 set hostname = "unterwaditzer.net"  # Don't reveal actual box I sent email from
 
 set folder=~/.mail/
+set mbox_type=Maildir
 source ~/.mutt/mailboxes
 
 set spoolfile=+markus/INBOX
@@ -23,7 +24,7 @@ unset mark_old
 unset wait_key
 
 set folder_format="%2C %2N %2s %f"
-set editor="vim -c 'set textwidth=79'"
+set editor="nvim -c 'set textwidth=79'"
 set trash=+markus/trash  # confirmed for working 2012-08-31
 set tilde
 

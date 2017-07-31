@@ -47,7 +47,6 @@ theme = dark
 agenda_event_format = {calendar-color}{start-end-time-style:16}{title}{reset}{repeat-symbol} {location}
 
 [default]
-default_command = list
 default_calendar = default
 highlight_event_days = True
 
