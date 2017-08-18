@@ -5,12 +5,14 @@ main() {
     source ~/.bash_profile
 
     sxhkd -t 100 &
+    xmodmap -e 'add Mod4 = Caps_Lock'
     twmnd &
 
     set_wallpaper &
     statusbar right &
 
    source ~/.xstart_$(hostname)
+
    xscreensaver -no-splash &
 
     #trayer --edge top --widthtype request --align center --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x000000 --height 16 &
