@@ -5,3 +5,6 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.font: DejaVu Sans 8
 Xcursor.theme: Vanilla-DMZ-AA
+
+dzen2.font: -*-xos4 terminus-*-*-*-*-12-*-*-*-*-*-*-*
+dzen2.background: #000

@@ -7,12 +7,12 @@ import os
 sys.path.append('/home/untitaker/projects/kinky')
 from kinky import Item, StatusBar, shell, is_running, shell_stream
 
-normal_color = '\x01'
-selected_color = '\x02'
-urgent_color = '\x03'
-urgent2_color = '\x04'
-grey_color = '\x05'
-title_color = '\x06'
+normal_color = '^fg()^bg()'
+selected_color = '^fg(#3465A4)'
+urgent_color = '^fg(#FF0000)^bg()'
+urgent2_color = '^fg(#000)^bg(#FF0000)'
+grey_color = '^fg(#333)'
+title_color = '^fg(#888888)'
 
 bar = StatusBar()
 bar.between = ' {}| {}'.format(grey_color, normal_color)

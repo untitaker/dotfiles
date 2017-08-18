@@ -33,8 +33,5 @@ super + ctrl + shift + {j, k}
 
 # make sxhkd reload its configuration files
 
-super + q
-    killall dwm
-
 super + shift + l
     xscreensaver-command --lock
