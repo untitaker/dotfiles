@@ -22,10 +22,6 @@ import System.Posix.Unistd
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-import XMonad.Hooks.EwmhDesktops
-
-
-
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -92,7 +88,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
@@ -142,13 +138,11 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts( smartBorders(
-            myTiled |||
-            {-spiral (6/7) |||-}
-            Full
-            ))
-  where
-     myTiled = Tall 1 (3/100) (1/2)
+myLayout = avoidStruts $ smartBorders(
+        Tall 1 (3/100) (1/2) |||
+        {-spiral (6/7) |||-}
+        Full
+        )
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -159,7 +153,7 @@ myLayout = avoidStruts( smartBorders(
 main = do
 myPipe <- spawnPipe "statusbar left"
 host <- fmap nodeName getSystemID
-xmonad $ ewmh defaultConfig {
+xmonad $ ewmh $ docks $ defaultConfig {
         -- simple stuff
           focusFollowsMouse  = True,
           borderWidth        = 1,
@@ -186,8 +180,7 @@ xmonad $ ewmh defaultConfig {
 
         -- hooks, layouts
           layoutHook         = myLayout,
-          manageHook         = composeAll
-          [
+          manageHook         = composeAll [
                 resource  =? "desktop_window" --> doIgnore
               , resource  =? "kdesktop"       --> doIgnore
               , resource  =? "Dialog"         --> doFloat
@@ -197,8 +190,7 @@ xmonad $ ewmh defaultConfig {
               , isFullscreen --> doFullFloat
               , manageDocks
               ],
-          handleEventHook    = docksEventHook <+> fullscreenEventHook,
-          startupHook        = return (),
+          handleEventHook    = fullscreenEventHook,
           logHook = dynamicLogWithPP $ defaultPP {
             ppOutput = hPutStrLn myPipe,
             ppCurrent = wrap " ^fg(#3465A4)" "^fg()",
