@@ -41,7 +41,7 @@ password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
 a = "calendars_local"
 b = "calendars_runtastic_remote"
 collections = [["runtastic", "runtastic", "markus.unterwaditzer@runtastic.com"]]
-metadata = ["color", "displayname"]
+metadata = ["color"]
 
 [storage calendars_runtastic_remote]
 type = "google_calendar"
