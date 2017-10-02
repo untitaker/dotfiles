@@ -6,9 +6,15 @@ export VDIRSYNCER_NEXTCLOUD_PASSWORD="$(pass www/nextcloud.unterwaditzer.net/log
 
 [ -n "$VDIRSYNCER_NEXTCLOUD_PASSWORD" ]
 
+export VDIRSYNCER_RUNTASTIC_CLIENT_ID="$(pass misc/google-runtastic | grep client_id | cut -d':' -f 2)"
+[ -n "$VDIRSYNCER_RUNTASTIC_CLIENT_ID" ]
+
+export VDIRSYNCER_RUNTASTIC_CLIENT_SECRET="$(pass misc/google-runtastic | grep client_secret | cut -d':' -f 2)"
+[ -n "$VDIRSYNCER_RUNTASTIC_CLIENT_SECRET" ]
+
 _watch() {
     local path="$1"
-    local collection="$(_path2collection $path)"
+    local collection="$2"
     (
         echo "Initial sync"
         while true; do
@@ -23,19 +29,15 @@ _watch() {
     ) | while read event; do  # exit 2 is for timeouts
         echo -e "$C_RED$event$C_RESET"
         vdirsyncer sync $collection
-        _autocommit $path
+        _autocommit $path $collection
     done | while read line; do
         echo "$collection: $line"
     done
 }
 
-_path2collection() {
-    echo "${1//\/home\/untitaker\/\./}"
-}
-
 _autocommit() {
     local path="$1"
-    local collection="$(_path2collection "$path")"
+    local collection="$2"
     cd "$path"
     git init -q
     if _is_dirty; then
@@ -53,9 +55,11 @@ _is_dirty() {
 
 main() {
     trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
-    for dir in ~/.calendars/* ~/.contacts; do
-        _watch "$dir" &
+    for nextcloud_cal in computers default holidays holidays-auto media ssl-certs tiss; do
+        _watch ~/.calendars/$nextcloud_cal calendars/$nextcloud_cal &
     done
+    _watch ~/.contacts contacts &
+    _watch ~/.calendars/runtastic/ calendars_runtastic/runtastic &
     wait
 }
 

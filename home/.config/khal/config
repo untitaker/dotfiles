@@ -38,6 +38,11 @@ color = auto
 path = ~/.calendars/tiss/
 color = auto
 
+
+[[runtastic]]
+path = ~/.calendars/runtastic/
+color = auto
+
 [sqlite]
 path = ~/.khal/khal.db
 
