@@ -3,6 +3,7 @@ main() {
     echo "Starting new session..."
     source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
     source ~/.bash_profile
+    source ~/.xstart_$(hostname)
 
     sxhkd -t 100 &
     xmodmap -e 'add Mod4 = Caps_Lock'
@@ -11,7 +12,6 @@ main() {
     set_wallpaper &
     statusbar right &
 
-   source ~/.xstart_$(hostname)
 
    xscreensaver -no-splash &
 
