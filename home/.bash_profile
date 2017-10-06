@@ -5,11 +5,6 @@ fzf_comp_sh="/usr/share/fzf/key-bindings.bash"
 unset fzf_comp_sh
 unset git_comp_sh
 
-# Start the GnuPG agent and enable OpenSSH agent emulation
-if which keychain &> /dev/null; then
-    eval $(keychain --eval --noask -q -Q --agents gpg,ssh ~/.ssh/id_)
-fi
-
 export PATH=$PATH:/sbin:/usr/sbin
 
 for path in ~/.scripts/*/; do
