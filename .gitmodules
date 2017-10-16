@@ -49,9 +49,6 @@
 [submodule "home/.config/nvim/bundle/rust"]
 	path = home/.config/nvim/bundle/rust
 	url = https://github.com/rust-lang/rust.vim
-[submodule "dwm"]
-	path = dwm
-	url = http://git.suckless.org/dwm
 [submodule "home/.config/nvim/bundle/vim-javascript"]
 	path = home/.config/nvim/bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
