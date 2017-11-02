@@ -130,7 +130,8 @@ let g:deoplete#sources._ = []
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#omni_patterns = {}
 
-autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype icalendar
+autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype=icalendar
+autocmd! BufRead,BufNewFile *.lhs set filetype=haskell
 
 " bash-ish autocompletion
 set wildmode=longest,list,full
