@@ -46,6 +46,7 @@ export RUST_SRC_PATH=~/projects/rust/src/
 export MATES_DIR=~/.contacts/
 export MATES_INDEX=~/.mates_index
 which vedit &> /dev/null && export MATES_EDITOR=vedit || true
+which neomutt &> /dev/null && alias mutt=neomutt || true
 
 m() {
     email="$(MATES_GREP="mates-grep" mates email-query "$1")" && mutt "$email"
