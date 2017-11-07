@@ -184,9 +184,9 @@ source ~/.homesick/repos/homeshick/homeshick.sh
 alias clipboard='xclip -selection clipboard'
 alias f=pcmanfm
 
-alias p='yaourt'
+alias p='pb'
 alias p-clean='p -Rs $(p -Qdtq)'
-alias p-update='p -Syu --devel --aur'
+alias p-update='p -Syu'
 alias feh='feh --scale-down'
 
 alias xtr=extract
