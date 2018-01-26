@@ -27,3 +27,7 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 export QT_STYLE_OVERRIDE=GTK+
 
 source ~/.bashrc
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

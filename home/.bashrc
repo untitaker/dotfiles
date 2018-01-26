@@ -139,7 +139,7 @@ untitaker_vcs() {
 }
 
 satinized_env() {
-    env | grep -vE '(PATH|VIRTUAL_ENV|PWD)'
+    env | grep -vE '(PATH|VIRTUAL_ENV|PWD|_system_|rvm)'
 }
 
 envdiff() {
@@ -220,3 +220,6 @@ if which todo &> /dev/null; then
         fi
     }
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
