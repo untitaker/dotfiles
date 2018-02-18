@@ -122,6 +122,8 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_completion_start_length = 2

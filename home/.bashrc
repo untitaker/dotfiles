@@ -183,6 +183,7 @@ source ~/.homesick/repos/homeshick/homeshick.sh
 
 alias clipboard='xclip -selection clipboard'
 alias f=pcmanfm
+alias sss="shutdown now"
 
 alias p='pb'
 alias p-clean='p -Rs $(p -Qdtq)'
