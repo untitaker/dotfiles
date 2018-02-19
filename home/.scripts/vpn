@@ -1,0 +1,22 @@
+#!/bin/sh
+
+tuwien() {
+    if [ "$1" = "-a" ]; then
+        authgroup=Alles_getunnelt
+    else
+        authgroup=TU_getunnelt
+    fi
+
+    pass www/iu.zid.tuwien.ac.at/login | head -1 | sudo openconnect --passwd-on-stdin vpn.tuwien.ac.at \
+        --authgroup $authgroup \
+        -u "$(pass www/iu.zid.tuwien.ac.at/login | grep login: | sed -e 's/login: //g')"
+}
+
+nord() {
+    (
+        pass www/nordvpn.com/login | grep login: | sed -e 's/login: //g';
+        pass www/nordvpn.com/login | head -1
+    ) | sudo openvpn --auth-user-pass --config $1 --auth-user-pass /dev/stdin
+}
+
+$@
