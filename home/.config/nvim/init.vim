@@ -84,22 +84,6 @@ let g:syntastic_style_warning_symbol = 'x'
 " taglist
 noremap <f4> :TlistToggle<CR>
 
-" language server
-
-set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ }
-let g:LanguageClient_changeThrottle = 1
-
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <C-S> :call LanguageClient_textDocument_documentSymbol()<CR>
-
-
-
 let base16colorspace=256
 set history=50  " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
