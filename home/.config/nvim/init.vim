@@ -62,10 +62,6 @@ let g:EasyMotion_leader_key = '<Leader>'
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 
-" Jedi
-let g:jedi#popup_on_dot = 0  " Disable the automatic suggestions
-let g:jedi#smart_auto_mappings = 0  " Disable auto-typing `import` while inserting
-
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -87,6 +83,18 @@ let g:syntastic_style_warning_symbol = 'x'
 
 " taglist
 noremap <f4> :TlistToggle<CR>
+
+" language server
+
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 
 
