@@ -38,6 +38,7 @@ username = "untitaker"
 password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
 
 [pair calendars_runtastic]
+conflict_resolution = "b wins"
 a = "calendars_local"
 b = "calendars_runtastic_remote"
 collections = [["runtastic", "runtastic", "markus.unterwaditzer@runtastic.com"]]
