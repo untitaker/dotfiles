@@ -1,2 +1,2 @@
 #!/bin/sh
-curl -s -F 'sprunge=<-' http://sprunge.us
+curl -s -F 'f:1=<-' http://ix.io

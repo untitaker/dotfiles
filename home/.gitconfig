@@ -29,6 +29,7 @@
     cd = checkout
     b = branch
     c = commit -v
+    log = log --graph
     lg = log
     ca = commit -va
     cm = commit -vm

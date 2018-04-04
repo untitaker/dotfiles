@@ -13,13 +13,15 @@ _is_dirty() {
 while true; do
     mbsync -a || true
     notmuch new
-    cd ~/.mail/
-    echo .notmuch > .gitignore
-    echo .mbsyncstate >> .gitignore
-    echo .uidvalidity >> .gitignore
-    git init -q
-    git add -A
-    git commit -m "$(date)" || ! _is_dirty
+    ( 
+        cd ~/.mail/
+        echo .notmuch > .gitignore
+        echo .mbsyncstate >> .gitignore
+        echo .uidvalidity >> .gitignore
+        git init -q
+        git add -A
+        git commit -m "$(date)" || ! _is_dirty
+    )
 
     if [ "$1" = "-o" ]; then
         exit
