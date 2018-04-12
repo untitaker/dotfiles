@@ -55,7 +55,7 @@ _is_dirty() {
 
 main() {
     trap 'kill $(jobs -p) &> /dev/null' TERM EXIT
-    for nextcloud_cal in computers default holidays holidays-auto media ssl-certs tiss; do
+    for nextcloud_cal in computers default holidays media ssl-certs tiss; do
         _watch ~/.calendars/$nextcloud_cal calendars/$nextcloud_cal &
     done
     _watch ~/.contacts contacts &

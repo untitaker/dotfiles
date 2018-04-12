@@ -24,11 +24,6 @@ path = ~/.calendars/holidays/
 color = auto
 readonly = False
 
-[[holidays_auto]]
-path = ~/.calendars/holidays-auto/
-color = auto
-readonly = True
-
 [[ssl_certs]]
 path = ~/.calendars/ssl-certs/
 readonly = True
