@@ -62,25 +62,6 @@ let g:EasyMotion_leader_key = '<Leader>'
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-noremap <f7> :w<CR>:SyntasticCheck<CR>
-
-let g:syntastic_python_checkers = ['flake8', 'python']
-let g:syntastic_javascript_checkers = ['eslint', 'jshint']
-let g:syntastic_tex_checkers = []
-
-" Better :sign interface symbols
-let g:syntastic_error_symbol = 'X'
-let g:syntastic_style_error_symbol = 'X'
-
-let g:syntastic_warning_symbol = 'x'
-let g:syntastic_style_warning_symbol = 'x'
-
 " taglist
 noremap <f4> :TlistToggle<CR>
 
