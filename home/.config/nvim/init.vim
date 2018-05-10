@@ -1,6 +1,7 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+set hidden
 
 " Pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -94,18 +95,25 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 \ softtabstop=4 smartindent
 \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
+
+" language server
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ 'ruby': ['language_server-ruby'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
+set signcolumn=yes
+
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_completion_start_length = 2
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = []
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#omni_patterns = {}
 
 autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype icalendar
 
