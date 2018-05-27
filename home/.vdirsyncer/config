@@ -36,16 +36,3 @@ type = "carddav"
 url = "https://nextcloud.unterwaditzer.net/"
 username = "untitaker"
 password.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_NEXTCLOUD_PASSWORD"]
-
-[pair calendars_runtastic]
-conflict_resolution = "b wins"
-a = "calendars_local"
-b = "calendars_runtastic_remote"
-collections = [["runtastic", "runtastic", "markus.unterwaditzer@runtastic.com"]]
-metadata = ["color"]
-
-[storage calendars_runtastic_remote]
-type = "google_calendar"
-client_id.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_RUNTASTIC_CLIENT_ID"]
-client_secret.fetch = ["command", "sh", "-c", "echo $VDIRSYNCER_RUNTASTIC_CLIENT_SECRET"]
-token_file = "~/.vdirsyncer/google-runtastic-token"

@@ -6,12 +6,6 @@ export VDIRSYNCER_NEXTCLOUD_PASSWORD="$(pass www/nextcloud.unterwaditzer.net/log
 
 [ -n "$VDIRSYNCER_NEXTCLOUD_PASSWORD" ]
 
-export VDIRSYNCER_RUNTASTIC_CLIENT_ID="$(pass misc/google-runtastic | grep client_id | cut -d':' -f 2)"
-[ -n "$VDIRSYNCER_RUNTASTIC_CLIENT_ID" ]
-
-export VDIRSYNCER_RUNTASTIC_CLIENT_SECRET="$(pass misc/google-runtastic | grep client_secret | cut -d':' -f 2)"
-[ -n "$VDIRSYNCER_RUNTASTIC_CLIENT_SECRET" ]
-
 _watch() {
     local path="$1"
     local collection="$2"
@@ -59,7 +53,6 @@ main() {
         _watch ~/.calendars/$nextcloud_cal calendars/$nextcloud_cal &
     done
     _watch ~/.contacts contacts &
-    _watch ~/.calendars/runtastic/ calendars_runtastic/runtastic &
     wait
 }
 
