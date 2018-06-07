@@ -46,7 +46,7 @@ bind editor ^T complete
 set query_command= "mates mutt-query '%s'"
 
 macro index,pager A \
-    "<pipe-message>mates add | xargs mates edit<enter>" \
+    "<pipe-message>mates add | xargs sh -c 'mates edit \"$@\" < /dev/tty || rm -v \"$@\"' mates<enter>" \
     "add the sender address"
 
 auto_view text/html
