@@ -7,7 +7,7 @@ main() {
 
     set_wallpaper &
     sxhkd -t 100 &
-    xmodmap -e 'add Mod4 = Caps_Lock'
+    setxkbmap -option caps:super
     twmnd &
     statusbar right &
     xscreensaver -no-splash &
