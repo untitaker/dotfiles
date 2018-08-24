@@ -7,6 +7,6 @@ else
     $vte "sh -c 'if tmux -q has-session; then
         tmux attach-session -d
     else
-        tmux new-session -n$USER -s$USER@$HOSTNAME
+        tmux new-session -n$USER -s$USER@$(echo $HOSTNAME | tr -d.)
     fi'"
 fi
