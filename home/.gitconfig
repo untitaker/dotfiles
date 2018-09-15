@@ -50,3 +50,5 @@
     autocorrect = 5
 [diff "diffpdf"]
     command = diffpdf
+[hub]
+	protocol = ssh

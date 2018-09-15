@@ -27,7 +27,11 @@ if which nvim &> /dev/null; then
     alias vim=nvim
     export EDITOR="nvim"
 fi
-export BROWSER="xdg-open"
+if which xdg-open &> /dev/null; then
+    export BROWSER=xdg-open
+else
+    export BROWSER="open -a firefox"
+fi
 shopt -s autocd
 export HISTCONTROL=ignoreboth
 export XDG_CONFIG_HOME=~/.config
@@ -206,7 +210,7 @@ set -o emacs
 bind -x '"\C-s":"fuzzy_path_completion"'
 
 export FZF_TMUX=0
-ORIG_ENV="$(satinized_env)"
+
 
 if which todo &> /dev/null; then
     todo_cmd="$(dirname $(realpath $(which todo)))/python -mtodoman"
@@ -222,5 +226,13 @@ if which todo &> /dev/null; then
     }
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+title() {
+    printf "\\033]2;$1\\033\\\\"
+}
+
+# use border separator for tmux such that "hole" is closed
+title ─
+
+[ -f ~/.secrets ] && source ~/.secrets
+
+ORIG_ENV="$(satinized_env)"

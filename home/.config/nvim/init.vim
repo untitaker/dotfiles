@@ -3,14 +3,24 @@
 set nocompatible
 set hidden
 
+" Install FZF
+set rtp+=/usr/local/opt/fzf
+
 " Pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 filetype plugin indent on
 call pathogen#infect()
+call pathogen#helptags()
+
 
 " Hardcode such that it works in virtualenv
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
+if has("mac")
+    let g:python_host_prog = '/usr/local/bin/python2'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+else
+    let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 " aliases
 command Q q!
@@ -44,6 +54,7 @@ endif
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 syntax enable
+au Syntax * syntax sync fromstart
 set hlsearch
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:%
 
@@ -66,6 +77,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " taglist
 noremap <f4> :TlistToggle<CR>
 
+set termguicolors
 let base16colorspace=256
 set history=50  " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
@@ -81,7 +93,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
 " Colorcolumns
-autocmd FileType ruby,python,javascript,c,cpp,objc silent! setlocal colorcolumn=80 
+autocmd FileType ruby,python,javascript,c,cpp,objc silent! setlocal colorcolumn=80 shiftwidth=2
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
@@ -132,9 +144,6 @@ noremap <C-J> :wincmd j<CR>
 noremap <C-K> :wincmd k<CR>
 noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
-
-" Automatic word-wrapping with W
-noremap W gq
 
 " modelines
 set modeline

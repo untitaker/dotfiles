@@ -1,26 +1,20 @@
-git_comp_sh="/usr/share/git/completion/git-completion.bash"
-[ -f "$git_comp_sh" ] && . "$git_comp_sh"
-fzf_comp_sh="/usr/share/fzf/key-bindings.bash"
-[ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
+for git_comp_sh in /usr/share/git/completion/git-completion.bash /usr/local/opt/git/etc/bash_completion.d/git-completion.bash; do
+    [ -f "$git_comp_sh" ] && . "$git_comp_sh"
+done
+
+for fzf_comp_sh in /usr/share/fzf/key-bindings.bash /usr/local/opt/fzf/shell/key-bindings.bash; do
+    [ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
+done
 unset fzf_comp_sh
 unset git_comp_sh
 
-export FZF_DEFAULT_COMMAND='
-  (git ls-tree -r --name-only HEAD ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-      sed s/^..//) 2> /dev/null'
-
 export PATH=$PATH:/sbin:/usr/sbin
-
-for path in ~/.scripts/*/; do
-    PATH=$path:$PATH
-done
+PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:~/.cargo/bin/:$PATH
 
 for path in ~/.gem/ruby/*/bin/; do
     PATH=$PATH:$path
 done
 
-PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:~/.cargo/bin/:$PATH
 
 if [[ $- == *i* ]]; then
     # i want to use ctrl-s
@@ -33,6 +27,4 @@ export QT_STYLE_OVERRIDE=GTK+
 
 source ~/.bashrc
 
-export PATH="$HOME/.cargo/bin:$PATH"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" || true # Load RVM into a shell session *as a function*

@@ -1,4 +1,4 @@
 #!/bin/sh
 set -xe
-cargo graph | dot -Tsvg > ./target/dependencies.svg
-$BROWSER ./target/dependencies.svg
+cargo graph | dot -Tsvg > /tmp/dependencies.svg
+$BROWSER /tmp/dependencies.svg
