@@ -77,6 +77,13 @@ _va () {
 }
 
 va() {
+    if [ -z "$1" ]; then
+        local selection="$(ls ~/projects/ | fzf)"
+        [ -z "$selection" ] && return
+        va "$selection"
+        return
+    fi
+
     PROJNAME="$1"
     [ -d "$PROJ_HOME$PROJNAME" ] || [ -d "$WORKON_HOME$PROJNAME" ] || \
         PROJNAME="$PWD$PROJNAME"
@@ -206,8 +213,19 @@ function fuzzy_path_completion() {
     READLINE_LINE+=" $append"
 }
 
+
+function fuzzy_content_completion() {
+    local line="$(git grep --color=always -n '' | fzf --ansi)"
+    [ -z "$line" ] && return
+    local file="$(echo "$line" | cut -d: -f1)"
+    local lineno="$(echo "$line" | cut -d: -f2)"
+    append="$(printf '%q +%q' "$file" "$lineno")"  # escape string for shell
+    READLINE_LINE+=" $append"
+}
+
 set -o emacs
 bind -x '"\C-s":"fuzzy_path_completion"'
+bind -x '"\C-f":"fuzzy_content_completion"'
 
 export FZF_TMUX=0
 

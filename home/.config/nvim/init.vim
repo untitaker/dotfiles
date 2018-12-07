@@ -145,6 +145,9 @@ noremap <C-K> :wincmd k<CR>
 noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
 
+" delete parens
+noremap d( ma%x`ax
+
 " modelines
 set modeline
 " Append modeline after last line in buffer.
