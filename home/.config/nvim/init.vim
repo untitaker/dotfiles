@@ -6,11 +6,34 @@ set hidden
 " Install FZF
 set rtp+=/usr/local/opt/fzf
 
-" Pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-filetype plugin indent on
-call pathogen#infect()
-call pathogen#helptags()
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.config/nvim/plugged')
+
+Plug('git://github.com/vim-scripts/buftabs.git')
+Plug('git://github.com/vim-scripts/Jinja.git')
+Plug('git://github.com/scrooloose/nerdcommenter.git')
+Plug('git://github.com/ervandew/supertab.git')
+Plug('git://github.com/tpope/vim-fugitive.git')
+Plug('git://github.com/mitsuhiko/vim-python-combined.git')
+Plug('git://github.com/hynek/vim-python-pep8-indent.git')
+Plug('https://github.com/scrooloose/syntastic.git')
+Plug('https://github.com/chriskempson/base16-vim')
+Plug('https://github.com/vim-scripts/icalendar.vim')
+Plug('https://github.com/rust-lang/rust.vim')
+Plug('https://github.com/pangloss/vim-javascript')
+Plug('https://github.com/mustache/vim-mustache-handlebars')
+Plug('https://github.com/kelwin/vim-smali')
+Plug('https://github.com/Shougo/deoplete.nvim')
+
+Plug 'https://github.com/autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" Initialize plugin system
+call plug#end()
 
 
 " Hardcode such that it works in virtualenv
