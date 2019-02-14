@@ -246,9 +246,10 @@ fi
 
 if [ ! -z "$TMUX" ]; then
     _tmux_buffer_completer() {
-        local IFS=$'\n';
-        local opts curinit curlast
         COMPREPLY=()
+        local old_func="$1"
+        local IFS=$'\n';
+        local opts curinit curlast cur
 
         # Intentionally split up last argument further such that we can
         # complete words inside a git commit message.
@@ -259,13 +260,9 @@ if [ ! -z "$TMUX" ]; then
         # `git commit -m "make a foobar"`
         # I'd like this though:
         # `git commit -m "make a foobar `
-        curinit="$(echo "${COMP_WORDS[COMP_CWORD]}" | awk '{$NF=""; print}')"  # everything but last word in last argument
-        curlast="$(echo "${COMP_WORDS[COMP_CWORD]}" | awk '{print $NF}')"  # last word in last argument
-
-        if [ "${#curlast}" -lt 2 ]; then
-            # Don't run this completion when the user hasn't typed at least 2 chars
-            return 0
-        fi
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        curinit="$(echo "$cur" | awk '{$NF=""; print}')"  # everything but last word in last argument
+        curlast="$(echo "$cur" | awk '{print $NF}')"  # last word in last argument
 
         opts="$(
             tmux capture-pane -p -E 1000 |
@@ -275,25 +272,25 @@ if [ ! -z "$TMUX" ]; then
             grep -vE '^Display all \d+ possibilities? (y or n)' |
             grep -vE "^$USER" |
             # Remove most punctuation and ASCII control chars
-            sed -e 's/[^a-zA-Z0-9.-_/]/ /g' |
+            sed -e 's/[^a-zA-Z0-9._/-]/ /g' |
             tr ' ' $'\n'
         )"
 
-        COMPREPLY=( $(compgen -P "$curinit" -W "$opts" -- $curlast) )
+        [ -z "$old_func" ] || $old_func
+        COMPREPLY+=( $(compgen -P "$curinit" -W "$opts" -- $curlast) )
         return 0
     }
 
     _register_tmux_buffer_completer() {
-        complete -o bashdefault -o default -F _tmux_buffer_completer $1
+        local old_func="$(complete -p "$1" 2> /dev/null | awk '{NF--; print $NF}')"
+        local wrapper="__tmux_buffer_completer_wrapper__${1}"
+        eval "$wrapper () { _tmux_buffer_completer $old_func; }"
+        complete -o default -o bashdefault -F $wrapper $1
     }
 
-    # BUG: This overwrites git command completion. I don't rely on that, but
-    # ideally tmux buffer completion would append to the list of completions
-    # for command names.
     _register_tmux_buffer_completer git
-
     _register_tmux_buffer_completer vim
-    
+    _register_tmux_buffer_completer rg
 fi
 
 title() {
