@@ -73,6 +73,9 @@ if has('mouse')
 	set mouse=a
 endif
 
+" Less lag with esc
+set ttimeoutlen=100
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 syntax enable
@@ -132,16 +135,18 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 " language server
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <silent> F :call LanguageClient#textDocument_formatting()<CR>
 set signcolumn=yes
 
 " Java
@@ -168,7 +173,7 @@ noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
 
 " delete parens
-noremap d( ma%x`ax
+nnoremap d( ma%x`ax
 
 " modelines
 set modeline

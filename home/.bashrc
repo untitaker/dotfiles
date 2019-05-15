@@ -34,6 +34,7 @@ else
 fi
 shopt -s autocd
 export HISTCONTROL=ignoreboth
+export HISTSIZE=1000000
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 alias grep="grep --color=auto"
@@ -207,7 +208,7 @@ which hub &> /dev/null && alias git=hub
 # FUZZY FINDER
 
 function fuzzy_path_completion() {
-    local append="$(fzf)"
+    local append="$(rg --files | fzf)"
     [ -z "$append" ] && return
     append="$(printf '%q' "$append")"  # escape string for shell
     READLINE_LINE+=" $append"
@@ -215,7 +216,7 @@ function fuzzy_path_completion() {
 
 
 function fuzzy_content_completion() {
-    local line="$(git grep --color=always -n '' | fzf --ansi)"
+    local line="$(rg -n '' | fzf --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' --preview-window=down:20%)"
     [ -z "$line" ] && return
     local file="$(echo "$line" | cut -d: -f1)"
     local lineno="$(echo "$line" | cut -d: -f2)"
@@ -273,7 +274,12 @@ if [ ! -z "$TMUX" ]; then
             grep -vE "^$USER" |
             # Remove most punctuation and ASCII control chars
             sed -e 's/[^a-zA-Z0-9._/-]/ /g' |
-            tr ' ' $'\n'
+            tr ' ' $'\n' |
+            while read x; do
+                if [ ! -f "$x" ]; then
+                    echo "$x"
+                fi
+            done
         )"
 
         [ -z "$old_func" ] || $old_func
@@ -291,6 +297,8 @@ if [ ! -z "$TMUX" ]; then
     _register_tmux_buffer_completer git
     _register_tmux_buffer_completer vim
     _register_tmux_buffer_completer rg
+    _register_tmux_buffer_completer py.test
+    _register_tmux_buffer_completer pytest
 fi
 
 title() {

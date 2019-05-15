@@ -3,10 +3,9 @@
 if [ ! -z "$1" ]; then
     tmux neww "$1"
 else
-    [ "$DISPLAY" != "" ] && vte="termite -t term -e" || vte="sh -c"
-    $vte "sh -c 'if tmux -q has-session; then
-        tmux attach-session -d
+    if tmux -q has-session; then
+        exec tmux attach-session -d
     else
-        tmux new-session -n$USER -s$USER@$(echo $HOSTNAME | tr -d.)
-    fi'"
+        exec tmux new-session -n$USER -s$USER@$(echo $HOSTNAME | tr -d.)
+    fi
 fi
