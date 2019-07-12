@@ -135,7 +135,7 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 " language server
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rls'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
     \ }

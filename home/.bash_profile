@@ -15,7 +15,6 @@ for path in ~/.gem/ruby/*/bin/; do
     PATH=$PATH:$path
 done
 
-
 if [[ $- == *i* ]]; then
     # i want to use ctrl-s
     stty -ixon

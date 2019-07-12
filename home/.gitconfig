@@ -17,7 +17,6 @@
     p = push
     pf = push -f
     fe = fetch
-    pr = pull-request
     pl = pull
     cp = cherry-pick
     

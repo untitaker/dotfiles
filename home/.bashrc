@@ -44,6 +44,9 @@ alias grep="grep --color=auto"
 export ANDROIDSDK=/opt/android-sdk/
 export ANDROIDNDK=/opt/android-ndk/
 
+# I'm not colorblind, but just find pipenv's colors obnoxious
+export PIPENV_COLORBLIND=1
+
 # racer (Rust autocompletion)
 
 export RUST_SRC_PATH=~/projects/rust/src/
@@ -267,13 +270,6 @@ if which todo &> /dev/null; then
         fi
     }
 fi
-
-title() {
-    printf "\\033]2;$1\\033\\\\"
-}
-
-# use border separator for tmux such that "hole" is closed
-title ─
 
 [ -f ~/.secrets ] && source ~/.secrets
 
