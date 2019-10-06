@@ -22,7 +22,6 @@
     
     fix = commit --amend
     undo = reset --hard HEAD^
-    stat = status
     s = status
     sub = submodule
     cd = checkout
@@ -33,16 +32,13 @@
     ca = commit -va
     cm = commit -vm
     cam = commit -vam
-    bump = !"git checkout $1;git rebase master"
-    # rebase all the branches
-    mbump = !git_mbump
     # remove a submodule... not even sure this works.
     rm-sub = !git_rm-sub
     # recursively execute a bash command on repo, its submodules and submodules of submodules
     resub = "!f(){ \"$@\"; git sub foreach git resub \"$@\"; }; f"
     # push each commit separately
     map-commits = "!f() { git rev-list --reverse master..HEAD | while read c; do git reset --hard $c; \"$@\"; done }; f"
-    delete-merged-branches = "!git checkout -q master && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == -* ]] && git branch -D $branch; done"
+    dead-branches = "!git_dead-branches"
 [push]
     # old name of upstream, for compat
     default = tracking

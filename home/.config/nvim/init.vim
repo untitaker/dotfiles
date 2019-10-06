@@ -75,6 +75,7 @@ endif
 
 " Less lag with esc
 set ttimeoutlen=100
+set autoread
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -135,7 +136,7 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 " language server
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rls'],
+    \ 'rust': ['ra_lsp_server'],
     \ 'python': ['pyls'],
     \ 'ruby': ['language_server-ruby'],
     \ }

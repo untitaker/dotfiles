@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do
+    mergeBase="`git merge-base master $branch`"
+    revParse="`git rev-parse $branch^{tree}`"
+    commitTree="`git commit-tree $revParse -p $mergeBase -m _`"
+
+    if [[ `git cherry master $commitTree` == -* ]]; then
+        echo $branch
+    fi
+done
+
+git branch --merged "--format=%(refname:short)"

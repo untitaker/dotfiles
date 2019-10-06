@@ -271,6 +271,8 @@ if which todo &> /dev/null; then
     }
 fi
 
+alias import='python -i -m'
+
 [ -f ~/.secrets ] && source ~/.secrets
 
 ORIG_ENV="$(satinized_env)"
