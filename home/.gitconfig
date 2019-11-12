@@ -44,6 +44,8 @@
     default = tracking
 [help]
     autocorrect = 5
+[diff]
+    algorithm = patience
 [diff "diffpdf"]
     command = diffpdf
 [hub]

@@ -246,6 +246,8 @@ fuzzy_tmux_buffer_completion() {
 
     [ -z "$word" ] && return
     word="$(printf '%q' "$word")"  # escape string for shell
+
+    READLINE_LINE="${READLINE_LINE%"${READLINE_LINE##*[![:space:]]}"}"  # remove trailing whitespace from READLINE_LINE
     READLINE_LINE+=" $word"
 }
 
