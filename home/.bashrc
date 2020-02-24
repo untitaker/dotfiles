@@ -211,8 +211,10 @@ which hub &> /dev/null && alias git=hub
 
 # FUZZY FINDER
 
+export DEFAULT_RG_FUZZY_FLAGS="--hidden --ignore-vcs"
+
 function fuzzy_path_completion() {
-    local append="$(rg --files | fzf)"
+    local append="$(rg $DEFAULT_RG_FUZZY_FLAGS --files | fzf)"
     [ -z "$append" ] && return
     append="$(printf '%q' "$append")"  # escape string for shell
     READLINE_LINE+=" $append"
@@ -220,7 +222,7 @@ function fuzzy_path_completion() {
 
 
 function fuzzy_content_completion() {
-    local line="$(rg -n '' | fzf --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' --preview-window=down:20%)"
+    local line="$(rg $DEFAULT_RG_FUZZY_FLAGS -n '' | fzf --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' --preview-window=down:20%)"
     [ -z "$line" ] && return
     local file="$(echo "$line" | cut -d: -f1)"
     local lineno="$(echo "$line" | cut -d: -f2)"
@@ -228,27 +230,43 @@ function fuzzy_content_completion() {
     READLINE_LINE+=" $append"
 }
 
+# fuzzy search terminal scrollback to paste back into current command line
 fuzzy_tmux_buffer_completion() {
-    local line="$(
-        tmux capture-pane -p -E 1000 |
-        sed '/^$/d' |
-        fzf --no-sort --reverse
+    local word_mode_key=ctrl-v
+
+    readarray -t key_and_line <<<"$(
+        tmux capture-pane -e -p -E 1000 |
+        fzf --no-sort --reverse --ansi \
+            --expect=$word_mode_key --header="enter to capture entire line, $word_mode_key to capture word"
     )"
+
+    local key="${key_and_line[0]}"
+    local line="${key_and_line[1]}"
 
     [ -z "$line" ] && return
 
-    local word="$(
-        echo "$line" |
-        tr ' ' $'\n' |
-        sed -e "s/^['\"]*//g" -e "s/['\".,:]*$//g" -e '/^$/d' |
-        fzf --no-sort --reverse
-    )"
+    if [ "$key" = "$word_mode_key" ]; then
+        local quotes="[\`'\"]"
+
+        local word="$(
+            echo "$line" |
+            tr ' ' $'\n' |
+            sed -e "s/^$quotes*//g" -e "s/$quotes*$//g" -e '/^$/d' |
+            fzf --no-sort --reverse
+        )"
+
+    else
+        local word="$(echo "$line" | awk '{$1=$1};1')"  # capture entire line (eg a command)
+    fi
 
     [ -z "$word" ] && return
-    word="$(printf '%q' "$word")"  # escape string for shell
 
     READLINE_LINE="${READLINE_LINE%"${READLINE_LINE##*[![:space:]]}"}"  # remove trailing whitespace from READLINE_LINE
-    READLINE_LINE+=" $word"
+    if [ -z "$READLINE_LINE" ]; then
+        READLINE_LINE="$word"
+    else
+        READLINE_LINE+=" $word"
+    fi
 }
 
 set -o emacs

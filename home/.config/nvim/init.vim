@@ -15,10 +15,11 @@ Plug('https://github.com/scrooloose/nerdcommenter.git')
 Plug('https://github.com/ervandew/supertab.git')
 Plug('https://github.com/tpope/vim-fugitive.git')
 Plug('https://github.com/tpope/vim-rhubarb.git')
-Plug('https://github.com/sheerun/vim-polyglot.git')
 Plug('https://github.com/chriskempson/base16-vim')
 Plug('https://github.com/vim-scripts/icalendar.vim')
 Plug('https://github.com/kelwin/vim-smali')
+Plug('https://github.com/mitsuhiko/vim-python-combined')
+Plug('https://github.com/rust-lang/rust.vim')
 "Plug('https://github.com/Shougo/deoplete.nvim')
 
 Plug 'https://github.com/autozimu/LanguageClient-neovim', {

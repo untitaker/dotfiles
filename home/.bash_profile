@@ -29,9 +29,6 @@ source ~/.bashrc
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" || true # Load RVM into a shell session *as a function*
 
 export PATH="$HOME/.poetry/bin:$PATH"
-
-export VOLTA_HOME="$HOME/.volta"
-[ -s "$VOLTA_HOME/load.sh" ] && \. "$VOLTA_HOME/load.sh"
-
-export PATH="${VOLTA_HOME}/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
+export VOLTA_HOME="/Users/untitaker/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
