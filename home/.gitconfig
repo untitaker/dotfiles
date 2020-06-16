@@ -4,6 +4,8 @@
     signingkey = FAAC788C
 [core]
     attributesfile = ~/.gitattributes
+[init]
+	templateDir = ~/.config/git/template/
 [color]
     ui = true
 [github]
@@ -38,7 +40,6 @@
     resub = "!f(){ \"$@\"; git sub foreach git resub \"$@\"; }; f"
     # push each commit separately
     map-commits = "!f() { git rev-list --reverse master..HEAD | while read c; do git reset --hard $c; \"$@\"; done }; f"
-    dead-branches = "!git_dead-branches"
 [push]
     # old name of upstream, for compat
     default = tracking

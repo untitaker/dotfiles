@@ -46,6 +46,8 @@ export ANDROIDNDK=/opt/android-ndk/
 
 # I'm not colorblind, but just find pipenv's colors obnoxious
 export PIPENV_COLORBLIND=1
+# Avoid trashing my system
+export PIP_REQUIRE_VIRTUALENV=true
 
 # racer (Rust autocompletion)
 
@@ -222,12 +224,23 @@ function fuzzy_path_completion() {
 
 
 function fuzzy_content_completion() {
-    local line="$(rg $DEFAULT_RG_FUZZY_FLAGS -n '' | fzf --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' --preview-window=down:20%)"
+    readarray -t query_and_line <<<"$(
+        rg $DEFAULT_RG_FUZZY_FLAGS -n '' |
+        fzf \
+            --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' \
+            --preview-window=down:20% \
+            --print-query
+    )"
+
+    local query="${query_and_line[0]}"
+    local line="${query_and_line[1]}"
+
     [ -z "$line" ] && return
+
     local file="$(echo "$line" | cut -d: -f1)"
     local lineno="$(echo "$line" | cut -d: -f2)"
     append="$(printf '%q +%q' "$file" "$lineno")"  # escape string for shell
-    READLINE_LINE+=" $append"
+    READLINE_LINE+=" $append  # $query"
 }
 
 # fuzzy search terminal scrollback to paste back into current command line

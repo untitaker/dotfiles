@@ -4,9 +4,9 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.messageTarget": "float",
   "diagnostic.level": "information",
-  "suggest.autoTrigger": "none",
-  "signature.enable": false,
+  "suggest.autoTrigger": "always",
+  "signature.enable": true,
   "coc.preferences.snippets.enable": false,
   "rust-analyzer.diagnostics.enable": false,
-  "rust-analyzer.serverPath": "~/cargo/bin/rust-analyzer"
+  "rust-analyzer.serverPath": "/Users/untitaker/.cargo/bin/rust-analyzer"
 }

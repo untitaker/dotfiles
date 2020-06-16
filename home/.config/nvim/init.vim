@@ -11,21 +11,23 @@ set rtp+=/usr/local/opt/fzf
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.config/nvim/plugged')
 
-Plug('https://github.com/scrooloose/nerdcommenter.git')
-Plug('https://github.com/ervandew/supertab.git')
-Plug('https://github.com/tpope/vim-fugitive.git')
-Plug('https://github.com/tpope/vim-rhubarb.git')
-Plug('https://github.com/chriskempson/base16-vim')
-Plug('https://github.com/vim-scripts/icalendar.vim')
-Plug('https://github.com/kelwin/vim-smali')
-Plug('https://github.com/mitsuhiko/vim-python-combined')
-Plug('https://github.com/rust-lang/rust.vim')
-"Plug('https://github.com/Shougo/deoplete.nvim')
+Plug 'https://github.com/scrooloose/nerdcommenter.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/tpope/vim-rhubarb.git'
+Plug 'https://github.com/chriskempson/base16-vim'
+Plug 'https://github.com/vim-scripts/icalendar.vim'
+Plug 'https://github.com/kelwin/vim-smali'
+Plug 'https://github.com/mitsuhiko/vim-python-combined'
+Plug 'https://github.com/rust-lang/rust.vim'
+Plug 'https://github.com/terryma/vim-multiple-cursors'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
-Plug 'https://github.com/autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"Plug 'https://github.com/autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
@@ -42,6 +44,7 @@ endif
 
 " aliases
 command Q q!
+command W w
 nmap ; :
 nmap QQ :q!<enter>
 nmap qq :q<enter>
@@ -115,7 +118,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
 " Colorcolumns
-autocmd FileType ruby,python,javascript,c,cpp,objc silent! setlocal colorcolumn=80 shiftwidth=2
+autocmd FileType ruby,python,javascript,c,cpp,objc,typescript.tsx silent! setlocal colorcolumn=80 shiftwidth=2
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
@@ -130,20 +133,50 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 
 " language server
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['ra_lsp_server'],
-    \ 'python': ['pyls'],
-    \ 'ruby': ['language_server-ruby'],
-    \ }
+"let g:LanguageClient_serverCommands = {
+    "\ 'rust': ['rust-analyzer'],
+    "\ 'python': ['pyls'],
+    "\ 'ruby': ['language_server-ruby'],
+    "\ }
 
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <silent> F :call LanguageClient#textDocument_formatting()<CR>
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+"nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+"nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
+"nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
+"nnoremap <silent> F :call LanguageClient#textDocument_formatting()<CR>
 set signcolumn=yes
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gre <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <silent> grn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap F <Plug>(coc-format-selected)
+nmap F <Plug>(coc-format-selected)
 
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
