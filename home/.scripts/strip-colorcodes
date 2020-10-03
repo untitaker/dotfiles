@@ -1,2 +1,8 @@
 #!/bin/sh
-sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
+if which gsed > /dev/null; then
+    sed=gsed
+else
+    sed=sed
+fi
+
+exec $sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"

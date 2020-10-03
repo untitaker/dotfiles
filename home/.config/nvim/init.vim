@@ -22,12 +22,20 @@ Plug 'https://github.com/rust-lang/rust.vim'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'ap/vim-css-color'
 
 "Plug 'https://github.com/autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',
     "\ 'do': 'bash install.sh',
     "\ }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.8.0 yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.8.0 yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.8.0 yarn install --frozen-lockfile'}
+
+" volta run --node 14.8.0 node -p 'process.argv[0]'
+let g:coc_node_path = '/Users/untitaker/.volta/tools/image/node/14.8.0/bin/node'
+let b:coc_root_patterns = ['.git']
 
 " Initialize plugin system
 call plug#end()
@@ -49,6 +57,7 @@ nmap ; :
 nmap QQ :q!<enter>
 nmap qq :q<enter>
 vnoremap // y/<C-R>"<CR>
+set inccommand=nosplit
 
 " set default encoding
 set encoding=utf-8
@@ -84,7 +93,8 @@ set hlsearch
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:%
 
 " i don't edit Modula 2
-au BufNewFile,BufRead *.md  set filetype=markdown
+au BufNewFile,BufRead *.md set filetype=markdown linebreak
+au BufNewFile,BufRead *.mdx set filetype=markdown linebreak
 
 " don't create swapfiles for passwords
 au BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
@@ -118,7 +128,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
 " Colorcolumns
-autocmd FileType ruby,python,javascript,c,cpp,objc,typescript.tsx silent! setlocal colorcolumn=80 shiftwidth=2
+autocmd FileType ruby,python,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
@@ -146,7 +156,7 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 "nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
 "nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
 "nnoremap <silent> F :call LanguageClient#textDocument_formatting()<CR>
-set signcolumn=yes
+set signcolumn=no
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -159,6 +169,7 @@ nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gre <Plug>(coc-references)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gf <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>

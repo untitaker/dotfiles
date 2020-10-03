@@ -40,10 +40,6 @@ export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 alias grep="grep --color=auto"
 
-# kivy and python for android
-export ANDROIDSDK=/opt/android-sdk/
-export ANDROIDNDK=/opt/android-ndk/
-
 # I'm not colorblind, but just find pipenv's colors obnoxious
 export PIPENV_COLORBLIND=1
 # Avoid trashing my system
@@ -85,7 +81,7 @@ _va () {
 
 va() {
     if [ -z "$1" ]; then
-        local selection="$(ls ~/projects/ | fzf)"
+        local selection="$((ls ~/projects/ ; ls ~/venvs/) | fzf)"
         [ -z "$selection" ] && return
         va "$selection"
         return
@@ -183,7 +179,7 @@ untitaker_exitcode() {
     [ $code != 0 ] && echo -e "${C_GRAY}, ${C_RED}exit $code${C_RESET}"
 }
 
-PS1="\n\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
+PS1="\n`history -a`\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
 PS1+='`untitaker_exitcode``untitaker_envdiff``untitaker_venv``untitaker_vcs`'
 PS1+="\n\[${C_GRAY}\]\$\[${C_RESET}\] "
 export PS1
@@ -309,3 +305,5 @@ alias import='python -i -m'
 [ -f ~/.secrets ] && source ~/.secrets
 
 ORIG_ENV="$(satinized_env)"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
