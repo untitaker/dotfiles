@@ -307,3 +307,7 @@ alias import='python -i -m'
 ORIG_ENV="$(satinized_env)"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Wasmer
+export WASMER_DIR="/Users/untitaker/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

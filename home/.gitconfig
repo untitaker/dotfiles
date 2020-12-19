@@ -17,7 +17,7 @@
     # always add the ssh url as origin
     clone = clone -p
     p = push
-    pf = push -f
+    pf = push --force-with-lease
     fe = fetch
     pl = pull
     cp = cherry-pick

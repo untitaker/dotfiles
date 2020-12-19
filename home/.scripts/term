@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -z "$1" ]; then
     tmux neww "$1"
 else
-    if tmux -q has-session; then
+    if tmux -q has-session 2> /dev/null; then
         exec tmux attach-session -d
     else
-        exec tmux new-session -n$USER -s$USER@$(echo $HOSTNAME | tr -d.)
+        exec tmux new-session -n$USER -s$USER@$(echo $HOSTNAME | tr -d .)
     fi
 fi

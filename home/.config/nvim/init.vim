@@ -19,6 +19,7 @@ Plug 'https://github.com/vim-scripts/icalendar.vim'
 Plug 'https://github.com/kelwin/vim-smali'
 Plug 'https://github.com/mitsuhiko/vim-python-combined'
 Plug 'https://github.com/rust-lang/rust.vim'
+Plug 'https://github.com/ziglang/zig.vim'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -211,6 +212,9 @@ noremap <C-J> :wincmd j<CR>
 noremap <C-K> :wincmd k<CR>
 noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
+
+" spacemod integration
+vnoremap <C-R> :'<,'>!spacemod-vim<enter>u
 
 " delete parens
 nnoremap d( ma%x`ax

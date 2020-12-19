@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+    search="$1"
+    replace="$(mktemp)"
+    cp "$search" "$replace"
+    nvim -d "$search" "$replace"
+
+    exec spacemod "$(cat "$search" | xargs echo)" "$(cat "$replace")"
+else
+    scratchpad="$(mktemp)"
+    cat > "$scratchpad"
+    exec tmux neww "$0" "$scratchpad"
+fi
