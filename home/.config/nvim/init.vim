@@ -52,12 +52,9 @@ else
 endif
 
 " aliases
-command Q q!
-command W w
 nmap ; :
 nmap QQ :q!<enter>
 nmap qq :q<enter>
-vnoremap // y/<C-R>"<CR>
 set inccommand=nosplit
 
 " set default encoding
@@ -110,9 +107,6 @@ let g:EasyMotion_leader_key = '<Leader>'
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 
-" taglist
-noremap <f4> :TlistToggle<CR>
-
 set termguicolors
 let base16colorspace=256
 set history=50  " keep 50 lines of command line history
@@ -128,6 +122,7 @@ set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
+
 " Colorcolumns
 autocmd FileType ruby,python,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2
 " Python
@@ -142,21 +137,6 @@ let python_highlight_builtins=0
 autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 \ softtabstop=4 smartindent
 
-
-" language server
-"let g:LanguageClient_serverCommands = {
-    "\ 'rust': ['rust-analyzer'],
-    "\ 'python': ['pyls'],
-    "\ 'ruby': ['language_server-ruby'],
-    "\ }
-
-"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-"nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-"nnoremap <silent> <C-S> :call LanguageClient#textDocument_documentSymbol()<CR>
-"nnoremap <silent> <C-F> :call LanguageClient#textDocument_codeAction()<CR>
-"nnoremap <silent> F :call LanguageClient#textDocument_formatting()<CR>
 set signcolumn=no
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -186,16 +166,13 @@ endfunction
 
 nmap <silent> grn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap F <Plug>(coc-format-selected)
-nmap F <Plug>(coc-format-selected)
-
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype icalendar
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " bash-ish autocompletion
 set wildmode=longest,list,full
@@ -214,7 +191,9 @@ noremap <C-L> :wincmd l<CR>
 noremap <C-X> :bw<CR>
 
 " spacemod integration
-vnoremap <C-R> :'<,'>!spacemod-vim<enter>u
+" take current selection and pipe it to spacemod-vim
+" https://vi.stackexchange.com/a/9891
+vnoremap <silent> <C-R> c<c-r>=system("spacemod-vim " . bufname("%"), @")<cr><esc>u
 
 " delete parens
 nnoremap d( ma%x`ax

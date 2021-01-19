@@ -1,14 +1,7 @@
 #!/bin/sh
 
-if [ -n "$1" ]; then
-    search="$1"
-    replace="$(mktemp)"
-    cp "$search" "$replace"
-    nvim -d "$search" "$replace"
-
-    exec spacemod "$(cat "$search" | xargs echo)" "$(cat "$replace")"
-else
-    scratchpad="$(mktemp)"
-    cat > "$scratchpad"
-    exec tmux neww "$0" "$scratchpad"
-fi
+# This is slightly better than `printf %q` because it avoids to escape
+# whitespace as "\ ", which really is unreadable
+selection="$(cat | sed -e "s/'/'\\\\''/g")"
+tmux neww -n spacemod-vim
+tmux send-keys -t spacemod-vim "spacemod '$selection' '$selection' $1"
