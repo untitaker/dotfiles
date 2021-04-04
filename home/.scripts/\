@@ -7,16 +7,14 @@ import itertools
 import hashlib
 from typing import Sequence
 
-CHEAP_COMMANDS = {"cat", "wc", "sort", "tr", "sed", "rg", "grep", "uniq", "tail", "head"}
+CHEAP_COMMANDS = {"cat", "wc", "sort", "tr", "sed", "rg", "grep", "uniq", "tail", "head", "echo"}
 
 Cmd = Sequence[str]
 
 def _parse_arguments(argv: Sequence[str]) -> Sequence[Cmd]:
-    rv = []
+    rv = [[]]
 
-    assert sys.argv[0] == '\\'
-
-    for command_chunk in sys.argv:
+    for command_chunk in sys.argv[1:]:
         if command_chunk == '\\':
             rv.append([])
         else:
@@ -30,7 +28,7 @@ def _hash_commandline(cmds: Sequence[Cmd]) -> str:
     return cmd_hash_file
 
 def _try_add_cache_reads(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
-    for i in reversed(range(len(cmds)) - 1):
+    for i in reversed(range(len(cmds) - 1)):
         cmd_hash_file = _hash_commandline(cmds[:i])
         if os.path.isfile(cmd_hash_file):
             return [["cat", cmd_hash_file], *cmds[i:]]
@@ -49,7 +47,7 @@ def _add_cache_writes(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
 def _main():
     commands = _add_cache_writes(_try_add_cache_reads(_parse_arguments(sys.argv)))
 
-    print(commands)
+    print(commands, file=sys.stderr)
 
     prev_stdout = sys.stdin.buffer
     processes = []
@@ -61,3 +59,6 @@ def _main():
 
     for process in reversed(processes):
         process.wait()
+
+if __name__ == '__main__':
+    _main()
