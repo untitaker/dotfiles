@@ -1,15 +1,53 @@
 #!/usr/bin/python3
 
 import os
+import shlex
 import sys
 import subprocess
 import itertools
 import hashlib
 from typing import Sequence
 
-CHEAP_COMMANDS = {"cat", "wc", "sort", "tr", "sed", "rg", "grep", "uniq", "tail", "head", "echo"}
+class Cmd:
+    def __init__(self, argv: Sequence[str]):
+        self._cmd = argv[0]
+        self.args = argv[1:]
 
-Cmd = Sequence[str]
+        if self._cmd.startswith(":!"):
+            self.write_cache = True
+            self.read_cache = False
+            self.cmd = self._cmd[2:]
+        elif self._cmd.startswith(":"):
+            self.write_cache = True
+            self.read_cache = True
+            self.cmd = self._cmd[1:]
+        else:
+            self.write_cache = False
+            self.read_cache = False
+            self.cmd = self._cmd
+
+        self.final_cmd = [self.cmd] + self.args
+        self.description = shlex.join(self.final_cmd)
+        self.hashvalues = [b'\0'.join(arg.encode("utf8") for arg in self.final_cmd)]
+
+    def __repr__(self):
+        return f"<Cmd {self.description}>"
+
+class ReadCache(Cmd):
+    def __init__(self, filename: str, original_cmds: Sequence[Cmd]):
+        self.read_cache = self.write_cache = False
+        self.final_cmd = ["cat", filename]
+        self.description = "<r>"
+        self.original_cmds = original_cmds
+        self.hashvalues = list(itertools.chain.from_iterable(cmd.hashvalues for cmd in original_cmds))
+
+class WriteCache(Cmd):
+    def __init__(self, filename: str, original_cmds: Sequence[Cmd]):
+        self.read_cache = self.write_cache = False
+        self.final_cmd = ["tee", filename]
+        self.description = "<w>"
+        self.original_cmds = original_cmds
+        self.hashvalues = list(itertools.chain.from_iterable(cmd.hashvalues for cmd in original_cmds))
 
 def _parse_arguments(argv: Sequence[str]) -> Sequence[Cmd]:
     rv = [[]]
@@ -20,18 +58,28 @@ def _parse_arguments(argv: Sequence[str]) -> Sequence[Cmd]:
         else:
             rv[-1].append(command_chunk)
 
-    return rv
+    return list(map(Cmd, rv))
 
 def _hash_commandline(cmds: Sequence[Cmd]) -> str:
-    cmd_hash = hashlib.sha256(b'\0'.join(x.encode("utf8") for x in itertools.chain.from_iterable(cmds))).hexdigest()
+    cmd_hash = []
+    can_read_cache = False
+    can_write_cache = False
+    for cmd in cmds:
+        cmd_hash.append(b"\0\0")
+        cmd_hash.extend(cmd.hashvalues)
+
+        can_read_cache = cmd.read_cache
+        can_write_cache = cmd.write_cache
+
+    cmd_hash = hashlib.sha256(b"".join(cmd_hash)).hexdigest()
     cmd_hash_file = f"/tmp/superpipe-{cmd_hash}.txt"
-    return cmd_hash_file
+    return cmd_hash_file, can_read_cache, can_write_cache
 
 def _try_add_cache_reads(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
-    for i in reversed(range(len(cmds) - 1)):
-        cmd_hash_file = _hash_commandline(cmds[:i])
-        if os.path.isfile(cmd_hash_file):
-            return [["cat", cmd_hash_file], *cmds[i:]]
+    for i in reversed(range(len(cmds))):
+        cmd_hash_file, can_read, _ = _hash_commandline(cmds[:i + 1])
+        if can_read and os.path.isfile(cmd_hash_file):
+            return [ReadCache(cmd_hash_file, cmds[:i + 1]), *cmds[i + 1:]]
 
     return cmds
 
@@ -39,21 +87,21 @@ def _add_cache_writes(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
     rv = []
     for i, cmd in enumerate(cmds):
         rv.append(cmd)
-        if cmd[0] not in CHEAP_COMMANDS:
-            rv.append(["tee", _hash_commandline(cmds[:i + 1])])
+        hashfile, _, can_write = _hash_commandline(cmds[:i + 1])
+        if can_write:
+            rv.append(WriteCache(hashfile, cmds[:i + 1]))
 
     return rv
 
 def _main():
     commands = _add_cache_writes(_try_add_cache_reads(_parse_arguments(sys.argv)))
-
-    print(commands, file=sys.stderr)
+    print(" | ".join(c.description for c in commands), file=sys.stderr)
 
     prev_stdout = sys.stdin.buffer
     processes = []
 
     for i, command in enumerate(commands):
-        process = subprocess.Popen(args=command, stdin=prev_stdout, stdout=subprocess.PIPE if i < len(commands) - 1 else sys.stdout.buffer)
+        process = subprocess.Popen(args=command.final_cmd, stdin=prev_stdout, stdout=subprocess.PIPE if i < len(commands) - 1 else sys.stdout.buffer)
         prev_stdout = process.stdout
         processes.append(process)
 

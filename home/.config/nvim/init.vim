@@ -35,7 +35,7 @@ Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.8
 Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.8.0 yarn install --frozen-lockfile'}
 
 " volta run --node 14.8.0 node -p 'process.argv[0]'
-let g:coc_node_path = '/Users/untitaker/.volta/tools/image/node/14.8.0/bin/node'
+let g:coc_node_path = '$HOME/.volta/tools/image/node/14.8.0/bin/node'
 let b:coc_root_patterns = ['.git']
 
 " Initialize plugin system
