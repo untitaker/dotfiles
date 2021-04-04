@@ -149,7 +149,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gre <Plug>(coc-references)
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gf <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.

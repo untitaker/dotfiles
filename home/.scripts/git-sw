@@ -1,9 +1,9 @@
 #!/bin/bash
 
-git reflog  --format='%D' | head -100 | cut -d, -f2 | uniq | while read line; do
-    if [ -z "$line" ] || [[ $line == tag:* ]]; then
+git reflog --format='%D' | cut -d, -f2 | while read line; do
+    if [ -z "$line" ] || [[ $line == tag:* ]] || [[ $line == origin/* ]]; then
         continue
     else
         echo "$line"
     fi
-done | fzf | xargs git checkout
+done | uniq | head -100 | fzf | xargs git checkout

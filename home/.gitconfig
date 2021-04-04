@@ -15,18 +15,23 @@
 [alias]
     # hub: When cloning git repos with sth like "git clone untitaker/dotfiles",
     # always add the ssh url as origin
-    clone = clone -p
+    clone = !hub clone -p
+    browse = !hub browse
+    fork = !hub fork
+    create = !hub create
     p = push
     pf = push --force-with-lease
     fe = fetch
     pl = pull
     cp = cherry-pick
+
+    pr = !gh pr
     
     fix = commit --amend
     undo = reset --hard HEAD^
     s = status
     sub = submodule
-    cd = checkout
+    cd = !hub checkout
     b = branch
     c = commit -v
     log = log --graph
@@ -51,3 +56,5 @@
     command = diffpdf
 [hub]
 	protocol = ssh
+[pull]
+	ff = only

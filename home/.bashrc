@@ -38,7 +38,6 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=1000000
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
-alias grep="grep --color=auto"
 
 # I'm not colorblind, but just find pipenv's colors obnoxious
 export PIPENV_COLORBLIND=1
@@ -205,7 +204,6 @@ alias p-update='p -Syu'
 alias feh='feh --scale-down'
 
 alias xtr=extract
-which hub &> /dev/null && alias git=hub
 
 # FUZZY FINDER
 
@@ -223,7 +221,7 @@ function fuzzy_content_completion() {
     readarray -t query_and_line <<<"$(
         rg $DEFAULT_RG_FUZZY_FLAGS -n '' |
         fzf \
-            --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail +$(echo {} | cut -d: -f2)' \
+            --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail -n +$(echo {} | cut -d: -f2)' \
             --preview-window=down:20% \
             --print-query
     )"
@@ -244,7 +242,7 @@ fuzzy_tmux_buffer_completion() {
     local word_mode_key=ctrl-v
 
     readarray -t key_and_line <<<"$(
-        tmux capture-pane -e -p -E 1000 |
+        tmux capture-pane -Jep -E 1000 |
         fzf --no-sort --reverse --ansi \
             --expect=$word_mode_key --header="enter to capture entire line, $word_mode_key to capture word"
     )"
@@ -305,9 +303,10 @@ alias import='python -i -m'
 [ -f ~/.secrets ] && source ~/.secrets
 
 ORIG_ENV="$(satinized_env)"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Wasmer
 export WASMER_DIR="/Users/untitaker/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+# Homebrew should not upgrade random packages while I am just trying to install something
+export HOMEBREW_NO_AUTO_UPDATE=1
