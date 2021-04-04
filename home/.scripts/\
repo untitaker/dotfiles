@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import subprocess
+import itertools
+import hashlib
+from typing import Sequence
+
+CHEAP_COMMANDS = {"cat", "wc", "sort", "tr", "sed", "rg", "grep", "uniq", "tail", "head"}
+
+Cmd = Sequence[str]
+
+def _parse_arguments(argv: Sequence[str]) -> Sequence[Cmd]:
+    rv = []
+
+    assert sys.argv[0] == '\\'
+
+    for command_chunk in sys.argv:
+        if command_chunk == '\\':
+            rv.append([])
+        else:
+            rv[-1].append(command_chunk)
+
+    return rv
+
+def _hash_commandline(cmds: Sequence[Cmd]) -> str:
+    cmd_hash = hashlib.sha256(b'\0'.join(x.encode("utf8") for x in itertools.chain.from_iterable(cmds))).hexdigest()
+    cmd_hash_file = f"/tmp/superpipe-{cmd_hash}.txt"
+    return cmd_hash_file
+
+def _try_add_cache_reads(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
+    for i in reversed(range(len(cmds)) - 1):
+        cmd_hash_file = _hash_commandline(cmds[:i])
+        if os.path.isfile(cmd_hash_file):
+            return [["cat", cmd_hash_file], *cmds[i:]]
+
+    return cmds
+
+def _add_cache_writes(cmds: Sequence[Cmd]) -> Sequence[Cmd]:
+    rv = []
+    for i, cmd in enumerate(cmds):
+        rv.append(cmd)
+        if cmd[0] not in CHEAP_COMMANDS:
+            rv.append(["tee", _hash_commandline(cmds[:i + 1])])
+
+    return rv
+
+def _main():
+    commands = _add_cache_writes(_try_add_cache_reads(_parse_arguments(sys.argv)))
+
+    print(commands)
+
+    prev_stdout = sys.stdin.buffer
+    processes = []
+
+    for i, command in enumerate(commands):
+        process = subprocess.Popen(args=command, stdin=prev_stdout, stdout=subprocess.PIPE if i < len(commands) - 1 else sys.stdout.buffer)
+        prev_stdout = process.stdout
+        processes.append(process)
+
+    for process in reversed(processes):
+        process.wait()
