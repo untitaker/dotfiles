@@ -2,7 +2,7 @@ for git_comp_sh in /usr/share/git/completion/git-completion.bash /usr/local/opt/
     [ -f "$git_comp_sh" ] && . "$git_comp_sh"
 done
 
-for fzf_comp_sh in /usr/share/fzf/key-bindings.bash /usr/local/opt/fzf/shell/key-bindings.bash; do
+for fzf_comp_sh in /usr/share/fzf/key-bindings.bash /usr/local/opt/fzf/shell/key-bindings.bash /usr/share/doc/fzf/examples/key-bindings.bash; do
     [ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
 done
 unset fzf_comp_sh

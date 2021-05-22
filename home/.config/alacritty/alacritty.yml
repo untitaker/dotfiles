@@ -12,7 +12,7 @@ window:
   startup_mode: Maximized
 
 shell:
-  program: /usr/local/bin/bash
+  program: /usr/bin/bash
   args:
     - --norc
     - --login

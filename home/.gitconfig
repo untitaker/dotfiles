@@ -13,9 +13,7 @@
 [format]
     pretty = %Cred%h%Cblue %an %Cgreen%cr%C(yellow)%d\n        %s
 [alias]
-    # hub: When cloning git repos with sth like "git clone untitaker/dotfiles",
-    # always add the ssh url as origin
-    clone = !hub clone -p
+    cl = !gh repo clone
     browse = !hub browse
     fork = !hub fork
     create = !hub create
