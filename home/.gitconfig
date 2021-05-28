@@ -29,7 +29,6 @@
     undo = reset --hard HEAD^
     s = status
     sub = submodule
-    cd = !hub checkout
     b = branch
     c = commit -v
     log = log --graph

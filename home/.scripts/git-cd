@@ -11,5 +11,7 @@ if [ -z "$1" ]; then
     done | uniq | head -100 | fzf | xargs git checkout
     
 else
-    git checkout "$@"
+    git=hub
+    which hub &> /dev/null && git=hub
+    $git checkout "$@"
 fi
