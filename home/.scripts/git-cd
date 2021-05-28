@@ -1,17 +1,13 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
+git=hub
+which hub &> /dev/null && git=hub
 
-    git reflog --format='%D' | cut -d, -f2 | while read line; do
-        if [ -z "$line" ] || [[ $line == tag:* ]] || [[ $line == origin/* ]]; then
-            continue
-        else
-            echo "$line"
-        fi
-    done | uniq | head -100 | fzf | xargs git checkout
+if [ -z "$1" ]; then
+    sort=sort
+    which gsort &> /dev/null && sort=gsort
+    git reflog --format='%D' | cut -d, -f2 | rg -v '(^$|^tag:|^origin/|.*->.*)' | $sort -u | head -100 | fzf | xargs $git checkout
     
 else
-    git=hub
-    which hub &> /dev/null && git=hub
     $git checkout "$@"
 fi
