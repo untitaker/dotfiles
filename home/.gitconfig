@@ -13,10 +13,14 @@
 [format]
     pretty = %Cred%h%Cblue %an %Cgreen%cr%C(yellow)%d\n        %s
 [alias]
+    # Partial migration from hub to gh cli
+    # hub works fine but clearly isn't maintained (auth is broken:
+    # https://github.com/github/hub/issues/2655)
     cl = !gh repo clone
-    browse = !hub browse
-    fork = !hub fork
-    create = !hub create
+    browse = !gh repo view --web
+    fork = !gh repo fork --remote --remote-name untitaker
+    create = !gh repo create
+
     p = push
     pf = push --force-with-lease
     fe = fetch
