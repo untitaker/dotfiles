@@ -8,5 +8,6 @@
   "signature.enable": true,
   "coc.preferences.snippets.enable": false,
   "rust-analyzer.diagnostics.enable": false,
+  "rust-analyzer.inlayHints.enable": false,
   "python.pythonPath": ".venv/bin/python"
 }
