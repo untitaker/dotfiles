@@ -107,6 +107,14 @@ let g:EasyMotion_leader_key = '<Leader>'
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+" Hitting enter auto-imports
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Git
+command -range=-1 Gblame Git blame
+command -range=-1 Gbrowse GBrowse
+
 set termguicolors
 let base16colorspace=256
 set history=50  " keep 50 lines of command line history

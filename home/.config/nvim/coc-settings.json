@@ -6,8 +6,10 @@
   "diagnostic.level": "information",
   "suggest.autoTrigger": "always",
   "signature.enable": true,
-  "coc.preferences.snippets.enable": false,
-  "rust-analyzer.diagnostics.enable": false,
+  "coc.preferences.snippets.enable": true,
+  "rust-analyzer.diagnostics.enable": true,
   "rust-analyzer.inlayHints.enable": false,
+  "rust-analyzer.updates.prompt": false,
+  "rust-analyzer.serverPath": "/home/markus/.cargo/bin/ra-multiplex",
   "python.pythonPath": ".venv/bin/python"
 }
