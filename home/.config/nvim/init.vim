@@ -24,6 +24,7 @@ Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ap/vim-css-color'
+Plug 'jeetsukumaran/vim-indentwise'
 
 "Plug 'https://github.com/autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',

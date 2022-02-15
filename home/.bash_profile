@@ -32,7 +32,3 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi

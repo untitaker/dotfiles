@@ -4,7 +4,8 @@
     signingkey = FAAC788C
 [core]
     attributesfile = ~/.gitattributes
-;[init]
+[init]
+    defaultBranch = main
     ;templateDir = ~/.config/git/template/
 [color]
     ui = true
@@ -26,6 +27,10 @@
     fe = fetch
     pl = pull
     cp = cherry-pick
+
+    # Here such that git's tab-completion picks it up. There's a git-cd script
+    # that actually handles the invocation.
+    cd = checkout
 
     pr = !gh pr
     

@@ -31,7 +31,7 @@ fi
 if which xdg-open &> /dev/null; then
     export BROWSER=xdg-open
 else
-    export BROWSER="open -a firefox"
+    export BROWSER="open"
 fi
 shopt -s autocd
 export HISTCONTROL=ignoreboth
@@ -299,6 +299,7 @@ if which todo &> /dev/null; then
 fi
 
 alias import='python -i -m'
+alias ungron='gron --ungron'
 
 [ -f ~/.secrets ] && source ~/.secrets
 
