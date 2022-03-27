@@ -20,7 +20,7 @@
     cl = !gh repo clone
     browse = !gh repo view --web
     fork = !gh repo fork --remote --remote-name untitaker
-    create = !gh repo create
+    create = !gh repo create --source . --remote origin
 
     p = push
     pf = push --force-with-lease
