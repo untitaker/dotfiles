@@ -80,7 +80,7 @@ _va () {
 
 va() {
     if [ -z "$1" ]; then
-        local selection="$((ls ~/projects/ ; ls ~/venvs/) | fzf)"
+        local selection="$((ls ~/projects/ ; ls ~/venvs/) | sort -u | fzf)"
         [ -z "$selection" ] && return
         va "$selection"
         return

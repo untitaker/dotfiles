@@ -31,15 +31,15 @@ Plug 'jeetsukumaran/vim-indentwise'
     "\ 'do': 'bash install.sh',
     "\ }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.8.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.8.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.8.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile && sh ~/.config/nvim/install-rust-analyzer.sh'}
+Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 
 " Initialize plugin system
 call plug#end()
 
-" volta run --node 14.8.0 node -p 'process.argv[0]'
-let g:coc_node_path = '$HOME/.volta/tools/image/node/14.8.0/bin/node'
+" volta run --node 14.17.0 node -p 'process.argv[0]'
+let g:coc_node_path = '$HOME/.volta/tools/image/node/14.17.0/bin/node'
 let b:coc_root_patterns = ['.git']
 let g:coc_config_home = '~/.config/nvim/'
 

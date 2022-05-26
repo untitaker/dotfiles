@@ -32,3 +32,4 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH=$HOME/.tiup/bin:$PATH
