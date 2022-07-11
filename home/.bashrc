@@ -300,14 +300,11 @@ fi
 
 alias import='python -i -m'
 alias ungron='gron --ungron'
+alias qe=quickenv
 
 [ -f ~/.secrets ] && source ~/.secrets
 
 ORIG_ENV="$(satinized_env)"
-
-# Wasmer
-export WASMER_DIR="/Users/untitaker/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
 # Homebrew should not upgrade random packages while I am just trying to install something
 export HOMEBREW_NO_AUTO_UPDATE=1
