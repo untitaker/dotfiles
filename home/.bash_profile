@@ -34,3 +34,6 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.tiup/bin:$PATH"
 export PATH="$HOME/.quickenv/bin:$PATH"
+
+# Homebrew should not upgrade random packages while I am just trying to install something
+export HOMEBREW_NO_AUTO_UPDATE=1

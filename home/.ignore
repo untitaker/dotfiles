@@ -1,0 +1,2 @@
+# instruct ripgrep to not search .git, even with -. passed.
+.git/

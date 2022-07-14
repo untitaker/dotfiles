@@ -30,9 +30,17 @@ if which nvim &> /dev/null; then
 fi
 if which xdg-open &> /dev/null; then
     export BROWSER=xdg-open
+    alias open=xdg-open
 else
     export BROWSER="open"
 fi
+
+if which xclip &> /dev/null; then
+    alias clipboard='xclip -selection clipboard'
+    alias pbcopy=xclip -selection clipboard -i
+    alias pbpaste=xclip -selection clipboard -o
+fi
+
 shopt -s autocd
 export HISTCONTROL=ignoreboth
 export HISTSIZE=1000000
@@ -59,45 +67,24 @@ m() {
 }
 
 export PROJ_HOME=$HOME/projects/
-_proj() {
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W "$(ls "$PROJ_HOME")" -- "$cur"))
-}
-proj() { cd "$PROJ_HOME$1"; }
-alias vd=deactivate
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-export WORKON_HOME=$HOME/venvs/
-_va () {
-    local cur=${COMP_WORDS[COMP_CWORD]}
-
-    COMPREPLY=($(compgen -W "$(
-        find -L "$PROJ_HOME" "$WORKON_HOME" -maxdepth 1 -mindepth 1 -type d | while read f; do
-            basename "$f"
-        done
-    )" -- "$cur"))
-}
-
 va() {
     if [ -z "$1" ]; then
-        local selection="$((ls ~/projects/ ; ls ~/venvs/) | sort -u | fzf)"
+        local selection="$((ls ~/projects/) | sort -u | fzf)"
         [ -z "$selection" ] && return
         va "$selection"
         return
     fi
 
     PROJNAME="$1"
-    [ -d "$PROJ_HOME$PROJNAME" ] || [ -d "$WORKON_HOME$PROJNAME" ] || \
-        PROJNAME="$PWD$PROJNAME"
+    [ -d "$PROJ_HOME$PROJNAME" ] || PROJNAME="$PWD$PROJNAME"
     PROJNAME="$(basename "$(realpath "$PROJNAME")")"
 
     echo -e "$C_GRAY> $PROJNAME"
-    vd &> /dev/null
-    proj "$PROJNAME" &> /dev/null || echo "no project found"
-    . "$WORKON_HOME$PROJNAME/bin/activate" &> /dev/null || echo "no venv found"
+    cd "$PROJ_HOME$PROJNAME" &> /dev/null || echo "no project found"
 
 }
-complete -F _va va
 
 mkcd() {
     mkdir -p "$1" && cd "$1"
@@ -111,12 +98,13 @@ case $(whoami) in
 esac
 
 untitaker_venv() {
-    if [ "$VIRTUAL_ENV" != "" ]; then
-        current_project="$VIRTUAL_ENV"
-        current_project="${current_project//$WORKON_HOME/}"
-        current_project="${current_project//$PWD/.}"
-        current_project="${current_project//\/home\/untitaker/~}"
-        echo -e "${C_GRAY}, workon${C_RESET} $current_project"
+    qe_vars="$(quickenv vars 2>/dev/null)"
+    if [ -n "$qe_vars" ]; then
+        echo -ne "${C_GRAY}, ${C_RESET}.envrc"
+    fi
+
+    if [ -n "$VIRTUAL_ENV" ]; then
+        echo -ne "${C_GRAY}, ${C_RESET}venv"
     fi
 }
 
@@ -127,7 +115,7 @@ untitaker_vcs() {
         cd "$git_top"
     fi
 
-    local status="$(timeout 1 git status)"
+    local status="$(timeout 0.2 git status)"
     [ -z "$status" ] && echo -e "${C_GRAY}, git timed out${C_RESET}" && return
 
     if echo "$status" | grep -qi 'not staged'; then
@@ -140,7 +128,7 @@ untitaker_vcs() {
         branch_color=${C_RESET}
     fi
 
-    local current_branch="$(timeout 1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
+    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
 
     if [ -n "$current_branch" ]; then
         current_branch=" branch${branch_color} $current_branch"
@@ -194,7 +182,6 @@ alias q=exit
 alias sudosu='sudo su'
 source ~/.homesick/repos/homeshick/homeshick.sh
 
-alias clipboard='xclip -selection clipboard'
 alias f=pcmanfm
 alias sss="shutdown now"
 
@@ -207,7 +194,7 @@ alias xtr=extract
 
 # FUZZY FINDER
 
-export DEFAULT_RG_FUZZY_FLAGS="--hidden --ignore-vcs"
+export DEFAULT_RG_FUZZY_FLAGS="--ignore-vcs"
 
 function fuzzy_path_completion() {
     local append="$(rg $DEFAULT_RG_FUZZY_FLAGS --files | fzf)"
@@ -305,6 +292,3 @@ alias qe=quickenv
 [ -f ~/.secrets ] && source ~/.secrets
 
 ORIG_ENV="$(satinized_env)"
-
-# Homebrew should not upgrade random packages while I am just trying to install something
-export HOMEBREW_NO_AUTO_UPDATE=1
