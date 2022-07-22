@@ -37,3 +37,4 @@ export PATH="$HOME/.quickenv/bin:$PATH"
 
 # Homebrew should not upgrade random packages while I am just trying to install something
 export HOMEBREW_NO_AUTO_UPDATE=1
+export CARGO_UNSTABLE_SPARSE_REGISTRY=true
