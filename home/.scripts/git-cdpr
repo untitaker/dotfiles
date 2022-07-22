@@ -1,3 +1,3 @@
 #!/bin/bash
 
-GH_FORCE_TTY='200%' gh pr list --author "@me" | rg '^#' | fzf --ansi | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout
+GH_FORCE_TTY='200%' gh pr list --author "@me" | rg -v '^Showing' | rg -v '^$' | fzf --ansi | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout
