@@ -31,19 +31,19 @@ untitaker_vcs() {
     local status="$(timeout 0.2 git status)"
     [ -z "$status" ] && echo -e "${C_GRAY}, git timed out${C_RESET}" && return
 
-    if echo "$status" | grep -qi 'not staged'; then
-        branch_color=${C_RED}
-    elif echo "$status" | grep -qi 'untracked'; then
-        branch_color=${C_YELLOW}
-    elif echo "$status" | grep -qi 'to be committed'; then
-        branch_color=${C_GREEN}
+    if [[ "$status" = *not\ staged* ]]; then
+        local branch_color=${C_RED}
+    elif [[ "$status" = *untracked* ]]; then
+        local branch_color=${C_YELLOW}
+    elif [[ "$status" = *to\ be\ committed* ]]; then
+        local branch_color=${C_GREEN}
     else
-        branch_color=${C_RESET}
+        local branch_color=${C_RESET}
     fi
 
-    local current_branch="$(timeout 0.1 git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-)"
-
-    if [ -n "$current_branch" ]; then
+    if [[ "$status" = On\ branch\ * ]]; then
+        local status_words=($status)
+        local current_branch="${status_words[2]}"
         current_branch=" branch${branch_color} $current_branch"
     else
         current_branch="${branch_color} unknown branch"
