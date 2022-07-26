@@ -28,8 +28,8 @@ fi
 
 if which xclip &> /dev/null; then
     alias clipboard='xclip -selection clipboard'
-    alias pbcopy=xclip -selection clipboard -i
-    alias pbpaste=xclip -selection clipboard -o
+    alias pbcopy='xclip -selection clipboard -i'
+    alias pbpaste='xclip -selection clipboard -o'
 fi
 
 # mates

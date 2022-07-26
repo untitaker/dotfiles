@@ -1,19 +1,19 @@
-export PATH=$PATH:/sbin:/usr/sbin
-PATH=~/.local/bin:~/bin:~/.scripts:~/.cabal/bin/:~/.cargo/bin/:$PATH
-
-for path in ~/.gem/ruby/*/bin/; do
-    PATH=$PATH:$path
-done
-
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export QT_STYLE_OVERRIDE=GTK+
 
+# package managers
 export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# random tools
 export PATH="$HOME/.tiup/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.quickenv/bin:$PATH"
 
 # Homebrew should not upgrade random packages while I am just trying to install something
