@@ -71,13 +71,20 @@ export PROJ_HOME=$HOME/projects/
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 va() {
     if [ -z "$1" ]; then
-        local selection="$((ls ~/projects/) | sort -u | fzf)"
+        local selection="$( (ls ~/projects/) | sort -u | fzf)"
         [ -z "$selection" ] && return
         va "$selection"
         return
     fi
 
     PROJNAME="$1"
+    if [ "$PROJNAME" = "." ]; then
+        # Previously, 'va .' would activate the virtualenv for the current
+        # directory. I had to run that everytime I opened a new tmux pane. I
+        # now use quickenv to auto-activate virtualenvs, so it should happen
+        # automatically.
+        echo -e "${C_YELLOW}you don't need to do this anymore, stop.${C_RESET}"
+    fi
     [ -d "$PROJ_HOME$PROJNAME" ] || PROJNAME="$PWD$PROJNAME"
     PROJNAME="$(basename "$(realpath "$PROJNAME")")"
 
@@ -173,11 +180,22 @@ export PS1
 
 # TYPOS AND OTHER ALIASES
 
+alias rmr='rm -r'
+
+# We could alias ls='ls --colors', but depending on whether you're on macos or
+# linux, the colors are actually different, and the --colors option may not be
+# available. And I don't want to install my own ls, but installing exa is easy
+# (for me).
+if which exa &> /dev/null; then
+    # aliasing ls to exa sounds like a terrible idea, but exa, when used in
+    # pipes, behaves the same as ls.
+    alias ls=exa
+fi
+
+alias sl=ls
 alias lsa='ls -a'
 alias lsl='ls -l'
-alias lssize='du -sh *| sort -rh'
-alias rmr='rm -r'
-alias sl=ls
+
 alias q=exit
 alias sudosu='sudo su'
 source ~/.homesick/repos/homeshick/homeshick.sh

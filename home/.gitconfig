@@ -18,7 +18,7 @@
     # hub works fine but clearly isn't maintained (auth is broken:
     # https://github.com/github/hub/issues/2655)
     cl = !gh repo clone
-    browse = !gh repo view --web
+    browse = !bash -c 'gh pr view --web || gh repo view --web'
     fork = !gh repo fork --remote --remote-name untitaker
     create = !gh repo create --source . --remote origin
 
