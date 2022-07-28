@@ -1,3 +1,4 @@
+[ -f ~/.secrets ] && source ~/.secrets
 source ~/.profile
 for git_comp_sh in /usr/share/git/completion/git-completion.bash /usr/local/opt/git/etc/bash_completion.d/git-completion.bash; do
     [ -f "$git_comp_sh" ] && . "$git_comp_sh"
@@ -92,7 +93,8 @@ mkcd() {
 }
 
 
-alias from='set -f;from'  # hack to avoid glob expansion, so 'from foo import *' works
+# XXX: somehow this alias kills all glob expansion, even if not run
+# alias from='set -f;from'  # hack to avoid glob expansion, so 'from foo import *' works
 from() {
     PYTHONSTARTUP=<(echo "from $@") python
     set +f
@@ -213,7 +215,5 @@ bind -x '"\C-f":"fuzzy_content_completion"'
 bind -x '"\C-p":"fuzzy_tmux_buffer_completion"'
 
 export FZF_TMUX=0
-
-[ -f ~/.secrets ] && source ~/.secrets
 
 source ~/.bashrc
