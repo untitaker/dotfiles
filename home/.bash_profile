@@ -140,23 +140,61 @@ alias xtr=extract
 
 # FUZZY FINDER
 
-export DEFAULT_RG_FUZZY_FLAGS="--ignore-vcs"
+export DEFAULT_RG_FUZZY_FLAGS="--ignore-vcs --no-ignore-parent"
+
+function launch_ripgrep_and_fzf() {
+    local ripgrep_args="$1"
+    # there can only be a single argument to fzf for now because I can't figure
+    # out shell quoting. In fact, because of shell quoting, there _has_ to be a
+    # single argument. passing "" passes that empty-string argument...
+    local fzf_arg="$2"
+
+    local hidden_key=ctrl-u
+    local ripgrep_extra_flags=""
+    local query=""
+    while true; do
+        readarray -t query_key_line <<<"$(
+            rg $DEFAULT_RG_FUZZY_FLAGS $ripgrep_extra_flags $ripgrep_args \
+            | fzf \
+                -q "$query" \
+                --expect=$hidden_key \
+                --header="ripgrep flags: '$extra_flags' (hit ctrl-u to add -u)" \
+                --preview-window=down:20% \
+                --print-query "$fzf_arg"
+        )"
+        query="${query_key_line[0]}"
+        local key="${query_key_line[1]}"
+        local line="${query_key_line[2]}"
+        [ -z "$line" ] && return
+
+        if [ "$key" = "$hidden_key" ]; then
+            if [ "$extra_flags" = " -u -u -u" ]; then
+                extra_flags=''
+            else
+                extra_flags+=' -u'
+            fi
+        else
+            break
+        fi
+    done
+
+    echo "$query"
+    echo "$line"
+}
 
 function fuzzy_path_completion() {
-    local append="$(rg $DEFAULT_RG_FUZZY_FLAGS --files | fzf)"
-    [ -z "$append" ] && return
-    append="$(printf '%q' "$append")"  # escape string for shell
-    READLINE_LINE+=" $append"
+    readarray -t query_and_line <<<"$(launch_ripgrep_and_fzf "--files" "-x")"
+    local line="${query_and_line[1]}"
+    append="$(printf '%q' "$line")"  # escape string for shell
+    READLINE_LINE+=" $line"
 }
 
 
 function fuzzy_content_completion() {
     readarray -t query_and_line <<<"$(
-        rg $DEFAULT_RG_FUZZY_FLAGS -n '' |
-        fzf \
-            --preview='echo {} | cut -d: -f1 | xargs bat --color always -n | tail -n +$(echo {} | cut -d: -f2)' \
-            --preview-window=down:20% \
-            --print-query
+        launch_ripgrep_and_fzf \
+            "-n ''" \
+            "--preview=fuzzy-content-completion-preview {}"
     )"
 
     local query="${query_and_line[0]}"

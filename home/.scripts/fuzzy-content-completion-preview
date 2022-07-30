@@ -1,0 +1,3 @@
+#!/bin/sh
+fzf_input="$1"
+echo "$fzf_input" | cut -d: -f1 | xargs bat --color always -n | tail -n +$(echo "$fzf_input" | cut -d: -f2)
