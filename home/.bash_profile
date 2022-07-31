@@ -158,20 +158,19 @@ function launch_ripgrep_and_fzf() {
             | fzf \
                 -q "$query" \
                 --expect=$hidden_key \
-                --header="ripgrep flags: '$extra_flags' (hit ctrl-u to add -u)" \
+                --header="ripgrep flags: '$ripgrep_extra_flags' (hit ctrl-u to add -u)" \
                 --preview-window=down:20% \
                 --print-query "$fzf_arg"
         )"
         query="${query_key_line[0]}"
         local key="${query_key_line[1]}"
         local line="${query_key_line[2]}"
-        [ -z "$line" ] && return
 
         if [ "$key" = "$hidden_key" ]; then
-            if [ "$extra_flags" = " -u -u -u" ]; then
-                extra_flags=''
+            if [ "$ripgrep_extra_flags" = " -u -u" ]; then
+                ripgrep_extra_flags=''
             else
-                extra_flags+=' -u'
+                ripgrep_extra_flags+=' -u'
             fi
         else
             break
@@ -193,7 +192,7 @@ function fuzzy_path_completion() {
 function fuzzy_content_completion() {
     readarray -t query_and_line <<<"$(
         launch_ripgrep_and_fzf \
-            "-n ''" \
+            "-n ." \
             "--preview=fuzzy-content-completion-preview {}"
     )"
 
