@@ -69,18 +69,22 @@ untitaker_envdiff() {
     changes="$(envdiff)"
 
     if [ ! -z "$changes" ]; then
-        echo -e "$C_GRAY, ${C_YELLOW}dirty env$C_RESET"
+        echo -ne "$C_GRAY, ${C_YELLOW}dirty env$C_RESET"
     fi
 }
 
 
 untitaker_exitcode() {
     code=$?
-    [ $code != 0 ] && echo -e "${C_GRAY}, ${C_RED}exit $code${C_RESET}"
+    [ $code != 0 ] && echo -ne "${C_GRAY}, ${C_RED}exit $code${C_RESET}"
+}
+
+untitaker_ps1() {
+    cat <(untitaker_exitcode) <(untitaker_envdiff) <(untitaker_venv) <(untitaker_vcs)
 }
 
 PS1="\n`history -a`\[${C_USER}\]\u\[${C_GRAY}\]@\[${C_RESET}\]\h\[${C_GRAY}\]:\[${C_RESET}\]\w"
-PS1+='`untitaker_exitcode``untitaker_envdiff``untitaker_venv``untitaker_vcs`'
+PS1+='`untitaker_ps1`'
 PS1+="\n\[${C_GRAY}\]\$\[${C_RESET}\] "
 export PS1
 
