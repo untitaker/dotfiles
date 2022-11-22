@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git=hub
+git=git
 which hub &> /dev/null && git=hub
 
 if [ -z "$1" ]; then

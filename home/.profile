@@ -28,8 +28,3 @@ export XDG_DATA_HOME=~/.local/share
 
 # I'm not colorblind, but just find pipenv's colors obnoxious
 export PIPENV_COLORBLIND=1
-# Avoid trashing my system
-export PIP_REQUIRE_VIRTUALENV=true
-
-# racer (Rust autocompletion)
-export RUST_SRC_PATH=~/projects/rust/src/

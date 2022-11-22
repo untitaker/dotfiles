@@ -11,6 +11,8 @@
   "rust-analyzer.diagnostics.enable": true,
   "rust-analyzer.inlayHints.enable": false,
   "rust-analyzer.updates.prompt": false,
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
   "rust-analyzer.serverPath": "~/.cargo/bin/ra-multiplex",
   "python.pythonPath": ".venv/bin/python",
   "notification.disabledProgressSources": ["*"]

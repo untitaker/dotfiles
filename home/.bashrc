@@ -88,5 +88,4 @@ PS1+='`untitaker_ps1`'
 PS1+="\n\[${C_GRAY}\]\$\[${C_RESET}\] "
 export PS1
 
-
 ORIG_ENV="$(satinized_env)"

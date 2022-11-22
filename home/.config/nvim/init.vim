@@ -43,6 +43,9 @@ let g:coc_node_path = '$HOME/.volta/tools/image/node/14.17.0/bin/node'
 let b:coc_root_patterns = ['.git']
 let g:coc_config_home = '~/.config/nvim/'
 
+" i don't control which version ubuntu comes with, are you serious?
+let g:coc_disable_startup_warning = 1
+
 " Hardcode such that it works in virtualenv
 if has("mac")
     let g:python_host_prog = '/usr/local/bin/python2'
@@ -105,13 +108,6 @@ nmap <space> za
 " EasyMotion
 let g:EasyMotion_leader_key = '<Leader>'
 
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-
-" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
-" Hitting enter auto-imports
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Git
 command -range=-1 Gblame Git blame
 command -range=-1 Gbrowse GBrowse
@@ -148,8 +144,10 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 set signcolumn=no
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
