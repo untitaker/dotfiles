@@ -15,5 +15,8 @@
   "suggest.enablePreselect": false,
   "rust-analyzer.serverPath": "~/.cargo/bin/ra-multiplex",
   "python.pythonPath": ".venv/bin/python",
-  "notification.disabledProgressSources": ["*"]
+  "notification.disabledProgressSources": [
+    "*"
+  ],
+  "svelte.enable-ts-plugin": true
 }

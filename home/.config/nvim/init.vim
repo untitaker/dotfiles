@@ -25,6 +25,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ap/vim-css-color'
 Plug 'jeetsukumaran/vim-indentwise'
+Plug 'leafOfTree/vim-svelte-plugin'
 
 "Plug 'https://github.com/autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',
@@ -34,6 +35,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile && sh ~/.config/nvim/install-rust-analyzer.sh'}
 Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 
 " Initialize plugin system
 call plug#end()
@@ -97,6 +99,9 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:%
 " i don't edit Modula 2
 au BufNewFile,BufRead *.md set filetype=markdown linebreak
 au BufNewFile,BufRead *.mdx set filetype=markdown linebreak
+
+" Cheap way to bring some color into toml files
+au BufNewFile,BufRead *.toml set filetype=cfg linebreak
 
 " don't create swapfiles for passwords
 au BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
