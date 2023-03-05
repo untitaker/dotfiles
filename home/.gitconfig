@@ -12,7 +12,7 @@
 [github]
     user = untitaker
 [format]
-    pretty = %Cred%H%Cblue %an %Cgreen%cr%C(yellow)%d\n        %s
+    pretty = %Cred%H%Cblue %an %Cgreen%cr%C(yellow)%d\n        %ci\n        %s
 [alias]
     # Partial migration from hub to gh cli
     # hub works fine but clearly isn't maintained (auth is broken:
