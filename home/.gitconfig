@@ -12,7 +12,7 @@
 [github]
     user = untitaker
 [format]
-    pretty = %Cred%H%Cblue %an %Cgreen%cr%C(yellow)%d\n        %ci\n        %s
+    pretty = %Cred%h %Cgreen%ci %Cblue%an%C(yellow)%d\n    %s
 [alias]
     # Partial migration from hub to gh cli
     # hub works fine but clearly isn't maintained (auth is broken:
@@ -40,11 +40,11 @@
     sub = submodule
     b = branch
     c = commit -v
-    log = log --graph
     lg = log
     ca = commit -va
     cm = commit -vm
     cam = commit -vam
+    sha = "!git rev-parse $@ HEAD"
     m = !git checkout main || git checkout master
     # remove a submodule... not even sure this works.
     rm-sub = !git_rm-sub
