@@ -61,7 +61,7 @@ envdiff() {
     if [ "$ORIG_ENV" != "$cur_env" ]; then
         diff \
             --changed-group-format='%>' --unchanged-group-format='' \
-            <(echo "$ORIG_ENV") <(echo "$cur_env")
+            <(echo "$ORIG_ENV") <(echo "$cur_env") 2>/dev/null
     fi
 }
 

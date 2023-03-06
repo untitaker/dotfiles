@@ -76,6 +76,7 @@ va() {
         # now use quickenv to auto-activate virtualenvs, so it should happen
         # automatically.
         echo -e "${C_YELLOW}you don't need to do this anymore, stop.${C_RESET}"
+        sleep 0.5
     fi
     [ -d "$PROJ_HOME$PROJNAME" ] || PROJNAME="$PWD$PROJNAME"
     PROJNAME="$(basename "$(realpath "$PROJNAME")")"
@@ -254,3 +255,4 @@ bind -x '"\C-p":"fuzzy_tmux_buffer_completion"'
 export FZF_TMUX=0
 
 source ~/.bashrc
+
