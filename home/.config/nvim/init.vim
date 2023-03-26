@@ -32,7 +32,7 @@ Plug 'leafOfTree/vim-svelte-plugin'
     "\ 'do': 'bash install.sh',
     "\ }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile && sh ~/.config/nvim/install-rust-analyzer.sh'}
+Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
@@ -132,6 +132,12 @@ set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smartindent
 
+" workspace roots
+" completely override coc workspace detection because it's broken for snuba
+" https://github.com/neoclide/coc.nvim/issues/4554
+" https://github.com/neoclide/coc.nvim/issues/4587
+autocmd FileType python let b:coc_root_patterns = ['setup.py', 'pyproject.toml']
+autocmd FileType rust let b:coc_root_patterns = ['Cargo.toml']
 
 " Colorcolumns
 autocmd FileType ruby,python,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2

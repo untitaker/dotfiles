@@ -13,7 +13,7 @@
   "rust-analyzer.updates.prompt": false,
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
-  "rust-analyzer.serverPath": "~/.cargo/bin/ra-multiplex",
+  "rust-analyzer.serverPath": "wrapped-rust-analyzer",
   "python.pythonPath": ".venv/bin/python",
   "notification.disabledProgressSources": [
     "*"
