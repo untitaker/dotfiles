@@ -7,4 +7,6 @@ ra-multiplex:
 
 rust-analyzer:
 	rustup component add rust-analyzer
+	@# remove rust-analyzer from your path to avoid confusion. we use wrapped-rust-analyzer script instead
+	! which rust-analyzer
 .PHONY: rust-analyzer
