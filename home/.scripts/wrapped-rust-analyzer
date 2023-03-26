@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 export RA_MUX_SERVER="$(rustup which --toolchain stable rust-analyzer)"
 
 if [ "$USE_RA_MULTIPLEX" = "false" ]; then
     exec "$RA_MUX_SERVER"
 fi
 
-ra-multiplex-server &
-disown
+(ra-multiplex-server &> /tmp/ra-multiplex-server.log) &
+disown %1
 exec ra-multiplex
