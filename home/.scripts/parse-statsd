@@ -1,6 +1,14 @@
 #!/usr/bin/env -S python3 -u
 ## vi: ft=python
 
+"""
+A dogstatsd/statsd parser, taking stdin and dumping out one JSON line per metric.
+
+Usage:
+
+    nc -ul 8081 | parse-statsd | ...
+"""
+
 import sys
 import re
 import json
