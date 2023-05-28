@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo "group_by(${@/ /,})[] | [.[0]${@/ /.[0].}, .]"
+# Usage: See parse-statsd
+
+jq -c "group_by(${1/ /, })[] | [.[0]${1/ /, .[0]}, $2]"

@@ -6,7 +6,7 @@ A dogstatsd/statsd parser, taking stdin and dumping out one JSON line per metric
 
 Usage:
 
-    nc -ul 8081 | parse-statsd | ...
+    nc -ul 8081 | parse-statsd | chunk-every-sec 1 | group-by '.name .tags' 'map(.value)'
 """
 
 import sys
