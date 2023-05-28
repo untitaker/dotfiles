@@ -1,4 +1,6 @@
 #!/bin/sh
 
 # Usage: see parse-statsd
-while true; do timeout "$0" cat | jq -sc .; done
+while true; do
+    timeout "$1" cat | jq -sc .
+done
