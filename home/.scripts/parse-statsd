@@ -1,0 +1,28 @@
+#!/usr/bin/env -S python3 -u
+## vi: ft=python
+
+import sys
+import re
+import json
+
+STATSD_RE = re.compile(
+    r"^(?P<name>.+?):(?P<value>-?[0-9.]+)\|(?P<unit_or_type>[a-z]+)(?P<tags>\|#.+)?$"
+)
+
+for line in sys.stdin:
+    result = re.match(STATSD_RE, line)
+    assert result is not None, line
+    if result['tags']:
+        tags = dict(
+            kv.split(":", 1)
+            for kv
+            in result['tags'][2:].split(',')
+        )
+    else:
+        tags = None
+    print(json.dumps({
+        "name": result['name'],
+        "value": float(result['value']),
+        "unit_or_type": result['unit_or_type'],
+        "tags": tags
+    }))
