@@ -1,13 +1,12 @@
 #!/bin/bash
 
-git=git
-which hub &> /dev/null && git=hub
-
 if [ -z "$1" ]; then
     sort=sort
     which gsort &> /dev/null && sort=gsort
-    git reflog --format='%D' | cut -d, -f2 | rg -v '(^$|^tag:|^origin/|.*->.*)' | $sort -u | head -100 | fzf | xargs $git checkout
+    git reflog --format='%D' | cut -d, -f2 | rg -v '(^$|^tag:|^origin/|.*->.*)' | $sort -u | head -100 | fzf | xargs git checkout
     
+elif [[ $1 = -* ]]; then
+    git checkout "$@"
 else
-    $git checkout "$@"
+    gh pr checkout "$@"
 fi

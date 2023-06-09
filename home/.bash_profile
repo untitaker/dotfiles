@@ -1,10 +1,10 @@
 [ -f ~/.secrets ] && source ~/.secrets
 source ~/.profile
-for git_comp_sh in /usr/share/git/completion/git-completion.bash /usr/local/opt/git/etc/bash_completion.d/git-completion.bash; do
+for git_comp_sh in /usr/share/git/completion/git-completion.bash /opt/homebrew/opt/git/etc/bash_completion.d/git-completion.bash; do
     [ -f "$git_comp_sh" ] && . "$git_comp_sh"
 done
 
-for fzf_comp_sh in /usr/share/fzf/key-bindings.bash /usr/local/opt/fzf/shell/key-bindings.bash /usr/share/doc/fzf/examples/key-bindings.bash; do
+for fzf_comp_sh in /usr/share/fzf/key-bindings.bash /opt/homebrew/opt/fzf/shell/key-bindings.bash /usr/share/doc/fzf/examples/key-bindings.bash; do
     [ -f "$fzf_comp_sh" ] && . "$fzf_comp_sh"
 done
 unset fzf_comp_sh
@@ -123,6 +123,8 @@ alias qe=quickenv
 alias sl=ls
 alias lsa='ls -a'
 alias lsl='ls -l'
+
+export QUICKENV_PRELUDE='. "$(which quickenv-init)"'
 
 alias q=exit
 alias sudosu='sudo su'
