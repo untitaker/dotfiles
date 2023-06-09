@@ -1,7 +1,6 @@
 tap "ankitpokhrel/jira-cli"
 tap "capnfabs/tap"
 tap "cjbassi/ytop"
-tap "filosottile/musl-cross"
 tap "flschweiger/flutter"
 tap "github/gh"
 tap "homebrew/bundle"
