@@ -13,16 +13,16 @@ class Cmd:
         self._cmd = argv[0]
         self.args = argv[1:]
 
-        if self._cmd.startswith(":!"):
-            self.write_cache = True
-            self.read_cache = False
-            self.cmd = self._cmd[2:]
-        elif self._cmd.startswith(":"):
+        if self._cmd.startswith(":?"):
             self.write_cache = True
             self.read_cache = True
-            self.cmd = self._cmd[1:]
-        else:
+            self.cmd = self._cmd[2:]
+        elif self._cmd.startswith("::"):
             self.write_cache = False
+            self.read_cache = False
+            self.cmd = self._cmd[2:]
+        else:
+            self.write_cache = True
             self.read_cache = False
             self.cmd = self._cmd
 
