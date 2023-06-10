@@ -127,7 +127,7 @@ alias lsl='ls -l'
 export QUICKENV_PRELUDE='. "$(which quickenv-init)"'
 
 alias q=exit
-alias sudosu='sudo su'
+alias sudosu='sudo -s'
 source ~/.homesick/repos/homeshick/homeshick.sh
 
 alias f=pcmanfm
