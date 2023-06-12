@@ -5,8 +5,8 @@ if [ -z "$1" ]; then
     which gsort &> /dev/null && sort=gsort
     git reflog --format='%D' | cut -d, -f2 | rg -v '(^$|^tag:|^origin/|.*->.*)' | $sort -u | head -100 | fzf | xargs git checkout
     
-elif [[ $1 = -* ]]; then
-    git checkout "$@"
-else
+elif [[ $1 = https://* ]]; then
     gh pr checkout "$@"
+else
+    git checkout "$@"
 fi
