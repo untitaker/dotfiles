@@ -1,0 +1,22 @@
+#!/bin/bash
+
+docker_output="$(
+docker container ls --format "{{.Names}}" -a | while read name; do
+    docker port "$name" | while read portinfo; do
+        echo "$name $portinfo"
+    done
+done
+)"
+
+if [ "`uname`" = Darwin ]; then
+    netstat -anv
+else
+    netstat -ltpn
+fi | grep LISTEN | awk '{print $4; print $9}' | while read portinfo && read pid; do
+    echo -n "$portinfo"
+    echo -ne "\t"
+    pidinfo="$(ps -p $pid -o comm=)"
+    if ! (set -o pipefail && echo "$docker_output" | grep "$portinfo" | awk '{print $1}' | xargs echo docker); then
+        echo "proc $pidinfo"
+    fi
+done | column -t
