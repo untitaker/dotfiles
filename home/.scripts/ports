@@ -1,4 +1,11 @@
 #!/bin/bash
+if [ -t 1 ]; then
+    C_BLUE="\e[0;34m"
+    C_RESET="\e[0m"
+else
+    C_BLUE=
+    C_RESET=
+fi
 
 docker_output="$(
 docker container ls --format "{{.Names}}" -a | while read name; do
@@ -15,8 +22,7 @@ else
 fi | grep LISTEN | awk '{print $4; print $9}' | while read portinfo && read pid; do
     echo -n "$portinfo"
     echo -ne "\t"
-    pidinfo="$(ps -p $pid -o comm=)"
-    if ! (set -o pipefail && echo "$docker_output" | grep "$portinfo" | awk '{print $1}' | xargs echo docker); then
-        echo "proc $pidinfo"
+    if ! (set -o pipefail && echo "$docker_output" | grep "$portinfo" | awk '{print $1}' | xargs echo -e "${C_BLUE}docker${C_RESET}"); then
+        echo "   pid $pid $(ps -p $pid -o comm=)"
     fi
-done | column -t
+done | column -t -s $'\t'
