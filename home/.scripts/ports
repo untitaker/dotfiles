@@ -19,10 +19,12 @@ if [ "`uname`" = Darwin ]; then
     netstat -anv
 else
     netstat -ltpn
-fi | grep LISTEN | awk '{print $4; print $9}' | while read portinfo && read pid; do
+fi | grep LISTEN | awk '{print $1; print $4; print $9}' | while read proto && read portinfo && read pid; do
+    echo -n "$proto"
+    echo -ne "\t"
     echo -n "$portinfo"
     echo -ne "\t"
-    if ! (set -o pipefail && echo "$docker_output" | grep "$portinfo" | awk '{print $1}' | xargs echo -e "${C_BLUE}docker${C_RESET}"); then
+    if ! (set -o pipefail && echo "$docker_output" | grep "${portinfo/\*/0.0.0.0}" | awk '{print $1}' | sort -u | xargs echo -e "${C_BLUE}docker${C_RESET}"); then
         echo "   pid $pid $(ps -p $pid -o comm=)"
     fi
 done | column -t -s $'\t'
