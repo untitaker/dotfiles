@@ -1,0 +1,16 @@
+#!/bin/bash
+# idiotic linux issue with python and openssl prevents me from downloading subtitles
+# https://github.com/Diaoul/subliminal/issues/1047
+# so the official Ubuntu package for subliminal is completely useless
+# so I use subliminal's docker container where openssl is patched to a low security level
+exec docker run --rm --name subliminal --entrypoint sh -v $HOME/.cache/subliminal/:/usr/src/cache -w /tvshows -v .:/tvshows -it diaoulael/subliminal -c \
+    "echo 'openssl_conf = openssl_init' > /etc/ssl/openssl.cnf.bak &&
+    cat /etc/ssl/openssl.cnf >> /etc/ssl/openssl.cnf.bak &&
+    echo '[openssl_init]' >> /etc/ssl/openssl.cnf.bak &&
+    echo 'ssl_conf = ssl_sect'  >> /etc/ssl/openssl.cnf.bak &&
+    echo '[ssl_sect]' >> /etc/ssl/openssl.cnf.bak &&
+    echo 'system_default = system_default_sect' >> /etc/ssl/openssl.cnf.bak &&
+    echo '[system_default_sect]' >> /etc/ssl/openssl.cnf.bak &&
+    echo 'CipherString = DEFAULT@SECLEVEL=1' >> /etc/ssl/openssl.cnf.bak &&
+    mv /etc/ssl/openssl.cnf.bak /etc/ssl/openssl.cnf &&
+    subliminal --cache-dir=/usr/src/cache $*"
