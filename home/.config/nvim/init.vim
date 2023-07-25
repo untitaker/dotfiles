@@ -27,6 +27,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'ap/vim-css-color'
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'zah/nim.vim'
 
 "Plug 'https://github.com/autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',
