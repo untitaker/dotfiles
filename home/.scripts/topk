@@ -1,2 +1,2 @@
 #!/bin/sh
-exec clickhouse local -q "select count(), line from file('/dev/stdin', 'LineAsString') group by line order by count() asc limit $1"
+exec clickhouse local -q "select count(), line from file('/dev/stdin', 'LineAsString') group by line order by count() desc limit $1"
