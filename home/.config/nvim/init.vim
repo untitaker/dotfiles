@@ -27,17 +27,17 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'ap/vim-css-color'
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'leafOfTree/vim-svelte-plugin'
-Plug 'zah/nim.vim'
+Plug 'alaviss/nim.nvim'
 
 "Plug 'https://github.com/autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',
     "\ 'do': 'bash install.sh',
     "\ }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 14.17.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 18.16.0  --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
 
 " Initialize plugin system
 call plug#end()
@@ -53,7 +53,7 @@ let g:coc_disable_startup_warning = 1
 " Hardcode such that it works in virtualenv
 if has("mac")
     let g:python_host_prog = '/usr/local/bin/python2'
-    let g:python3_host_prog = '/usr/local/bin/python3'
+    let g:python3_host_prog = '/usr/bin/python3'
 else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python3'
