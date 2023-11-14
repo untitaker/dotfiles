@@ -3,7 +3,8 @@
 # https://github.com/Diaoul/subliminal/issues/1047
 # so the official Ubuntu package for subliminal is completely useless
 # so I use subliminal's docker container where openssl is patched to a low security level
-exec docker run --rm --name subliminal --entrypoint sh -v $HOME/.cache/subliminal/:/usr/src/cache -w /tvshows -v .:/tvshows -it diaoulael/subliminal -c \
+escaped_line="$(for f in "$@"; do printf '%q ' "$f"; done)"
+exec docker run --rm --entrypoint sh -v $HOME/.cache/subliminal/:/usr/src/cache -w /tvshows -v .:/tvshows -i diaoulael/subliminal -c \
     "echo 'openssl_conf = openssl_init' > /etc/ssl/openssl.cnf.bak &&
     cat /etc/ssl/openssl.cnf >> /etc/ssl/openssl.cnf.bak &&
     echo '[openssl_init]' >> /etc/ssl/openssl.cnf.bak &&
@@ -13,4 +14,4 @@ exec docker run --rm --name subliminal --entrypoint sh -v $HOME/.cache/sublimina
     echo '[system_default_sect]' >> /etc/ssl/openssl.cnf.bak &&
     echo 'CipherString = DEFAULT@SECLEVEL=1' >> /etc/ssl/openssl.cnf.bak &&
     mv /etc/ssl/openssl.cnf.bak /etc/ssl/openssl.cnf &&
-    subliminal --cache-dir=/usr/src/cache $*"
+    subliminal --cache-dir=/usr/src/cache $escaped_line"

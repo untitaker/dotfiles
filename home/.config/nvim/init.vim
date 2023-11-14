@@ -21,7 +21,6 @@ Plug 'https://github.com/mitsuhiko/vim-python-combined'
 Plug 'https://github.com/rust-lang/rust.vim'
 Plug 'https://github.com/ziglang/zig.vim'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
-Plug 'wellle/context.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ap/vim-css-color'
@@ -142,7 +141,7 @@ autocmd FileType python let b:coc_root_patterns = ['setup.py', 'pyproject.toml']
 autocmd FileType rust let b:coc_root_patterns = ['Cargo.toml']
 
 " Colorcolumns
-autocmd FileType ruby,python,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2
+autocmd FileType ruby,python,json,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 foldmethod=indent
 \ formatoptions+=croq softtabstop=4 smartindent
