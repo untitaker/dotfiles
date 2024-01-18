@@ -43,7 +43,7 @@ Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 18
 call plug#end()
 
 " volta run --node 14.17.0 node -p 'process.argv[0]'
-let g:coc_node_path = '$HOME/.volta/tools/image/node/14.17.0/bin/node'
+let g:coc_node_path = '$HOME/.volta/tools/image/node/18.16.0/bin/node'
 let b:coc_root_patterns = ['.git']
 let g:coc_config_home = '~/.config/nvim/'
 
