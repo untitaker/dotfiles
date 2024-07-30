@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# usage: dpx ghcr.io/untitaker/hyperlink ./public/
+
+exec docker run --rm -w /workdir -v .:/workdir -i "$@"
