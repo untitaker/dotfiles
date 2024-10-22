@@ -1,2 +1,2 @@
 #!/bin/sh
-curl -s -F 'f:1=<-' http://ix.io
+curl -s --data-binary @/dev/stdin https://paste.rs/

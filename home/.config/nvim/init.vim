@@ -104,6 +104,8 @@ au BufNewFile,BufRead *.mdx set filetype=markdown linebreak
 " Cheap way to bring some color into toml files
 au BufNewFile,BufRead *.toml set filetype=cfg linebreak
 
+au BufNewFile,BufRead *.go set noexpandtab
+
 " don't create swapfiles for passwords
 au BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
 
