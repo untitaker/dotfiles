@@ -1,4 +1,5 @@
 {
+// this file is unused. nvim uses its own LSP now. just here to save some unported LSP config
   "diagnostic.virtualText": false,
   "diagnostic.joinMessageLines": true,
   "diagnostic.checkCurrentLine": true,
