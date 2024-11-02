@@ -59,20 +59,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
   end,
-
-  -- disable semantic highlighting entirely
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
 })
 
 -- You'll find a list of language servers here:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- These are example language servers. 
 lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      -- disable semantic tokens, causes too janky syntax highlighting
+      client.server_capabilities.semanticTokensProvider = nil
+    end,
     cmd = { "wrapped-rust-analyzer" },
     settings = {
         ["rust-analyzer"] = {
