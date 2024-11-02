@@ -14,12 +14,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'https://github.com/scrooloose/nerdcommenter.git'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/tpope/vim-rhubarb.git'
-Plug 'https://github.com/chriskempson/base16-vim'
-Plug 'https://github.com/vim-scripts/icalendar.vim'
-Plug 'https://github.com/kelwin/vim-smali'
+Plug 'https://github.com/tpope/vim-surround.git'
+Plug 'https://github.com/RRethy/base16-nvim'
 Plug 'https://github.com/mitsuhiko/vim-python-combined'
 Plug 'https://github.com/rust-lang/rust.vim'
-Plug 'https://github.com/ziglang/zig.vim'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -28,51 +26,147 @@ Plug 'jeetsukumaran/vim-indentwise'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'alaviss/nim.nvim'
 
-"Plug 'https://github.com/autozimu/LanguageClient-neovim', {
-    "\ 'branch': 'next',
-    "\ 'do': 'bash install.sh',
-    "\ }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/fannheyward/coc-rust-analyzer', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/fannheyward/coc-pyright', {'do': 'volta run --node 18.16.0  --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/neoclide/coc-tsserver', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
-Plug 'https://github.com/coc-extensions/coc-svelte', {'do': 'volta run --node 18.16.0 --yarn 1.22.5 yarn install --frozen-lockfile'}
+" lsp
+Plug 'https://github.com/neovim/nvim-lspconfig'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 
 " Initialize plugin system
 call plug#end()
 
-" volta run --node 14.17.0 node -p 'process.argv[0]'
-let g:coc_node_path = '$HOME/.volta/tools/image/node/18.16.0/bin/node'
-let b:coc_root_patterns = ['.git']
-let g:coc_config_home = '~/.config/nvim/'
+" more lsp stuff
+" copied from https://github.com/VonHeikemen/lsp-zero.nvim
+lua <<EOF
 
-" i don't control which version ubuntu comes with, are you serious?
-let g:coc_disable_startup_warning = 1
+-- Reserve a space in the gutter
+vim.opt.signcolumn = 'yes'
 
-" Hardcode such that it works in virtualenv
-if has("mac")
-    let g:python_host_prog = '/usr/local/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python3'
-else
-    let g:python_host_prog = '/usr/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python3'
-endif
+local lspconfig = require'lspconfig'
 
-" aliases
-nmap ; :
-nmap QQ :q!<enter>
-nmap qq :q<enter>
-set inccommand=nosplit
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = {buffer = event.buf}
 
-" set default encoding
-set encoding=utf-8
-if &termencoding == ""
-    let &termencoding = &encoding
-endif
-setglobal fileencoding=utf-8
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gre', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  end,
 
-"setglobal bomb
-set fileencodings=ucs-bom,utf-8,latin1
+  -- disable semantic highlighting entirely
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
+
+-- You'll find a list of language servers here:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- These are example language servers. 
+lspconfig.rust_analyzer.setup({
+    on_attach = on_attach,
+    cmd = { "wrapped-rust-analyzer" },
+    settings = {
+        ["rust-analyzer"] = {
+            diagnostics = {
+                enable = false,
+            },
+            checkOnSave = {
+                enable = false,
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
+local cmp = require'cmp'
+
+local cmpMapping = cmp.mapping.preset.insert({
+    ["<CR>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        if #cmp.get_entries() == 1 then
+          cmp.confirm({ select = true })
+        else
+          local entry = cmp.get_selected_entry()
+          if entry then
+            cmp.confirm()
+          end
+        end
+      else
+        fallback()
+      end
+    end, { "i","s" }),
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end, { "i","s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      end
+    end, { "i", "s" }),
+})
+
+cmp.setup({
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path' },
+    },
+    snippet = {
+        expand = function(args)
+        -- You need Neovim v0.10 to use vim.snippet
+        vim.snippet.expand(args.body)
+        end,
+    },
+    mapping = cmpMapping,
+})
+
+-- colorscheme
+vim.cmd("colorscheme base16-bright")
+
+function map(mode, shortcut, command)
+  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+end
+
+function nmap(shortcut, command)
+  map('n', shortcut, command)
+end
+
+function imap(shortcut, command)
+  map('i', shortcut, command)
+end
+
+-- aliases
+nmap(";", ":")
+nmap("QQ", ":q!<enter>")
+nmap("qq", ":q<enter>")
+vim.cmd("set inccommand=nosplit")
+
+EOF
 
 " Remember cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -81,20 +175,13 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set backupdir=~/tmp/vim
 set directory=~/tmp/vim
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-	set mouse=a
-endif
-
 " Less lag with esc
 set ttimeoutlen=100
 set autoread
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
-syntax enable
 au Syntax * syntax sync fromstart
-set hlsearch
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:%
 
 " i don't edit Modula 2
@@ -113,34 +200,19 @@ au BufNewFile,BufRead /dev/shm/pass.* setlocal noswapfile nobackup noundofile
 set nofoldenable
 nmap <space> za
 
-" EasyMotion
-let g:EasyMotion_leader_key = '<Leader>'
-
 " Git
-command -range=-1 Gblame Git blame
-command -range=-1 Gbrowse GBrowse
+command Gblame Git blame
 
-set termguicolors
-let base16colorspace=256
-set history=50  " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
 set incsearch   " do incremental searching
 set number      " show line numbers
-colo base16-bright " color scheme
 set background=dark " Remote hosts will assume otherwise without this
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set tabstop=4 shiftwidth=4 expandtab
 set smartindent
-
-" workspace roots
-" completely override coc workspace detection because it's broken for snuba
-" https://github.com/neoclide/coc.nvim/issues/4554
-" https://github.com/neoclide/coc.nvim/issues/4587
-autocmd FileType python let b:coc_root_patterns = ['setup.py', 'pyproject.toml']
-autocmd FileType rust let b:coc_root_patterns = ['Cargo.toml']
 
 " Colorcolumns
 autocmd FileType ruby,python,json,javascript,c,cpp,objc,typescript,javascriptreact,typescriptreact,tsx silent! setlocal colorcolumn=80 shiftwidth=2
@@ -158,25 +230,6 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 
 set signcolumn=no
 
-" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources
-inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
-inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gre <Plug>(coc-references)
-nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gf <Plug>(coc-fix-current)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -185,11 +238,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-nmap <silent> grn <Plug>(coc-rename)
-
 " Java
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 autocmd! BufRead,BufNewFile *.{vcf,ics} setfiletype icalendar
@@ -221,16 +270,6 @@ nnoremap d( ma%x`ax
 
 " modelines
 set modeline
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-" files.
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d :",
-        \ &tabstop, &shiftwidth, &textwidth)
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
-endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
