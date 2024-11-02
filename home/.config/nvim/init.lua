@@ -1,3 +1,4 @@
+vim.cmd([[
 set nocompatible
 set hidden
 
@@ -33,10 +34,10 @@ Plug 'hrsh7th/nvim-cmp'
 
 " Initialize plugin system
 call plug#end()
+]])
 
-" more lsp stuff
-" copied from https://github.com/VonHeikemen/lsp-zero.nvim
-lua <<EOF
+-- more lsp stuff
+-- copied from https://github.com/VonHeikemen/lsp-zero.nvim
 
 -- Reserve a space in the gutter
 vim.opt.signcolumn = 'yes'
@@ -138,24 +139,13 @@ cmp.setup({
     mapping = cmpMapping,
 })
 
-function map(mode, shortcut, command)
-  vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
-end
 
-function nmap(shortcut, command)
-  map('n', shortcut, command)
-end
 
-function imap(shortcut, command)
-  map('i', shortcut, command)
-end
-
--- aliases
-nmap(";", ":")
-nmap("QQ", ":q!<enter>")
-nmap("qq", ":q<enter>")
-
-EOF
+vim.cmd([[
+" aliases
+nmap ; :
+nmap QQ :q!<enter>
+nmap qq :q<enter>
 
 colorscheme base16-bright
 
@@ -261,3 +251,4 @@ nnoremap d( ma%x`ax
 
 " modelines
 set modeline
+]])
