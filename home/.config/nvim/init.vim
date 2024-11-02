@@ -1,9 +1,6 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 set hidden
 
-" Install FZF
 set rtp+=/usr/local/opt/fzf
 
 " Specify a directory for plugins
@@ -145,9 +142,6 @@ cmp.setup({
     mapping = cmpMapping,
 })
 
--- colorscheme
-vim.cmd("colorscheme base16-bright")
-
 function map(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
@@ -164,9 +158,10 @@ end
 nmap(";", ":")
 nmap("QQ", ":q!<enter>")
 nmap("qq", ":q<enter>")
-vim.cmd("set inccommand=nosplit")
 
 EOF
+
+colorscheme base16-bright
 
 " Remember cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -270,11 +265,3 @@ nnoremap d( ma%x`ax
 
 " modelines
 set modeline
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" See unsaved changes diff
-if !exists(":DiffOrig")
-	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
-endif
