@@ -251,4 +251,6 @@ nnoremap d( ma%x`ax
 
 " modelines
 set modeline
+" necessary on macos but not linux?
+set termguicolors
 ]])
