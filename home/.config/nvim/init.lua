@@ -43,6 +43,7 @@ call plug#end()
 vim.opt.signcolumn = 'yes'
 
 local lspconfig = require'lspconfig'
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- This is where you enable features that only work
 -- if there is a language server active in the file
@@ -70,6 +71,10 @@ lspconfig.rust_analyzer.setup({
       -- disable semantic tokens, causes too janky syntax highlighting
       client.server_capabilities.semanticTokensProvider = nil
     end,
+    capabilities = lsp_capabilities,
+    -- TODO: it's possible that nvim-lsp's vim.lsp.start can auto-reuse servers
+    -- by itself, and ra-multiplexer is no longer needed
+    -- https://neovim.io/doc/user/lsp.html#lsp-quickstart
     cmd = { "wrapped-rust-analyzer" },
     settings = {
         ["rust-analyzer"] = {
@@ -83,6 +88,12 @@ lspconfig.rust_analyzer.setup({
                 buildScripts = {
                     enable = true,
                 },
+            },
+            imports = {
+                prefix = "crate",
+                granularity = {
+                    group = "module"
+                }
             },
             procMacro = {
                 enable = true
