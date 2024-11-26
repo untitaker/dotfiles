@@ -1,0 +1,82 @@
+@-moz-document url-prefix("https://irctoday.com/chat/") {
+
+* {
+  font-family: "Source Code Pro", monospace;
+}
+
+#buffer .highlight .nick {
+    font-weight: bold;
+    color: #fb0120;
+    background: none;
+}
+
+#buffer {
+    background: black;
+}
+
+#buffer .nick-1 {
+	color: #fda331;
+}
+#buffer .nick-2 {
+	color: #e0e0e0;
+}
+#buffer .nick-3 {
+	color: #fda331;
+}
+#buffer .nick-4 {
+	color: #a1c659;
+}
+#buffer .nick-5 {
+	color: #6fb3d2;
+}
+#buffer .nick-6 {
+	color: #a1c659;
+}
+#buffer .nick-7 {
+	color: #76c7b7;
+}
+#buffer .nick-8 {
+	color: #fda331;
+}
+#buffer .nick-9 {
+	color: #76c7b7;
+}
+#buffer .nick-10 {
+	color: #d381c3;
+}
+#buffer .nick-11 {
+	color: #a1c659;
+}
+#buffer .nick-12 {
+	color: #6fb3d2;
+}
+#buffer .nick-13 {
+	color: #d381c3;
+}
+#buffer .nick-14 {
+	color: #d381c3;
+}
+#buffer .nick-15 {
+	color: #e0e0e0;
+}
+#buffer .nick-16 {
+	color: #e0e0e0;
+}
+
+.logline-list {
+    display: table;
+}
+
+.logline, .separator {
+    display: table-row;
+}
+
+.separator {
+    margin-left: 100%;
+}
+
+.logline .nick {
+    display: table-cell;
+    text-align: right;
+}
+}
