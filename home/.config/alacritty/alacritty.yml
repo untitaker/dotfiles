@@ -1,3 +1,4 @@
+# NOTE: The less outdated version of this config is at alacritty.toml
 scrolling:
   history: 0
 
