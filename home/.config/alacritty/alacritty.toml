@@ -317,16 +317,6 @@ key = "Space"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "\u001B`"
-key = "Grave"
-mods = "Alt"
-
-[[keyboard.bindings]]
-chars = "\u001B~"
-key = "Grave"
-mods = "Alt|Shift"
-
-[[keyboard.bindings]]
 chars = "\u001B."
 key = "Period"
 mods = "Alt"
