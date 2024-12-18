@@ -217,6 +217,10 @@ let python_highlight_operators=0
 let python_highlight_exceptions=0
 let python_highlight_builtins=0
 
+" necessary for performance on macos. the python provider there is incredibly slow
+let g:python_host_prog  = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
 autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8
 \ softtabstop=4 smartindent
 
